@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         ReadWriteExcel readWriteExcel = new ReadWriteExcel();
-        List<List<Object>> table = readWriteExcel.read();
-        readWriteExcel.write(table);
+        List<List<Object>> table = readWriteExcel.read("D:\\Downloads\\test.xlsx");
+        readWriteExcel.write(table, "D:\\Downloads\\updated.xlsx");
     }
 }

@@ -12,11 +12,11 @@ public class ReadWriteExcel {
     private static final String FILE_NAME = "D:\\Downloads\\test.xlsx";
     Workbook workbook = new XSSFWorkbook();
 
-    public List<List<Object>> read() {
+    public List<List<Object>> read(final String path) {
         List<List<Object>> table = new ArrayList<>();
         FileInputStream excelFile;
         try {
-            excelFile = new FileInputStream(new File(FILE_NAME));
+            excelFile = new FileInputStream(new File(path));
             workbook = new XSSFWorkbook(excelFile);
             Sheet datatypeSheet = workbook.getSheetAt(0);
 
@@ -42,7 +42,7 @@ public class ReadWriteExcel {
         }
     }
 
-    public void write(List<List<Object>> table) {
+    public void write(final List<List<Object>> table, final String path) {
 
         Sheet sheet = workbook.createSheet("Datatypes in Java");
         int rowNum = 0;
@@ -62,7 +62,7 @@ public class ReadWriteExcel {
         }
 
         try {
-            FileOutputStream outputStream = new FileOutputStream("D:\\Downloads\\updated.xlsx");
+            FileOutputStream outputStream = new FileOutputStream(path);
             workbook.write(outputStream);
             workbook.close();
         } catch (IOException e) {
