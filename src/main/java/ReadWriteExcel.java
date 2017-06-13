@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class ReadWriteExcel {
     private static final String FILE_NAME = "D:\\Downloads\\test.xlsx";
+    Workbook workbook = new XSSFWorkbook();
 
-    public static void main(String[] args) {
+    public List<List<Object>> read() {
         List<List<Object>> table = new ArrayList<>();
         FileInputStream excelFile;
-        Workbook workbook = new XSSFWorkbook();
         try {
             excelFile = new FileInputStream(new File(FILE_NAME));
             workbook = new XSSFWorkbook(excelFile);
@@ -35,9 +35,14 @@ public class ReadWriteExcel {
                 }
                 table.add(row);
             }
+            return table;
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException();
         }
+    }
+
+    public void write(List<List<Object>> table) {
 
         Sheet sheet = workbook.createSheet("Datatypes in Java");
         int rowNum = 0;
