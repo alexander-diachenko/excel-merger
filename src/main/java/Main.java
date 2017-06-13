@@ -1,6 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -8,10 +5,15 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
+        View view = new Console();
+        view.write("Введите полный путь к файлу");
+        String inputPath = view.read();
+        view.write("Введите путь к папке для сохранения");
+        String outputPath = view.read();
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
-        List<List<Object>> table = readWriteExcel.read("D:\\Downloads\\test1.xlsx");
+        List<List<Object>> table = readWriteExcel.read(inputPath);
         Article article = new Article();
         List<List<Object>> fixedTable = article.renameArticle(table);
-        readWriteExcel.write(fixedTable, "D:\\Downloads\\updated.xlsx");
+        readWriteExcel.write(fixedTable, outputPath + "\\updated.xlsx");
     }
 }
