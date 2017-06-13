@@ -12,22 +12,22 @@ import java.util.List;
  */
 public class ReadWriteExcelImpl implements ReadWriteExcel {
 
-    private Workbook workbook;
-
     @Override
     public List<List<Object>> read(final String path) {
         List<List<Object>> table = new ArrayList<>();
         try {
-            workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
+            Workbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
             Sheet datatypeSheet = workbook.getSheetAt(0);
             for (Row aDatatypeSheet : datatypeSheet) {
                 List<Object> row = new ArrayList<>();
                 for (Cell currentCell : aDatatypeSheet) {
-                    Object cell = new Object();
+                    Object cell;
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
                         cell = currentCell.getStringCellValue();
                     } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
                         cell = currentCell.getNumericCellValue();
+                    } else {
+                        cell = "";
                     }
                     row.add(cell);
                 }
