@@ -5,17 +5,15 @@ import java.util.List;
  */
 public class Article {
     public List<List<Object>> renameArticle(List<List<Object>> table) {
-        List<List<Object>> result = table;
-        double number = 1.0;
-        for (int i = 0; i < result.size(); i++) {
-            List<Object> row = result.get(i);
-            if (row.size() > 2 && row.get(0).toString().equals(String.valueOf(number))) {
-                String article = String.valueOf(row.get(2));
-                String[] split = article.split("_");
-                row.set(2, split[0]);
-                number++;
+        for (List<Object> row : table) {
+            for (int index = 0; index < row.size(); index++) {
+                Object cell = row.get(index);
+                String cellToString = String.valueOf(cell);
+                String[] split = cellToString.split("_");
+                String article = split[0];
+                row.set(index, article);
             }
         }
-        return result;
+        return table;
     }
 }
