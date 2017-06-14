@@ -15,5 +15,11 @@ public class Main {
         Article article = new Article();
         List<List<Object>> fixedTable = article.renameArticle(table);
         readWriteExcel.write(fixedTable, outputPath + "\\updated.xlsx");
+        view.write("Готово!");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
