@@ -25,7 +25,7 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
                         cell = currentCell.getStringCellValue();
                     } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                        cell = currentCell.getNumericCellValue();
+                        cell = String.valueOf(currentCell.getNumericCellValue());
                     } else {
                         cell = "";
                     }
