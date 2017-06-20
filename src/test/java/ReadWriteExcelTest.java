@@ -41,6 +41,23 @@ public class ReadWriteExcelTest {
         Assert.assertEquals("[[SBA160002, 8411061784273, ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray, 100, EDT, М, 15,30]]", tempTable.toString());
     }
 
+    @Test
+    public void writeExcelTest_twoField() throws IOException {
+        ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
+        List<List<Object>> table = new ArrayList<>();
+        List<Object> raw1 = Arrays.asList("SBA160002", "8411061784273", "ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray", "100", "EDT", "М", "15,30");
+        List<Object> raw2 = Arrays.asList("SAN020002", "8427395660206", "ANGEL SCHLESSER HOMME EDT 125 ml spray", "125", "EDT", "М", "16,40");
+        table.add(raw1);
+        table.add(raw2);
+        File got = File.createTempFile("got-", ".xlsx");
+        String outputPath = got.getAbsolutePath();
+        readWriteExcel.write(table, outputPath);
+        List<List<Object>> tempTable = readWriteExcel.read(outputPath);
+        Assert.assertEquals(
+                "[[SBA160002, 8411061784273, ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray, 100, EDT, М, 15,30], " +
+                        "[SAN020002, 8427395660206, ANGEL SCHLESSER HOMME EDT 125 ml spray, 125, EDT, М, 16,40]]", tempTable.toString());
+    }
+
     private String getFilePath(String fileName) {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(fileName).getFile());
