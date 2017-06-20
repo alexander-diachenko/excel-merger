@@ -14,14 +14,14 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
 
     @Override
     public List<List<Object>> read(final String path) {
-        List<List<Object>> table = new ArrayList<>();
+        final List<List<Object>> table = new ArrayList<>();
         try {
-            Workbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
-            Sheet datatypeSheet = workbook.getSheetAt(0);
+            final Workbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
+            final Sheet datatypeSheet = workbook.getSheetAt(0);
             for (Row aDatatypeSheet : datatypeSheet) {
-                List<Object> row = new ArrayList<>();
+                final List<Object> row = new ArrayList<>();
                 for (Cell currentCell : aDatatypeSheet) {
-                    Object cell;
+                    final Object cell;
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
                         cell = currentCell.getStringCellValue();
                     } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {

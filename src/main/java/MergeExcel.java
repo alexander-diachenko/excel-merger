@@ -7,25 +7,30 @@ public class MergeExcel {
 
     private final List<List<Object>> from;
     private final List<List<Object>> to;
-    private List<Integer> fields;
+    private final List<Integer> articles;
+    private final List<Integer> fields;
 
-    public MergeExcel(List<List<Object>> from, List<List<Object>> to, List<Integer> fields){
+    public MergeExcel(final List<List<Object>> from, final List<List<Object>> to, final List<Integer> articles, final List<Integer> fields) {
         this.from = from;
         this.to = to;
+        this.articles = articles;
         this.fields = fields;
     }
-    
+
     public List<List<Object>> merge() {
+        final Integer articleColumnFrom = articles.get(1);
+        final Integer articleColumnTo = articles.get(0);
+        final Integer mergeColumnFrom = fields.get(1);
+        final Integer mergeColumnTo = fields.get(0);
         for (List<Object> rawTo : to) {
-            Integer articleColumnTo = fields.get(0);
-            String articleTo = String.valueOf(rawTo.get(articleColumnTo));
-            for(List<Object> rawFrom : from) {
-                Integer articleColumnFrom = fields.get(1);
-                String articleFrom = String.valueOf(rawFrom.get(articleColumnFrom));
-                if(articleTo.equals(articleFrom)) {
-                    Integer mergeColumnTo1 = fields.get(2);
-                    Integer mergeColumn1From1 = fields.get(3);
-                    rawTo.set(mergeColumnTo1, rawFrom.get(mergeColumn1From1));
+            final String articleTo = String.valueOf(rawTo.get(articleColumnTo));
+            for (List<Object> rawFrom : from) {
+                final String articleFrom = String.valueOf(rawFrom.get(articleColumnFrom));
+                if (articleTo.equals(articleFrom)) {
+                    rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
+                    break;
+                } else {
+                    rawTo.set(mergeColumnTo, "");
                 }
             }
         }

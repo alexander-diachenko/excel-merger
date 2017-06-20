@@ -6,6 +6,7 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
+        List<Integer> articles = new ArrayList<>();
         List<Integer> fields = new ArrayList<>();
         View view = new Console();
         view.write("Введите полный путь к конечному файлу");
@@ -14,10 +15,10 @@ public class Main {
         String inputPathFrom = view.read();
         view.write("Введите номер колонки актикла конечного файла");
         String inputArticleTo = view.read();
-        fields.add(Integer.valueOf(inputArticleTo));
+        articles.add(Integer.valueOf(inputArticleTo));
         view.write("Введите номер колонки артикла начального файла");
         String inputArticleFrom = view.read();
-        fields.add(Integer.valueOf(inputArticleFrom));
+        articles.add(Integer.valueOf(inputArticleFrom));
         view.write("Введите номер колонки которую нужно скопировать конечного файла");
         String inputColumnTo = view.read();
         fields.add(Integer.valueOf(inputColumnTo));
@@ -31,7 +32,7 @@ public class Main {
         List<List<Object>> tableTo = readWriteExcel.read(inputPathTo);
         List<List<Object>> tableFrom = readWriteExcel.read(inputPathFrom);
 
-        MergeExcel mergeExcel = new MergeExcel(tableFrom, tableTo, fields);
+        MergeExcel mergeExcel = new MergeExcel(tableFrom, tableTo, articles, fields);
         List<List<Object>> mergedTable = mergeExcel.merge();
         readWriteExcel.write(mergedTable, outputPath + "\\updated.xlsx");
         view.write("Готово!");
