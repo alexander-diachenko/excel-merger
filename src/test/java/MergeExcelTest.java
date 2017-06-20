@@ -65,4 +65,20 @@ public class MergeExcelTest {
         List<List<Object>> tableMerged = mergeExcel.merge();
         Assert.assertEquals("[[SAN030003, 3]]", tableMerged.toString());
     }
+
+    @Test
+    public void mergeTest_barcode_oneField() {
+        List<List<Object>> tableTo = new ArrayList<>();
+        tableTo.add(Arrays.asList("SAN030003", ""));
+
+        List<List<Object>> tableFrom = new ArrayList<>();
+        List<Object> rawFrom = Arrays.asList("SAN030003", "1234567891234");
+        tableFrom.add(rawFrom);
+
+        List<Integer> articles = Arrays.asList(0, 0);
+        List<Integer> fields = Arrays.asList(1, 1);
+        mergeExcel = new MergeExcelImpl(tableFrom, tableTo, articles, fields);
+        List<List<Object>> tableMerged = mergeExcel.merge();
+        Assert.assertEquals("[[SAN030003, 1234567891234]]", tableMerged.toString());
+    }
 }
