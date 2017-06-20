@@ -13,7 +13,7 @@ public class MergeExcelTest {
     private MergeExcel mergeExcel;
 
     @Test
-    public void mergeTest_oneField() {
+    public void mergeTest_count_oneField() {
         List<List<Object>> tableTo = new ArrayList<>();
         tableTo.add(Arrays.asList("SAN030003", ""));
 
@@ -29,7 +29,7 @@ public class MergeExcelTest {
     }
 
     @Test
-    public void mergeTest_twoField_tableTo() {
+    public void mergeTest_count_twoField_tableTo() {
         List<List<Object>> tableTo = new ArrayList<>();
         List<Object> rawTo1 = Arrays.asList("SAN040003", "");
         List<Object> rawTo2 = Arrays.asList("SAN030003", "");
@@ -48,7 +48,7 @@ public class MergeExcelTest {
     }
 
     @Test
-    public void mergeTest_twoField_tableFrom() {
+    public void mergeTest_count_twoField_tableFrom() {
         List<List<Object>> tableTo = new ArrayList<>();
         List<Object> rawTo = Arrays.asList("SAN030003", "");
         tableTo.add(rawTo);
