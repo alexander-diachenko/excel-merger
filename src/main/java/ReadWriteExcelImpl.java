@@ -3,6 +3,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +27,7 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
                         cell = currentCell.getStringCellValue();
                     } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                        cell = String.valueOf(currentCell.getNumericCellValue());
+                        cell = new BigDecimal(currentCell.getNumericCellValue()).toBigInteger();
                     } else {
                         cell = "";
                     }
@@ -56,8 +58,8 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
                     cell.setCellValue((Boolean) obj);
                 else if (obj instanceof String)
                     cell.setCellValue((String) obj);
-                else if (obj instanceof Double)
-                    cell.setCellValue((Double) obj);
+                else if (obj instanceof BigInteger)
+                    cell.setCellValue(String.valueOf(obj));
             }
         }
 
