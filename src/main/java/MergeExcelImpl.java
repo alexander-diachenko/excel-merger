@@ -7,18 +7,14 @@ public class MergeExcelImpl implements MergeExcel {
 
     private final List<List<Object>> from;
     private final List<List<Object>> to;
-    private final List<Integer> articles;
-    private final List<Integer> fields;
 
-    public MergeExcelImpl(final List<List<Object>> from, final List<List<Object>> to, final List<Integer> articles, final List<Integer> fields) {
+    public MergeExcelImpl(final List<List<Object>> from, final List<List<Object>> to) {
         this.from = from;
         this.to = to;
-        this.articles = articles;
-        this.fields = fields;
     }
 
     @Override
-    public List<List<Object>> merge() {
+    public List<List<Object>> mergeOneField(final List<Integer> articles, final List<Integer> fields) {
         final Integer articleColumnFrom = articles.get(1);
         final Integer articleColumnTo = articles.get(0);
         final Integer mergeColumnFrom = fields.get(1);
