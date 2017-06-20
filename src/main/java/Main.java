@@ -32,7 +32,7 @@ public class Main {
         List<List<Object>> tableTo = readWriteExcel.read(inputPathTo);
         List<List<Object>> tableFrom = readWriteExcel.read(inputPathFrom);
 
-        MergeExcel mergeExcel = new MergeExcel(tableFrom, tableTo, articles, fields);
+        MergeExcel mergeExcel = new MergeExcelImpl(tableFrom, tableTo, articles, fields);
         List<List<Object>> mergedTable = mergeExcel.merge();
         readWriteExcel.write(mergedTable, outputPath + "\\updated.xlsx");
         view.write("Готово!");
