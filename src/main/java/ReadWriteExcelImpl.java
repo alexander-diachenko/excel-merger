@@ -1,12 +1,14 @@
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,28 +20,26 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
     public List<List<Object>> read(final String path) {
         final List<List<Object>> table = new ArrayList<>();
         try {
-            final Workbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
-            final Sheet datatypeSheet = workbook.getSheetAt(0);
-            for (Row aDatatypeSheet : datatypeSheet) {
-                final List<Object> row = new ArrayList<>();
-                for (Cell currentCell : aDatatypeSheet) {
-                    final Object cell;
-                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        cell = currentCell.getStringCellValue();
-                    } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                        cell = new BigDecimal(currentCell.getNumericCellValue()).toBigInteger();
-                    } else {
-                        cell = "";
-                    }
-                    row.add(cell);
+            XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(new File(path)));
+            XSSFSheet sheet = wb.getSheetAt(0);
+            XSSFRow row;
+            XSSFCell cell;
+            Iterator rows = sheet.rowIterator();
+            while (rows.hasNext()) {
+                final List<Object> raw = new ArrayList<>();
+                row = (XSSFRow) rows.next();
+                for (int index = 0; index < row.getLastCellNum(); index++) {
+                    cell = row.getCell(index, Row.CREATE_NULL_AS_BLANK);
+                    final DataFormatter df = new DataFormatter();
+                    final String valueAsString = df.formatCellValue(cell);
+                    raw.add(valueAsString);
                 }
-                table.add(row);
+                table.add(raw);
             }
-            return table;
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException();
         }
+        return table;
     }
 
     @Override

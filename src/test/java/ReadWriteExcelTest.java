@@ -33,7 +33,7 @@ public class ReadWriteExcelTest {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = readWriteExcel.read(getFilePath("file/oneFieldWithSpace.xlsx"));
         Assert.assertEquals(
-                "[[SBA030010,  , 34]]", table.toString());
+                "[[SBA030010, , 34]]", table.toString());
     }
 
     @Test
