@@ -20,11 +20,11 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
     public List<List<Object>> read(final String path) {
         final List<List<Object>> table = new ArrayList<>();
         try {
-            XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(new File(path)));
-            XSSFSheet sheet = wb.getSheetAt(0);
+            final XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(new File(path)));
+            final XSSFSheet sheet = wb.getSheetAt(0);
             XSSFRow row;
             XSSFCell cell;
-            Iterator rows = sheet.rowIterator();
+            final Iterator rows = sheet.rowIterator();
             while (rows.hasNext()) {
                 final List<Object> raw = new ArrayList<>();
                 row = (XSSFRow) rows.next();
@@ -44,8 +44,8 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
 
     @Override
     public void write(final List<List<Object>> table, final String path) {
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
+        final XSSFWorkbook workbook = new XSSFWorkbook();
+        final XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
         int rowNum = 0;
         for (List<Object> rows : table) {
             Row row = sheet.createRow(rowNum++);
@@ -64,7 +64,7 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
         }
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(new File(path));
+            final FileOutputStream outputStream = new FileOutputStream(new File(path));
             workbook.write(outputStream);
             workbook.close();
             outputStream.close();
