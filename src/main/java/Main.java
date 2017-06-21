@@ -19,10 +19,10 @@ public class Main {
         view.write("Введите номер колонки артикла конечного файла");
         String inputArticleTo = view.read();
         articles.add(Integer.valueOf(inputArticleTo) - 1);
-        view.write("Введите номер колонки в которую нужно скопировать в начальном файле");
+        view.write("Введите номер колонки, которую нужно скопировать из начального файла");
         String inputColumnFrom = view.read();
         fields.add(Integer.valueOf(inputColumnFrom) - 1);
-        view.write("Введите номер колонки которую нужно скопировать из конечного файла");
+        view.write("Введите номер колонки в которую нужно скопировать в конечном файле");
         String inputColumnTo = view.read();
         fields.add(Integer.valueOf(inputColumnTo) - 1);
         view.write("Введите путь к папке для сохранения");
