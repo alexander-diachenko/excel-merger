@@ -20,7 +20,7 @@ public class Console implements View {
     }
 
     @Override
-    public void write(String message) {
+    public void write(final String message) {
         System.out.println(message);
     }
 }
