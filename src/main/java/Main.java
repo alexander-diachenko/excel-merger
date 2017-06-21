@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -6,36 +7,17 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        List<Integer> articles = new ArrayList<>();
-        List<Integer> fields = new ArrayList<>();
-        View view = new Console();
-        view.write("Введите полный путь к начальному файлу");
-        String inputPathFrom = view.read();
-        view.write("Введите полный путь к конечному файлу");
-        String inputPathTo = view.read();
-        view.write("Введите номер колонки артикла начального файла");
-        String inputArticleFrom = view.read();
-        articles.add(Integer.valueOf(inputArticleFrom) - 1);
-        view.write("Введите номер колонки артикла конечного файла");
-        String inputArticleTo = view.read();
-        articles.add(Integer.valueOf(inputArticleTo) - 1);
-        view.write("Введите номер колонки, которую нужно скопировать из начального файла");
-        String inputColumnFrom = view.read();
-        fields.add(Integer.valueOf(inputColumnFrom) - 1);
-        view.write("Введите номер колонки в которую нужно скопировать в конечном файле");
-        String inputColumnTo = view.read();
-        fields.add(Integer.valueOf(inputColumnTo) - 1);
-        view.write("Введите путь к папке для сохранения");
-        String outputPath = view.read();
+        List<Integer> articles = Arrays.asList(0, 0);
+        List<Integer> fields = Arrays.asList(1, 1);
 
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
-        List<List<Object>> tableTo = readWriteExcel.read(inputPathTo);
-        List<List<Object>> tableFrom = readWriteExcel.read(inputPathFrom);
+        List<List<Object>> tableTo = readWriteExcel.read("D:\\Downloads\\to.xlsx");
+        List<List<Object>> tableFrom = readWriteExcel.read("D:\\Downloads\\from.xlsx");
 
         MergeExcel mergeExcel = new MergeExcelImpl(tableFrom, tableTo);
         List<List<Object>> mergedTable = mergeExcel.mergeOneField(articles, fields);
-        readWriteExcel.write(mergedTable, outputPath + "\\merged.xlsx");
-        view.write("Готово!");
+        readWriteExcel.write(mergedTable, "D:\\Downloads\\merged.xlsx");
+        new Console().write("Готово!");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
