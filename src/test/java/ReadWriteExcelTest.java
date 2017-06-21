@@ -29,6 +29,14 @@ public class ReadWriteExcelTest {
     }
 
     @Test
+    public void readExcelTest_oneField_withSpace() {
+        ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
+        List<List<Object>> table = readWriteExcel.read(getFilePath("file/oneFieldWithSpace.xlsx"));
+        Assert.assertEquals(
+                "[[SBA030010,  , 34]]", table.toString());
+    }
+
+    @Test
     public void writeExcelTest_oneField() throws IOException {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = new ArrayList<>();
