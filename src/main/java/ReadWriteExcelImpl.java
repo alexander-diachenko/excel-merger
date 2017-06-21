@@ -29,7 +29,7 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
                 final List<Object> raw = new ArrayList<>();
                 row = (XSSFRow) rows.next();
                 for (int index = 0; index < row.getLastCellNum(); index++) {
-                    cell = row.getCell(index, Row.CREATE_NULL_AS_BLANK);
+                    cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     final DataFormatter df = new DataFormatter();
                     final String valueAsString = df.formatCellValue(cell);
                     raw.add(valueAsString);
