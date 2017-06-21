@@ -9,22 +9,22 @@ public class Main {
         List<Integer> articles = new ArrayList<>();
         List<Integer> fields = new ArrayList<>();
         View view = new Console();
-        view.write("Введите полный путь к конечному файлу");
-        String inputPathTo = view.read();
         view.write("Введите полный путь к начальному файлу");
         String inputPathFrom = view.read();
-        view.write("Введите номер колонки актикла конечного файла");
-        String inputArticleTo = view.read();
-        articles.add(Integer.valueOf(inputArticleTo));
+        view.write("Введите полный путь к конечному файлу");
+        String inputPathTo = view.read();
         view.write("Введите номер колонки артикла начального файла");
         String inputArticleFrom = view.read();
-        articles.add(Integer.valueOf(inputArticleFrom));
-        view.write("Введите номер колонки которую нужно скопировать конечного файла");
-        String inputColumnTo = view.read();
-        fields.add(Integer.valueOf(inputColumnTo));
-        view.write("Введите номер колонки которую нужно скопировать начального файла");
+        articles.add(Integer.valueOf(inputArticleFrom) - 1);
+        view.write("Введите номер колонки артикла конечного файла");
+        String inputArticleTo = view.read();
+        articles.add(Integer.valueOf(inputArticleTo) - 1);
+        view.write("Введите номер колонки в которую нужно скопировать в начальном файле");
         String inputColumnFrom = view.read();
-        fields.add(Integer.valueOf(inputColumnFrom));
+        fields.add(Integer.valueOf(inputColumnFrom) - 1);
+        view.write("Введите номер колонки которую нужно скопировать из конечного файла");
+        String inputColumnTo = view.read();
+        fields.add(Integer.valueOf(inputColumnTo) - 1);
         view.write("Введите путь к папке для сохранения");
         String outputPath = view.read();
 
@@ -34,7 +34,7 @@ public class Main {
 
         MergeExcel mergeExcel = new MergeExcelImpl(tableFrom, tableTo);
         List<List<Object>> mergedTable = mergeExcel.mergeOneField(articles, fields);
-        readWriteExcel.write(mergedTable, outputPath + "\\updated.xlsx");
+        readWriteExcel.write(mergedTable, outputPath + "\\merged.xlsx");
         view.write("Готово!");
         try {
             Thread.sleep(3000);
