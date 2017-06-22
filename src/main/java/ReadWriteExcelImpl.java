@@ -24,15 +24,36 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
             final XSSFSheet sheet = wb.getSheetAt(0);
             XSSFRow row;
             XSSFCell cell;
+            final Iterator rows1 = sheet.rowIterator();
+            short lastCellNum = 0;
+            while (rows1.hasNext()) {
+                row = (XSSFRow) rows1.next();
+                lastCellNum = row.getLastCellNum();
+
+            }
             final Iterator rows = sheet.rowIterator();
             while (rows.hasNext()) {
                 final List<Object> raw = new ArrayList<>();
                 row = (XSSFRow) rows.next();
-                for (int index = 0; index < row.getLastCellNum(); index++) {
-                    cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    final DataFormatter df = new DataFormatter();
-                    final String valueAsString = df.formatCellValue(cell);
-                    raw.add(valueAsString);
+                if (row.getLastCellNum() == lastCellNum) {
+                    for (int index = 0; index < lastCellNum; index++) {
+                        cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                        final DataFormatter df = new DataFormatter();
+                        final String valueAsString = df.formatCellValue(cell);
+                        raw.add(valueAsString);
+                    }
+                } else {
+                    int index;
+                    for (index = 0; index < row.getLastCellNum(); index++) {
+                        cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                        final DataFormatter df = new DataFormatter();
+                        final String valueAsString = df.formatCellValue(cell);
+                        raw.add(valueAsString);
+                    }
+                    while (index < lastCellNum) {
+                        raw.add("");
+                        index++;
+                    }
                 }
                 table.add(raw);
             }
