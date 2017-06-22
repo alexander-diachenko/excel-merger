@@ -20,46 +20,43 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
     public List<List<Object>> read(final String path) {
         final List<List<Object>> table = new ArrayList<>();
         try {
-            final XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(new File(path)));
-            final XSSFSheet sheet = wb.getSheetAt(0);
+            final XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
+            final XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row;
             XSSFCell cell;
             Iterator rows = sheet.rowIterator();
-            short wbSize = 0;
+            short workbookSize = 0;
             while (rows.hasNext()) {
                 row = (XSSFRow) rows.next();
                 short lastCellNum = row.getLastCellNum();
-                if(wbSize < lastCellNum) {
-                    wbSize = lastCellNum;
+                if (workbookSize < lastCellNum) {
+                    workbookSize = lastCellNum;
                 }
             }
             rows = sheet.rowIterator();
             while (rows.hasNext()) {
                 final List<Object> raw = new ArrayList<>();
                 row = (XSSFRow) rows.next();
-                if (row.getLastCellNum() == wbSize) {
-                    for (int index = 0; index < wbSize; index++) {
+                short lastCellNum = row.getLastCellNum();
+                int index = 0;
+                while (index < workbookSize) {
+                    if (index < lastCellNum) {
                         cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                         final DataFormatter df = new DataFormatter();
                         final String valueAsString = df.formatCellValue(cell);
                         raw.add(valueAsString);
-                    }
-                } else {
-                    int index;
-                    for (index = 0; index < row.getLastCellNum(); index++) {
-                        cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                        final DataFormatter df = new DataFormatter();
-                        final String valueAsString = df.formatCellValue(cell);
-                        raw.add(valueAsString);
-                    }
-                    while (index < wbSize) {
+                        index++;
+                    } else {
                         raw.add("");
                         index++;
                     }
                 }
                 table.add(raw);
             }
-        } catch (IOException e) {
+        } catch (
+                IOException e)
+
+        {
             e.printStackTrace();
         }
         return table;

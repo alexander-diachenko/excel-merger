@@ -69,7 +69,7 @@ public class ReadWriteExcelTest {
     @Test
     public void readExcelTest_twoField_different_size() {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
-        List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoFieldDifferentSIzeFirstShorter.xlsx"));
+        List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoFieldDifferentSizeFirstShorter.xlsx"));
         Assert.assertEquals(
                 "[[SOT440001, 3760260453042, , ], " +
                         "[SOT190003, 3760260451994, 50 ml, U]]", table.toString());
@@ -78,10 +78,20 @@ public class ReadWriteExcelTest {
     @Test
     public void readExcelTest_twoField_different_size2() {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
-        List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoFieldDifferentSIzeSecondShorter.xlsx"));
+        List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoFieldDifferentSizeSecondShorter.xlsx"));
         Assert.assertEquals(
                 "[[SOT190003, 3760260451994, 50 ml, U], " +
                         "[SOT440001, 3760260453042, , ]]", table.toString());
+    }
+
+    @Test
+    public void readExcelTest_threeField_different_size() {
+        ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
+        List<List<Object>> table = readWriteExcel.read(getFilePath("file/threeFieldDifferentSize.xlsx"));
+        Assert.assertEquals(
+                "[[SOT190003, 3760260451994, 50 ml, U, ], " +
+                        "[SOT440001, 3760260453042, , , ], " +
+                        "[SOT470001, 3760260623042, 100 ml, M, EDP]]", table.toString());
     }
 
     private String getFilePath(String fileName) {
