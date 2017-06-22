@@ -24,17 +24,13 @@ public class MergeExcelImpl implements MergeExcel {
             for (List<Object> rawFrom : from) {
                 final String articleFrom = String.valueOf(rawFrom.get(articleColumnFrom));
                 if (articleTo.equals(articleFrom)) {
-                    if(rawTo.size() - 1 < mergeColumnTo) {
-                        rawTo.add(mergeColumnTo, rawFrom.get(mergeColumnFrom));
-                        new Console().write(articleTo + " -> " + rawFrom.get(mergeColumnFrom));
-                        break;
-                    } else {
+                    if (rawTo.size() > mergeColumnTo) {
                         rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
-                        new Console().write(articleTo + " -> " + rawFrom.get(mergeColumnFrom));
-                        break;
+                    } else {
+                        rawTo.add(mergeColumnTo, rawFrom.get(mergeColumnFrom));
                     }
-                } else {
-                    rawTo.set(mergeColumnTo, "");
+                    new Console().write(articleTo + " -> " + rawFrom.get(mergeColumnFrom));
+                    break;
                 }
             }
         }

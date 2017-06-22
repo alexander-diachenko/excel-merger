@@ -83,7 +83,7 @@ public class MergeExcelTest {
     @Test
     public void mergeTest_oneField_To_ColumnNull() {
         final List<List<Object>> tableTo = new ArrayList<>();
-        final List<Object> row = new ArrayList<>();
+        List<Object> row = new ArrayList<>();
         row.add("SAN030003");
         tableTo.add(row);
 
