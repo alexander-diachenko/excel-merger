@@ -15,10 +15,10 @@ public class MergeExcelImpl implements MergeExcel {
 
     @Override
     public List<List<Object>> mergeOneField(final List<Integer> articles, final List<Integer> fields) {
-        final Integer articleColumnFrom = articles.get(1);
-        final Integer articleColumnTo = articles.get(0);
-        final Integer mergeColumnFrom = fields.get(1);
-        final Integer mergeColumnTo = fields.get(0);
+        final Integer articleColumnFrom = articles.get(0);
+        final Integer articleColumnTo = articles.get(1);
+        final Integer mergeColumnFrom = fields.get(0);
+        final Integer mergeColumnTo = fields.get(1);
         for (List<Object> rawTo : to) {
             final String articleTo = String.valueOf(rawTo.get(articleColumnTo));
             for (List<Object> rawFrom : from) {
