@@ -24,19 +24,21 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
             final XSSFSheet sheet = wb.getSheetAt(0);
             XSSFRow row;
             XSSFCell cell;
-            final Iterator rows1 = sheet.rowIterator();
-            short lastCellNum = 0;
-            while (rows1.hasNext()) {
-                row = (XSSFRow) rows1.next();
-                lastCellNum = row.getLastCellNum();
-
+            Iterator rows = sheet.rowIterator();
+            short wbSize = 0;
+            while (rows.hasNext()) {
+                row = (XSSFRow) rows.next();
+                short lastCellNum = row.getLastCellNum();
+                if(wbSize < lastCellNum) {
+                    wbSize = lastCellNum;
+                }
             }
-            final Iterator rows = sheet.rowIterator();
+            rows = sheet.rowIterator();
             while (rows.hasNext()) {
                 final List<Object> raw = new ArrayList<>();
                 row = (XSSFRow) rows.next();
-                if (row.getLastCellNum() == lastCellNum) {
-                    for (int index = 0; index < lastCellNum; index++) {
+                if (row.getLastCellNum() == wbSize) {
+                    for (int index = 0; index < wbSize; index++) {
                         cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                         final DataFormatter df = new DataFormatter();
                         final String valueAsString = df.formatCellValue(cell);
@@ -50,7 +52,7 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
                         final String valueAsString = df.formatCellValue(cell);
                         raw.add(valueAsString);
                     }
-                    while (index < lastCellNum) {
+                    while (index < wbSize) {
                         raw.add("");
                         index++;
                     }
