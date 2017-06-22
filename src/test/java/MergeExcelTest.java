@@ -79,4 +79,22 @@ public class MergeExcelTest {
         final List<List<Object>> tableMerged = mergeExcel.mergeOneField(articles, fields);
         Assert.assertEquals("[[SAN030003, 1234567891234]]", tableMerged.toString());
     }
+
+    @Test
+    public void mergeTest_oneField_To_ColumnNull() {
+        final List<List<Object>> tableTo = new ArrayList<>();
+        final List<Object> row = new ArrayList<>();
+        row.add("SAN030003");
+        tableTo.add(row);
+
+        final List<List<Object>> tableFrom = new ArrayList<>();
+        final List<Object> rawFrom = Arrays.asList("SAN030003", "1234567891234");
+        tableFrom.add(rawFrom);
+
+        final List<Integer> articles = Arrays.asList(0, 0);
+        final List<Integer> fields = Arrays.asList(1, 1);
+        final MergeExcel mergeExcel = new MergeExcelImpl(tableFrom, tableTo);
+        final List<List<Object>> tableMerged = mergeExcel.mergeOneField(articles, fields);
+        Assert.assertEquals("[[SAN030003, 1234567891234]]", tableMerged.toString());
+    }
 }

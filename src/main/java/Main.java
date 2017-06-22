@@ -6,8 +6,8 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        List<Integer> articles = Arrays.asList(0, 0);
-        List<Integer> fields = Arrays.asList(1, 1);
+        List<Integer> articles = Arrays.asList(0, 6);
+        List<Integer> fields = Arrays.asList(1, 15);
 
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> tableTo = readWriteExcel.read("D:\\Downloads\\to.xlsx");
