@@ -66,6 +66,15 @@ public class ReadWriteExcelTest {
                         "[SAN020002, 8427395660206, ANGEL SCHLESSER HOMME EDT 125 ml spray, 125, EDT, М, 16,40]]", tempTable.toString());
     }
 
+    @Test
+    public void readExcelTest_twoField_different_size() {
+        ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
+        List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoFieldDifferentSIze.xlsx"));
+        Assert.assertEquals(
+                "[[SOT440001, 3760260453042, , ], " +
+                        "[SOT190003, 3760260451994, 50 ml, U]]", table.toString());
+    }
+
     private String getFilePath(String fileName) {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(fileName).getFile());
