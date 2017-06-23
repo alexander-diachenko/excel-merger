@@ -19,6 +19,9 @@ public class Main extends Application {
     private List<List<Object>> from;
     private List<List<Object>> to;
 
+    private File fileFrom;
+    private File fileTo;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -32,12 +35,9 @@ public class Main extends Application {
         FileChooser fileFromChooser = new FileChooser();
         fileFromChooser.setTitle("Select file for backup");
         Button selectFileFromButton = new Button();
-        selectFileFromButton.setText("Select file");
+        selectFileFromButton.setText("Select from file");
         selectFileFromButton.setOnAction(event -> {
-            File fileFrom = fileFromChooser.showOpenDialog(primaryStage);
-            if(fileFrom != null) {
-                from = readWriteExcel.read(fileFrom.getAbsolutePath());
-            }
+            fileFrom = fileFromChooser.showOpenDialog(primaryStage);
         });
         fileFromHBox.getChildren().addAll(selectFileFromButton);
 
@@ -45,16 +45,11 @@ public class Main extends Application {
         FileChooser fileToChooser = new FileChooser();
         fileToChooser.setTitle("Select file for backup");
         Button selectFileToButton = new Button();
-        selectFileToButton.setText("Select file");
+        selectFileToButton.setText("Select to file");
         selectFileToButton.setOnAction(event -> {
-            File fileTo = fileToChooser.showOpenDialog(primaryStage);
-            if(fileTo != null) {
-                to = readWriteExcel.read(fileTo.getAbsolutePath());
-            }
+            fileTo = fileToChooser.showOpenDialog(primaryStage);
         });
         fileToHBox.getChildren().addAll(selectFileToButton);
-
-
 
         List<Integer> articles = Arrays.asList(0, 6);
         List<Integer> fields = Arrays.asList(1, 15);
@@ -62,12 +57,13 @@ public class Main extends Application {
         Button startButton = new Button();
         startButton.setText("Start");
         startButton.setOnAction(event -> {
-            if(from != null && to != null) {
+            if(fileFrom != null && fileTo != null) {
+                List<List<Object>> from = readWriteExcel.read(fileFrom.getAbsolutePath());
+                List<List<Object>> to = readWriteExcel.read(fileTo.getAbsolutePath());
                 MergeExcel mergeExcel = new MergeExcelImpl(from, to);
                 List<List<Object>> merged = mergeExcel.mergeOneField(articles, fields);
                 readWriteExcel.write(merged,"D:\\Downloads\\merged.xlsx");
                 new Console().write("Готово!");
-
             }
         });
         startHBox.getChildren().addAll(startButton);
