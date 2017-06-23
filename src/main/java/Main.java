@@ -1,9 +1,10 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -17,9 +18,6 @@ import java.util.List;
  */
 public class Main extends Application {
 
-    private List<List<Object>> from;
-    private List<List<Object>> to;
-
     private File fileFrom;
     private File fileTo;
 
@@ -29,70 +27,68 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GridPane root = new GridPane();
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
 
-        HBox fileFromHBox = new HBox();
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 50, 50, 50));
+        vBox.setSpacing(10);
+
         FileChooser fileFromChooser = new FileChooser();
         Button selectFileFromButton = new Button();
         selectFileFromButton.setText("Select from file");
         selectFileFromButton.setOnAction(event -> {
             fileFrom = fileFromChooser.showOpenDialog(primaryStage);
         });
-        fileFromHBox.getChildren().addAll(selectFileFromButton);
+        vBox.getChildren().addAll(selectFileFromButton);
 
         HBox fromFieldsHBox = new HBox();
         TextField fromArticle = new TextField();
         fromArticle.setPromptText("From article");
-        fromArticle.setFocusTraversable(false);
-        fromArticle.setPrefWidth(30);
+        fromArticle.setFocusTraversable(true);
         fromArticle.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+")) {
+            if (!newValue.matches(getNumericRegex())) {
                 fromArticle.setText(oldValue);
             }
         });
         TextField fromField = new TextField();
         fromField.setPromptText("From field");
-        fromField.setFocusTraversable(false);
-        fromField.setPrefWidth(30);
+        fromField.setFocusTraversable(true);
         fromField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+")) {
+            if (!newValue.matches(getNumericRegex())) {
                 fromField.setText(oldValue);
             }
         });
         fromFieldsHBox.getChildren().addAll(fromArticle, fromField);
+        vBox.getChildren().addAll(fromFieldsHBox);
 
-        HBox fileToHBox = new HBox();
         FileChooser fileToChooser = new FileChooser();
         Button selectFileToButton = new Button();
         selectFileToButton.setText("Select to file");
         selectFileToButton.setOnAction(event -> {
             fileTo = fileToChooser.showOpenDialog(primaryStage);
         });
-        fileToHBox.getChildren().addAll(selectFileToButton);
+        vBox.getChildren().addAll(selectFileToButton);
 
         HBox toFieldsHBox = new HBox();
         TextField toArticle = new TextField();
-        fromArticle.setPromptText("To article");
-        fromArticle.setFocusTraversable(false);
-        fromArticle.setPrefWidth(30);
-        fromArticle.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+")) {
+        toArticle.setPromptText("To article");
+        toArticle.setFocusTraversable(true);
+        toArticle.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(getNumericRegex())) {
                 toArticle.setText(oldValue);
             }
         });
         TextField toField = new TextField();
         toField.setPromptText("To field");
-        toField.setFocusTraversable(false);
-        toField.setPrefWidth(30);
+        toField.setFocusTraversable(true);
         toField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+")) {
+            if (!newValue.matches(getNumericRegex())) {
                 toField.setText(oldValue);
             }
         });
         toFieldsHBox.getChildren().addAll(toArticle, toField);
+        vBox.getChildren().addAll(toFieldsHBox);
 
-        HBox startHBox = new HBox();
         Button startButton = new Button();
         startButton.setText("Start");
         startButton.setOnAction(event -> {
@@ -107,17 +103,15 @@ public class Main extends Application {
                 new Console().write("Готово!");
             }
         });
-        startHBox.getChildren().addAll(startButton);
+        vBox.getChildren().addAll(startButton);
 
-        GridPane.setConstraints(fileFromHBox, 0, 0);
-        GridPane.setConstraints(fromFieldsHBox, 0, 1);
-        GridPane.setConstraints(fileToHBox, 0, 2);
-        GridPane.setConstraints(toFieldsHBox, 0, 3);
-        GridPane.setConstraints(startHBox, 0, 4);
-        root.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox,  startHBox);
-        primaryStage.setTitle("Excel_merger");
-        primaryStage.setScene(new Scene(root, 150, 150));
+        Scene scene = new Scene(vBox);
+        primaryStage.setScene(scene);
         primaryStage.show();
 
+    }
+
+    private String getNumericRegex() {
+        return "|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+";
     }
 }
