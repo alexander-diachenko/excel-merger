@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -5,7 +6,7 @@ import java.util.List;
  */
 public interface ReadWriteExcel {
 
-    List<List<Object>> read(String path);
+    List<List<Object>> read(String path) throws IOException;
 
-    void write(List<List<Object>> table, String path);
+    void write(List<List<Object>> table, String path) throws IOException;
 }

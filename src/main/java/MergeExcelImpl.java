@@ -29,7 +29,6 @@ public class MergeExcelImpl implements MergeExcel {
                     } else {
                         rawTo.add(mergeColumnTo, rawFrom.get(mergeColumnFrom));
                     }
-                    new Console().write(articleTo + " -> " + rawFrom.get(mergeColumnFrom));
                     break;
                 }
             }

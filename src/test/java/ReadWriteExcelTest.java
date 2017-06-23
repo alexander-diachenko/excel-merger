@@ -13,14 +13,14 @@ import java.util.List;
 public class ReadWriteExcelTest {
 
     @Test
-    public void readExcelTest_oneField() {
+    public void readExcelTest_oneField() throws IOException {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = readWriteExcel.read(getFilePath("file/oneField.xlsx"));
         Assert.assertEquals("[[SAG060003, AGENT PROVOCATEUR FATALE EDP 50 ml spray, 6, 3760264453741]]", table.toString());
     }
 
     @Test
-    public void readExcelTest_twoField() {
+    public void readExcelTest_twoField() throws IOException {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoField.xlsx"));
         Assert.assertEquals(
@@ -29,7 +29,7 @@ public class ReadWriteExcelTest {
     }
 
     @Test
-    public void readExcelTest_oneField_withSpace() {
+    public void readExcelTest_oneField_withSpace() throws IOException {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = readWriteExcel.read(getFilePath("file/oneFieldWithSpace.xlsx"));
         Assert.assertEquals(
@@ -67,7 +67,7 @@ public class ReadWriteExcelTest {
     }
 
     @Test
-    public void readExcelTest_twoField_different_size() {
+    public void readExcelTest_twoField_different_size() throws IOException {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoFieldDifferentSizeFirstShorter.xlsx"));
         Assert.assertEquals(
@@ -76,7 +76,7 @@ public class ReadWriteExcelTest {
     }
 
     @Test
-    public void readExcelTest_twoField_different_size2() {
+    public void readExcelTest_twoField_different_size2() throws IOException {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = readWriteExcel.read(getFilePath("file/twoFieldDifferentSizeSecondShorter.xlsx"));
         Assert.assertEquals(
@@ -85,7 +85,7 @@ public class ReadWriteExcelTest {
     }
 
     @Test
-    public void readExcelTest_threeField_different_size() {
+    public void readExcelTest_threeField_different_size() throws IOException {
         ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
         List<List<Object>> table = readWriteExcel.read(getFilePath("file/threeFieldDifferentSize.xlsx"));
         Assert.assertEquals(

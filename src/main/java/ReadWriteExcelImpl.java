@@ -17,53 +17,46 @@ import java.util.List;
 public class ReadWriteExcelImpl implements ReadWriteExcel {
 
     @Override
-    public List<List<Object>> read(final String path) {
+    public List<List<Object>> read(final String path) throws IOException {
         final List<List<Object>> table = new ArrayList<>();
-        try {
-            final XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
-            final XSSFSheet sheet = workbook.getSheetAt(0);
-            XSSFRow row;
-            XSSFCell cell;
-            Iterator rows = sheet.rowIterator();
-            short workbookSize = 0;
-            while (rows.hasNext()) {
-                row = (XSSFRow) rows.next();
-                short lastCellNum = row.getLastCellNum();
-                if (workbookSize < lastCellNum) {
-                    workbookSize = lastCellNum;
+        final XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
+        final XSSFSheet sheet = workbook.getSheetAt(0);
+        XSSFRow row;
+        XSSFCell cell;
+        Iterator rows = sheet.rowIterator();
+        short workbookSize = 0;
+        while (rows.hasNext()) {
+            row = (XSSFRow) rows.next();
+            short lastCellNum = row.getLastCellNum();
+            if (workbookSize < lastCellNum) {
+                workbookSize = lastCellNum;
+            }
+        }
+        rows = sheet.rowIterator();
+        while (rows.hasNext()) {
+            final List<Object> raw = new ArrayList<>();
+            row = (XSSFRow) rows.next();
+            short lastCellNum = row.getLastCellNum();
+            int index = 0;
+            while (index < workbookSize) {
+                if (index < lastCellNum) {
+                    cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    final DataFormatter df = new DataFormatter();
+                    final String valueAsString = df.formatCellValue(cell);
+                    raw.add(valueAsString);
+                    index++;
+                } else {
+                    raw.add("");
+                    index++;
                 }
             }
-            rows = sheet.rowIterator();
-            while (rows.hasNext()) {
-                final List<Object> raw = new ArrayList<>();
-                row = (XSSFRow) rows.next();
-                short lastCellNum = row.getLastCellNum();
-                int index = 0;
-                while (index < workbookSize) {
-                    if (index < lastCellNum) {
-                        cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                        final DataFormatter df = new DataFormatter();
-                        final String valueAsString = df.formatCellValue(cell);
-                        raw.add(valueAsString);
-                        index++;
-                    } else {
-                        raw.add("");
-                        index++;
-                    }
-                }
-                table.add(raw);
-            }
-        } catch (
-                IOException e)
-
-        {
-            e.printStackTrace();
+            table.add(raw);
         }
         return table;
     }
 
     @Override
-    public void write(final List<List<Object>> table, final String path) {
+    public void write(final List<List<Object>> table, final String path) throws IOException {
         final XSSFWorkbook workbook = new XSSFWorkbook();
         final XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
         int rowNum = 0;
@@ -82,14 +75,9 @@ public class ReadWriteExcelImpl implements ReadWriteExcel {
                     cell.setCellValue(String.valueOf(obj));
             }
         }
-
-        try {
-            final FileOutputStream outputStream = new FileOutputStream(new File(path));
-            workbook.write(outputStream);
-            workbook.close();
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final FileOutputStream outputStream = new FileOutputStream(new File(path));
+        workbook.write(outputStream);
+        workbook.close();
+        outputStream.close();
     }
 }

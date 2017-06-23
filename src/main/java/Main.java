@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -87,18 +89,26 @@ public class Main extends Application {
         });
         toFieldsHBox.getChildren().addAll(toArticle, toField);
 
+        Text complete = new Text();
+
         Button startButton = new Button();
         startButton.setText("Merge");
         startButton.setOnAction(event -> {
             if (fileFrom != null && fileTo != null) {
-                List<List<Object>> from = readWriteExcel.read(fileFrom.getAbsolutePath());
-                List<List<Object>> to = readWriteExcel.read(fileTo.getAbsolutePath());
-                MergeExcel mergeExcel = new MergeExcelImpl(from, to);
-                List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()) - 1, Integer.valueOf(toArticle.getText()) - 1);
-                List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()) - 1, Integer.valueOf(toField.getText()) - 1);
-                List<List<Object>> merged = mergeExcel.mergeOneField(articles, fields);
-                readWriteExcel.write(merged, directory.getPath() + "\\merged.xlsx");
-                new Console().write("Готово!");
+                try {
+                    List<List<Object>> from = readWriteExcel.read(fileFrom.getAbsolutePath());
+                    List<List<Object>> to = readWriteExcel.read(fileTo.getAbsolutePath());
+                    MergeExcel mergeExcel = new MergeExcelImpl(from, to);
+                    List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()) - 1, Integer.valueOf(toArticle.getText()) - 1);
+                    List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()) - 1, Integer.valueOf(toField.getText()) - 1);
+                    List<List<Object>> merged = mergeExcel.mergeOneField(articles, fields);
+                    readWriteExcel.write(merged, directory.getPath() + "\\merged.xlsx");
+                    complete.setFill(Color.GREEN);
+                    complete.setText("DONE!");
+                }catch (Exception e) {
+                    complete.setFill(Color.RED);
+                    complete.setText("ERROR!");
+                }
             }
         });
 
@@ -109,7 +119,7 @@ public class Main extends Application {
             directory = directoryChooser.showDialog(primaryStage);
         });
 
-        vBox.getChildren().addAll(selectFileFromButton, fromFieldsHBox, selectFileToButton, toFieldsHBox, selectDirectoryButton, startButton);
+        vBox.getChildren().addAll(selectFileFromButton, fromFieldsHBox, selectFileToButton, toFieldsHBox, selectDirectoryButton, startButton, complete);
 
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
