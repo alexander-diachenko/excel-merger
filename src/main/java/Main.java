@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -20,6 +21,7 @@ public class Main extends Application {
 
     private File fileFrom;
     private File fileTo;
+    private File directory;
 
     public static void main(String[] args) {
         launch(args);
@@ -39,7 +41,6 @@ public class Main extends Application {
         selectFileFromButton.setOnAction(event -> {
             fileFrom = fileFromChooser.showOpenDialog(primaryStage);
         });
-        vBox.getChildren().addAll(selectFileFromButton);
 
         HBox fromFieldsHBox = new HBox();
         TextField fromArticle = new TextField();
@@ -59,7 +60,6 @@ public class Main extends Application {
             }
         });
         fromFieldsHBox.getChildren().addAll(fromArticle, fromField);
-        vBox.getChildren().addAll(fromFieldsHBox);
 
         FileChooser fileToChooser = new FileChooser();
         Button selectFileToButton = new Button();
@@ -67,7 +67,6 @@ public class Main extends Application {
         selectFileToButton.setOnAction(event -> {
             fileTo = fileToChooser.showOpenDialog(primaryStage);
         });
-        vBox.getChildren().addAll(selectFileToButton);
 
         HBox toFieldsHBox = new HBox();
         TextField toArticle = new TextField();
@@ -87,23 +86,31 @@ public class Main extends Application {
             }
         });
         toFieldsHBox.getChildren().addAll(toArticle, toField);
-        vBox.getChildren().addAll(toFieldsHBox);
 
         Button startButton = new Button();
         startButton.setText("Start");
         startButton.setOnAction(event -> {
-            if(fileFrom != null && fileTo != null) {
+            if (fileFrom != null && fileTo != null) {
                 List<List<Object>> from = readWriteExcel.read(fileFrom.getAbsolutePath());
                 List<List<Object>> to = readWriteExcel.read(fileTo.getAbsolutePath());
                 MergeExcel mergeExcel = new MergeExcelImpl(from, to);
                 List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()), Integer.valueOf(toArticle.getText()));
                 List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()), Integer.valueOf(toField.getText()));
                 List<List<Object>> merged = mergeExcel.mergeOneField(articles, fields);
-                readWriteExcel.write(merged,"D:\\Downloads\\merged.xlsx");
+                readWriteExcel.write(merged, directory.getPath() + "\\merged.xlsx");
                 new Console().write("Готово!");
             }
         });
-        vBox.getChildren().addAll(startButton);
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Select directory to save backup");
+        Button selectDirectoryButton = new Button();
+        selectDirectoryButton.setText("Select directory");
+        selectDirectoryButton.setOnAction(event -> {
+            directory = directoryChooser.showDialog(primaryStage);
+        });
+
+        vBox.getChildren().addAll(selectFileFromButton, fromFieldsHBox, selectFileToButton, toFieldsHBox, selectDirectoryButton, startButton);
 
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
