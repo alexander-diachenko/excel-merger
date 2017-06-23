@@ -37,14 +37,14 @@ public class Main extends Application {
 
         FileChooser fileFromChooser = new FileChooser();
         Button selectFileFromButton = new Button();
-        selectFileFromButton.setText("Select from file");
+        selectFileFromButton.setText("Select 'from' file");
         selectFileFromButton.setOnAction(event -> {
             fileFrom = fileFromChooser.showOpenDialog(primaryStage);
         });
 
         HBox fromFieldsHBox = new HBox();
         TextField fromArticle = new TextField();
-        fromArticle.setPromptText("From article");
+        fromArticle.setPromptText("Enter 'from' id");
         fromArticle.setFocusTraversable(true);
         fromArticle.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches(getNumericRegex())) {
@@ -52,7 +52,7 @@ public class Main extends Application {
             }
         });
         TextField fromField = new TextField();
-        fromField.setPromptText("From field");
+        fromField.setPromptText("Enter 'from' field");
         fromField.setFocusTraversable(true);
         fromField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches(getNumericRegex())) {
@@ -63,14 +63,14 @@ public class Main extends Application {
 
         FileChooser fileToChooser = new FileChooser();
         Button selectFileToButton = new Button();
-        selectFileToButton.setText("Select to file");
+        selectFileToButton.setText("Select 'to' file");
         selectFileToButton.setOnAction(event -> {
             fileTo = fileToChooser.showOpenDialog(primaryStage);
         });
 
         HBox toFieldsHBox = new HBox();
         TextField toArticle = new TextField();
-        toArticle.setPromptText("To article");
+        toArticle.setPromptText("Enter 'to' id");
         toArticle.setFocusTraversable(true);
         toArticle.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches(getNumericRegex())) {
@@ -78,7 +78,7 @@ public class Main extends Application {
             }
         });
         TextField toField = new TextField();
-        toField.setPromptText("To field");
+        toField.setPromptText("Enter 'to' field");
         toField.setFocusTraversable(true);
         toField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches(getNumericRegex())) {
@@ -88,14 +88,14 @@ public class Main extends Application {
         toFieldsHBox.getChildren().addAll(toArticle, toField);
 
         Button startButton = new Button();
-        startButton.setText("Start");
+        startButton.setText("Merge");
         startButton.setOnAction(event -> {
             if (fileFrom != null && fileTo != null) {
                 List<List<Object>> from = readWriteExcel.read(fileFrom.getAbsolutePath());
                 List<List<Object>> to = readWriteExcel.read(fileTo.getAbsolutePath());
                 MergeExcel mergeExcel = new MergeExcelImpl(from, to);
-                List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()), Integer.valueOf(toArticle.getText()));
-                List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()), Integer.valueOf(toField.getText()));
+                List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()) - 1, Integer.valueOf(toArticle.getText()) - 1);
+                List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()) - 1, Integer.valueOf(toField.getText()) - 1);
                 List<List<Object>> merged = mergeExcel.mergeOneField(articles, fields);
                 readWriteExcel.write(merged, directory.getPath() + "\\merged.xlsx");
                 new Console().write("Готово!");
@@ -103,7 +103,6 @@ public class Main extends Application {
         });
 
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Select directory to save backup");
         Button selectDirectoryButton = new Button();
         selectDirectoryButton.setText("Select directory");
         selectDirectoryButton.setOnAction(event -> {
@@ -115,7 +114,6 @@ public class Main extends Application {
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
     private String getNumericRegex() {
