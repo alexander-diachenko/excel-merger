@@ -71,6 +71,27 @@ public class Main extends Application {
         });
         fileToHBox.getChildren().addAll(selectFileToButton);
 
+        HBox toFieldsHBox = new HBox();
+        TextField toArticle = new TextField();
+        fromArticle.setPromptText("To article");
+        fromArticle.setFocusTraversable(false);
+        fromArticle.setPrefWidth(30);
+        fromArticle.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+")) {
+                toArticle.setText(oldValue);
+            }
+        });
+        TextField toField = new TextField();
+        toField.setPromptText("To field");
+        toField.setFocusTraversable(false);
+        toField.setPrefWidth(30);
+        toField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+")) {
+                toField.setText(oldValue);
+            }
+        });
+        toFieldsHBox.getChildren().addAll(toArticle, toField);
+
         HBox startHBox = new HBox();
         Button startButton = new Button();
         startButton.setText("Start");
@@ -79,8 +100,8 @@ public class Main extends Application {
                 List<List<Object>> from = readWriteExcel.read(fileFrom.getAbsolutePath());
                 List<List<Object>> to = readWriteExcel.read(fileTo.getAbsolutePath());
                 MergeExcel mergeExcel = new MergeExcelImpl(from, to);
-                List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()), 6);
-                List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()), 15);
+                List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()), Integer.valueOf(toArticle.getText()));
+                List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()), Integer.valueOf(toField.getText()));
                 List<List<Object>> merged = mergeExcel.mergeOneField(articles, fields);
                 readWriteExcel.write(merged,"D:\\Downloads\\merged.xlsx");
                 new Console().write("Готово!");
@@ -91,8 +112,9 @@ public class Main extends Application {
         GridPane.setConstraints(fileFromHBox, 0, 0);
         GridPane.setConstraints(fromFieldsHBox, 0, 1);
         GridPane.setConstraints(fileToHBox, 0, 2);
-        GridPane.setConstraints(startHBox, 0, 3);
-        root.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, startHBox);
+        GridPane.setConstraints(toFieldsHBox, 0, 3);
+        GridPane.setConstraints(startHBox, 0, 4);
+        root.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox,  startHBox);
         primaryStage.setTitle("Excel_merger");
         primaryStage.setScene(new Scene(root, 150, 150));
         primaryStage.show();
