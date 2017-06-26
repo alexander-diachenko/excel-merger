@@ -37,12 +37,19 @@ public class Main extends Application {
         vBox.setPadding(new Insets(10, 50, 50, 50));
         vBox.setSpacing(10);
 
+        HBox fileFromHBox = new HBox();
+        fileFromHBox.setSpacing(10);
         FileChooser fileFromChooser = new FileChooser();
         Button selectFileFromButton = new Button();
+        Text fileFromPath = new Text();
         selectFileFromButton.setText("Select 'from' file");
         selectFileFromButton.setOnAction(event -> {
             fileFrom = fileFromChooser.showOpenDialog(primaryStage);
+            if(fileFrom != null) {
+                fileFromPath.setText(fileFrom.getAbsolutePath());
+            }
         });
+        fileFromHBox.getChildren().addAll(selectFileFromButton, fileFromPath);
 
         HBox fromFieldsHBox = new HBox();
         TextField fromArticle = new TextField();
@@ -63,12 +70,19 @@ public class Main extends Application {
         });
         fromFieldsHBox.getChildren().addAll(fromArticle, fromField);
 
+        HBox fileToHBox = new HBox();
+        fileToHBox.setSpacing(10);
+        Text fileToPath = new Text();
         FileChooser fileToChooser = new FileChooser();
         Button selectFileToButton = new Button();
         selectFileToButton.setText("Select 'to' file");
         selectFileToButton.setOnAction(event -> {
             fileTo = fileToChooser.showOpenDialog(primaryStage);
+            if(fileTo != null) {
+                fileToPath.setText(fileTo.getAbsolutePath());
+            }
         });
+        fileToHBox.getChildren().addAll(selectFileToButton, fileToPath);
 
         HBox toFieldsHBox = new HBox();
         TextField toArticle = new TextField();
@@ -89,6 +103,20 @@ public class Main extends Application {
         });
         toFieldsHBox.getChildren().addAll(toArticle, toField);
 
+        HBox fileDirectoryHBox = new HBox();
+        fileDirectoryHBox.setSpacing(10);
+        Text fileDirectoryPath = new Text();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        Button selectDirectoryButton = new Button();
+        selectDirectoryButton.setText("Select directory");
+        selectDirectoryButton.setOnAction(event -> {
+            directory = directoryChooser.showDialog(primaryStage);
+            if(directory != null) {
+                fileDirectoryPath.setText(directory.getAbsolutePath());
+            }
+        });
+        fileDirectoryHBox.getChildren().addAll(selectDirectoryButton, fileDirectoryPath);
+
         Text complete = new Text();
 
         Button startButton = new Button();
@@ -107,19 +135,12 @@ public class Main extends Application {
                     complete.setText("DONE!");
                 }catch (Exception e) {
                     complete.setFill(Color.RED);
-                    complete.setText("ERROR!");
+                    complete.setText("ERROR!\n" + e.getMessage());
                 }
             }
         });
 
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        Button selectDirectoryButton = new Button();
-        selectDirectoryButton.setText("Select directory");
-        selectDirectoryButton.setOnAction(event -> {
-            directory = directoryChooser.showDialog(primaryStage);
-        });
-
-        vBox.getChildren().addAll(selectFileFromButton, fromFieldsHBox, selectFileToButton, toFieldsHBox, selectDirectoryButton, startButton, complete);
+        vBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
 
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
