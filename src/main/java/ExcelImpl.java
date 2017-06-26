@@ -1,11 +1,10 @@
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class ExcelImpl implements Excel {
         final Workbook workbook = getWorkbook(path);
         final Sheet sheet = workbook.getSheetAt(0);
         final Iterator rows = sheet.rowIterator();
-        short workbookSize = 0;
+        int workbookSize = 0;
         while (rows.hasNext()) {
             final Row row = (Row) rows.next();
             final short lastCellNum = row.getLastCellNum();
@@ -59,21 +58,14 @@ public class ExcelImpl implements Excel {
     @Override
     public void write(final List<List<Object>> table, final String path) throws IOException {
         final Workbook workbook = new XSSFWorkbook();
-        final Sheet sheet = workbook.createSheet("Datatypes in Java");
+        final Sheet sheet = workbook.createSheet(WorkbookUtil.createSafeSheetName("New sheet"));
         int rowNum = 0;
         for (List<Object> rows : table) {
             final Row row = sheet.createRow(rowNum++);
             int colNum = 0;
             for (Object obj : rows) {
                 final Cell cell = row.createCell(colNum++);
-                if (obj instanceof Date)
-                    cell.setCellValue((Date) obj);
-                else if (obj instanceof Boolean)
-                    cell.setCellValue((Boolean) obj);
-                else if (obj instanceof String)
-                    cell.setCellValue((String) obj);
-                else if (obj instanceof BigInteger)
-                    cell.setCellValue(String.valueOf(obj));
+                cell.setCellValue(String.valueOf(obj));
             }
         }
         try (FileOutputStream outputStream = new FileOutputStream(new File(path))) {
