@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by User on 13.06.2017.
  */
-public class ReadWriteExcelImpl implements ReadWriteExcel {
+public class ExcelImpl implements Excel {
 
     @Override
     public List<List<Object>> read(final String path) throws IOException {

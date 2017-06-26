@@ -3,12 +3,12 @@ import java.util.List;
 /**
  * Created by User on 19.06.2017.
  */
-public class MergeExcelImpl implements MergeExcel {
+public class ExcelMergerImpl implements ExcelMerger {
 
     private final List<List<Object>> from;
     private final List<List<Object>> to;
 
-    public MergeExcelImpl(final List<List<Object>> from, final List<List<Object>> to) {
+    public ExcelMergerImpl(final List<List<Object>> from, final List<List<Object>> to) {
         this.from = from;
         this.to = to;
     }

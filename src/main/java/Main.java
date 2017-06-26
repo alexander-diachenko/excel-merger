@@ -31,7 +31,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ReadWriteExcel readWriteExcel = new ReadWriteExcelImpl();
+        Excel excel = new ExcelImpl();
 
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(10, 50, 50, 50));
@@ -124,13 +124,13 @@ public class Main extends Application {
         startButton.setOnAction(event -> {
             if (fileFrom != null && fileTo != null) {
                 try {
-                    List<List<Object>> from = readWriteExcel.read(fileFrom.getAbsolutePath());
-                    List<List<Object>> to = readWriteExcel.read(fileTo.getAbsolutePath());
-                    MergeExcel mergeExcel = new MergeExcelImpl(from, to);
+                    List<List<Object>> from = excel.read(fileFrom.getAbsolutePath());
+                    List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
+                    ExcelMerger excelMerger = new ExcelMergerImpl(from, to);
                     List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()) - 1, Integer.valueOf(toArticle.getText()) - 1);
                     List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()) - 1, Integer.valueOf(toField.getText()) - 1);
-                    List<List<Object>> merged = mergeExcel.mergeOneField(articles, fields);
-                    readWriteExcel.write(merged, directory.getPath() + "\\merged.xlsx");
+                    List<List<Object>> merged = excelMerger.mergeOneField(articles, fields);
+                    excel.write(merged, directory.getPath() + "\\merged.xlsx");
                     complete.setFill(Color.GREEN);
                     complete.setText("DONE!");
                 }catch (Exception e) {

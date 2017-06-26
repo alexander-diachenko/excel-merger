@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Created by User on 13.06.2017.
  */
-public interface ReadWriteExcel {
+public interface Excel {
 
     List<List<Object>> read(String path) throws IOException;
 
