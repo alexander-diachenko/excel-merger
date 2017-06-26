@@ -19,20 +19,17 @@ public class ExcelImpl implements Excel {
     @Override
     public List<List<Object>> read(final String path) throws ExcelException {
         final List<List<Object>> table = new ArrayList<>();
-        XSSFWorkbook workbook = getWorkbook(path);
+        final XSSFWorkbook workbook = getWorkbook(path);
         final XSSFSheet sheet = workbook.getSheetAt(0);
-        XSSFRow row;
-        XSSFCell cell;
-        Iterator rows = sheet.rowIterator();
-        int workbookSize = getWorkbookSize(path);
+        final Iterator rows = sheet.rowIterator();
         while (rows.hasNext()) {
             final List<Object> raw = new ArrayList<>();
-            row = (XSSFRow) rows.next();
-            short lastCellNum = row.getLastCellNum();
+            final XSSFRow row = (XSSFRow) rows.next();
+            final short lastCellNum = row.getLastCellNum();
             int index = 0;
-            while (index < workbookSize) {
+            while (index < getWorkbookSize(path)) {
                 if (index < lastCellNum) {
-                    cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    final XSSFCell cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                     final DataFormatter df = new DataFormatter();
                     final String valueAsString = df.formatCellValue(cell);
                     raw.add(valueAsString);
@@ -49,14 +46,13 @@ public class ExcelImpl implements Excel {
 
     @Override
     public int getWorkbookSize(final String path) throws ExcelException {
-        XSSFWorkbook workbook = getWorkbook(path);
+        final XSSFWorkbook workbook = getWorkbook(path);
         final XSSFSheet sheet = workbook.getSheetAt(0);
-        Iterator rows = sheet.rowIterator();
-        XSSFRow row;
+        final Iterator rows = sheet.rowIterator();
         short workbookSize = 0;
         while (rows.hasNext()) {
-            row = (XSSFRow) rows.next();
-            short lastCellNum = row.getLastCellNum();
+            final XSSFRow row = (XSSFRow) rows.next();
+            final short lastCellNum = row.getLastCellNum();
             if (workbookSize < lastCellNum) {
                 workbookSize = lastCellNum;
             }
@@ -65,15 +61,15 @@ public class ExcelImpl implements Excel {
     }
 
     @Override
-    public void write(final List<List<Object>> table, final String path) throws IOException {
+    public void write(final List<List<Object>> table, final String path) throws ExcelException {
         final XSSFWorkbook workbook = new XSSFWorkbook();
         final XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
         int rowNum = 0;
         for (List<Object> rows : table) {
-            Row row = sheet.createRow(rowNum++);
+            final Row row = sheet.createRow(rowNum++);
             int colNum = 0;
             for (Object obj : rows) {
-                Cell cell = row.createCell(colNum++);
+                final Cell cell = row.createCell(colNum++);
                 if (obj instanceof Date)
                     cell.setCellValue((Date) obj);
                 else if (obj instanceof Boolean)
@@ -84,17 +80,35 @@ public class ExcelImpl implements Excel {
                     cell.setCellValue(String.valueOf(obj));
             }
         }
-        final FileOutputStream outputStream = new FileOutputStream(new File(path));
-        workbook.write(outputStream);
-        workbook.close();
-        outputStream.close();
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = getFileOutputStream(path);
+            workbook.write(outputStream);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ExcelException(e.getMessage(), e);
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if(outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private XSSFWorkbook getWorkbook(String path) throws ExcelException {
         FileInputStream is = null;
         XSSFWorkbook workbook = null;
         try {
-            is = new FileInputStream(new File(path));
+            is = getFileInputStream(path);
             workbook = new XSSFWorkbook(is);
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,5 +131,12 @@ public class ExcelImpl implements Excel {
 
         }
         return workbook;
+    }
+
+    private FileInputStream getFileInputStream(String path) throws FileNotFoundException {
+        return new FileInputStream(new File(path));
+    }
+    private FileOutputStream getFileOutputStream(String path) throws FileNotFoundException {
+        return new FileOutputStream(new File(path));
     }
 }

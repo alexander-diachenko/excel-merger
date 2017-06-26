@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -6,9 +5,9 @@ import java.util.List;
  */
 public interface Excel {
 
-    List<List<Object>> read(final String path) throws IOException, ExcelException;
+    List<List<Object>> read(final String path) throws ExcelException;
 
-    void write(final List<List<Object>> table, final String path) throws IOException;
+    void write(final List<List<Object>> table, final String path) throws ExcelException;
 
-    int getWorkbookSize(final String path) throws IOException, ExcelException;
+    int getWorkbookSize(final String path) throws ExcelException;
 }
