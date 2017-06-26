@@ -24,15 +24,7 @@ public class ExcelImpl implements Excel {
         XSSFRow row;
         XSSFCell cell;
         Iterator rows = sheet.rowIterator();
-        short workbookSize = 0;
-        while (rows.hasNext()) {
-            row = (XSSFRow) rows.next();
-            short lastCellNum = row.getLastCellNum();
-            if (workbookSize < lastCellNum) {
-                workbookSize = lastCellNum;
-            }
-        }
-        rows = sheet.rowIterator();
+        int workbookSize = getWorkbookSize(path);
         while (rows.hasNext()) {
             final List<Object> raw = new ArrayList<>();
             row = (XSSFRow) rows.next();
@@ -53,6 +45,22 @@ public class ExcelImpl implements Excel {
             table.add(raw);
         }
         return table;
+    }
+
+    public int getWorkbookSize(final String path) throws IOException {
+        final XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
+        final XSSFSheet sheet = workbook.getSheetAt(0);
+        Iterator rows = sheet.rowIterator();
+        XSSFRow row;
+        short workbookSize = 0;
+        while (rows.hasNext()) {
+            row = (XSSFRow) rows.next();
+            short lastCellNum = row.getLastCellNum();
+            if (workbookSize < lastCellNum) {
+                workbookSize = lastCellNum;
+            }
+        }
+        return workbookSize;
     }
 
     @Override

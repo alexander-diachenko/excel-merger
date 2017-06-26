@@ -6,7 +6,9 @@ import java.util.List;
  */
 public interface Excel {
 
-    List<List<Object>> read(String path) throws IOException;
+    List<List<Object>> read(final String path) throws IOException;
 
-    void write(List<List<Object>> table, String path) throws IOException;
+    void write(final List<List<Object>> table, final String path) throws IOException;
+
+    int getWorkbookSize(final String path) throws IOException;
 }
