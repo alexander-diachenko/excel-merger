@@ -17,7 +17,7 @@ import java.util.List;
 public class ExcelImpl implements Excel {
 
     @Override
-    public List<List<Object>> read(final String path) throws ExcelException {
+    public List<List<Object>> read(final String path) throws IOException {
         final List<List<Object>> table = new ArrayList<>();
         final XSSFWorkbook workbook = getWorkbook(path);
         final XSSFSheet sheet = workbook.getSheetAt(0);
@@ -45,7 +45,7 @@ public class ExcelImpl implements Excel {
     }
 
     @Override
-    public int getWorkbookSize(final String path) throws ExcelException {
+    public int getWorkbookSize(final String path) throws IOException {
         final XSSFWorkbook workbook = getWorkbook(path);
         final XSSFSheet sheet = workbook.getSheetAt(0);
         final Iterator rows = sheet.rowIterator();
@@ -61,7 +61,7 @@ public class ExcelImpl implements Excel {
     }
 
     @Override
-    public void write(final List<List<Object>> table, final String path) throws ExcelException {
+    public void write(final List<List<Object>> table, final String path) throws IOException {
         final XSSFWorkbook workbook = new XSSFWorkbook();
         final XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
         int rowNum = 0;
@@ -80,63 +80,14 @@ public class ExcelImpl implements Excel {
                     cell.setCellValue(String.valueOf(obj));
             }
         }
-        FileOutputStream outputStream = null;
-        try {
-            outputStream = getFileOutputStream(path);
+        try (FileOutputStream outputStream = new FileOutputStream(new File(path))) {
             workbook.write(outputStream);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ExcelException(e.getMessage(), e);
-        } finally {
-            try {
-                workbook.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if(outputStream != null) {
-                    outputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
-    private XSSFWorkbook getWorkbook(String path) throws ExcelException {
-        FileInputStream is = null;
-        XSSFWorkbook workbook = null;
-        try {
-            is = getFileInputStream(path);
-            workbook = new XSSFWorkbook(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ExcelException(e.getMessage(), e);
-        } finally {
-            try {
-                if (workbook != null) {
-                    workbook.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+    private XSSFWorkbook getWorkbook(String path) throws IOException {
+        try (FileInputStream is = new FileInputStream(new File(path))) {
+            return new XSSFWorkbook(is);
         }
-        return workbook;
-    }
-
-    private FileInputStream getFileInputStream(String path) throws FileNotFoundException {
-        return new FileInputStream(new File(path));
-    }
-    private FileOutputStream getFileOutputStream(String path) throws FileNotFoundException {
-        return new FileOutputStream(new File(path));
     }
 }
