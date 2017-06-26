@@ -17,9 +17,9 @@ import java.util.List;
 public class ExcelImpl implements Excel {
 
     @Override
-    public List<List<Object>> read(final String path) throws IOException {
+    public List<List<Object>> read(final String path) throws ExcelException {
         final List<List<Object>> table = new ArrayList<>();
-        final XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
+        XSSFWorkbook workbook = getWorkbook(path);
         final XSSFSheet sheet = workbook.getSheetAt(0);
         XSSFRow row;
         XSSFCell cell;
@@ -47,8 +47,9 @@ public class ExcelImpl implements Excel {
         return table;
     }
 
-    public int getWorkbookSize(final String path) throws IOException {
-        final XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(path)));
+    @Override
+    public int getWorkbookSize(final String path) throws ExcelException {
+        XSSFWorkbook workbook = getWorkbook(path);
         final XSSFSheet sheet = workbook.getSheetAt(0);
         Iterator rows = sheet.rowIterator();
         XSSFRow row;
@@ -87,5 +88,34 @@ public class ExcelImpl implements Excel {
         workbook.write(outputStream);
         workbook.close();
         outputStream.close();
+    }
+
+    private XSSFWorkbook getWorkbook(String path) throws ExcelException {
+        FileInputStream is = null;
+        XSSFWorkbook workbook = null;
+        try {
+            is = new FileInputStream(new File(path));
+            workbook = new XSSFWorkbook(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ExcelException(e.getMessage(), e);
+        } finally {
+            try {
+                if (workbook != null) {
+                    workbook.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return workbook;
     }
 }
