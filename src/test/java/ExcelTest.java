@@ -1,3 +1,4 @@
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,14 +14,21 @@ import java.util.List;
 public class ExcelTest {
 
     @Test
-    public void readExcelTest_oneField() throws IOException {
+    public void readExcelTest_oneField() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/oneField.xlsx"));
         Assert.assertEquals("[[SAG060003, AGENT PROVOCATEUR FATALE EDP 50 ml spray, 6, 3760264453741]]", table.toString());
     }
 
     @Test
-    public void readExcelTest_twoField() throws IOException {
+    public void readExcelTest_oneField_Xls() throws IOException, InvalidFormatException {
+        Excel excel = new ExcelImpl();
+        List<List<Object>> table = excel.read(getFilePath("file/oneField.xls"));
+        Assert.assertEquals("[[SAZ010009, AZZARO CHROME EDT TESTER 100 ml spray]]", table.toString());
+    }
+
+    @Test
+    public void readExcelTest_twoField() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/twoField.xlsx"));
         Assert.assertEquals(
@@ -29,7 +37,7 @@ public class ExcelTest {
     }
 
     @Test
-    public void readExcelTest_oneField_withSpace() throws IOException {
+    public void readExcelTest_oneField_withSpace() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/oneFieldWithSpace.xlsx"));
         Assert.assertEquals(
@@ -37,7 +45,7 @@ public class ExcelTest {
     }
 
     @Test
-    public void writeExcelTest_oneField() throws IOException {
+    public void writeExcelTest_oneField() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = new ArrayList<>();
         List<Object> raw = Arrays.asList("SBA160002", "8411061784273", "ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray", "100", "EDT", "М", "15,30");
@@ -50,7 +58,7 @@ public class ExcelTest {
     }
 
     @Test
-    public void writeExcelTest_twoField() throws IOException {
+    public void writeExcelTest_twoField() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = new ArrayList<>();
         List<Object> raw1 = Arrays.asList("SBA160002", "8411061784273", "ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray", "100", "EDT", "М", "15,30");
@@ -67,7 +75,7 @@ public class ExcelTest {
     }
 
     @Test
-    public void readExcelTest_twoField_different_size() throws IOException {
+    public void readExcelTest_twoField_different_size() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/twoFieldDifferentSizeFirstShorter.xlsx"));
         Assert.assertEquals(
@@ -76,7 +84,7 @@ public class ExcelTest {
     }
 
     @Test
-    public void readExcelTest_twoField_different_size2() throws IOException {
+    public void readExcelTest_twoField_different_size2() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/twoFieldDifferentSizeSecondShorter.xlsx"));
         Assert.assertEquals(
@@ -85,7 +93,7 @@ public class ExcelTest {
     }
 
     @Test
-    public void readExcelTest_threeField_different_size() throws IOException {
+    public void readExcelTest_threeField_different_size() throws IOException, InvalidFormatException {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/threeFieldDifferentSize.xlsx"));
         Assert.assertEquals(

@@ -1,7 +1,5 @@
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
@@ -17,22 +15,20 @@ import java.util.List;
 public class ExcelImpl implements Excel {
 
     @Override
-    public List<List<Object>> read(final String path) throws IOException {
+    public List<List<Object>> read(final String path) throws IOException, InvalidFormatException {
         final List<List<Object>> table = new ArrayList<>();
-        final XSSFWorkbook workbook = getWorkbook(path);
-        final XSSFSheet sheet = workbook.getSheetAt(0);
+        final Workbook workbook = getWorkbook(path);
+        final Sheet sheet = workbook.getSheetAt(0);
         final Iterator rows = sheet.rowIterator();
         while (rows.hasNext()) {
             final List<Object> raw = new ArrayList<>();
-            final XSSFRow row = (XSSFRow) rows.next();
+            final Row row = (Row) rows.next();
             final short lastCellNum = row.getLastCellNum();
             int index = 0;
             while (index < getWorkbookSize(path)) {
                 if (index < lastCellNum) {
-                    final XSSFCell cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    final DataFormatter df = new DataFormatter();
-                    final String valueAsString = df.formatCellValue(cell);
-                    raw.add(valueAsString);
+                    final Cell cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    raw.add(getFormattedCell(cell));
                     index++;
                 } else {
                     raw.add("");
@@ -45,13 +41,13 @@ public class ExcelImpl implements Excel {
     }
 
     @Override
-    public int getWorkbookSize(final String path) throws IOException {
-        final XSSFWorkbook workbook = getWorkbook(path);
-        final XSSFSheet sheet = workbook.getSheetAt(0);
+    public int getWorkbookSize(final String path) throws IOException, InvalidFormatException {
+        final Workbook workbook = getWorkbook(path);
+        final Sheet sheet = workbook.getSheetAt(0);
         final Iterator rows = sheet.rowIterator();
         short workbookSize = 0;
         while (rows.hasNext()) {
-            final XSSFRow row = (XSSFRow) rows.next();
+            final Row row = (Row) rows.next();
             final short lastCellNum = row.getLastCellNum();
             if (workbookSize < lastCellNum) {
                 workbookSize = lastCellNum;
@@ -62,8 +58,8 @@ public class ExcelImpl implements Excel {
 
     @Override
     public void write(final List<List<Object>> table, final String path) throws IOException {
-        final XSSFWorkbook workbook = new XSSFWorkbook();
-        final XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
+        final Workbook workbook = new XSSFWorkbook();
+        final Sheet sheet = workbook.createSheet("Datatypes in Java");
         int rowNum = 0;
         for (List<Object> rows : table) {
             final Row row = sheet.createRow(rowNum++);
@@ -85,9 +81,14 @@ public class ExcelImpl implements Excel {
         }
     }
 
-    private XSSFWorkbook getWorkbook(String path) throws IOException {
+    private String getFormattedCell(Cell cell) {
+        final DataFormatter df = new DataFormatter();
+        return df.formatCellValue(cell);
+    }
+
+    private Workbook getWorkbook(String path) throws IOException, InvalidFormatException {
         try (FileInputStream is = new FileInputStream(new File(path))) {
-            return new XSSFWorkbook(is);
+            return WorkbookFactory.create(is);
         }
     }
 }

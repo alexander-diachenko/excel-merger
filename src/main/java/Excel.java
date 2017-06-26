@@ -1,3 +1,5 @@
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -6,9 +8,9 @@ import java.util.List;
  */
 public interface Excel {
 
-    List<List<Object>> read(final String path) throws IOException;
+    List<List<Object>> read(final String path) throws IOException, InvalidFormatException;
 
     void write(final List<List<Object>> table, final String path) throws IOException;
 
-    int getWorkbookSize(final String path) throws IOException;
+    int getWorkbookSize(final String path) throws IOException, InvalidFormatException;
 }
