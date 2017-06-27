@@ -136,6 +136,7 @@ public class Main extends Application {
                     complete.setFill(Color.GREEN);
                     complete.setText("DONE!");
                 }catch (Exception e) {
+                    e.printStackTrace();
                     complete.setFill(Color.RED);
                     complete.setText("ERROR!\n" + e.getMessage());
                 }
@@ -154,6 +155,6 @@ public class Main extends Application {
     }
 
     private String getNumericRegex() {
-        return "|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+";
+        return "|[+]?|[+]?\\d+\\.?|[+]?\\d+\\.?\\d+";
     }
 }
