@@ -12,7 +12,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -130,7 +132,7 @@ public class Main extends Application {
                     List<Integer> articles = Arrays.asList(Integer.valueOf(fromArticle.getText()) - 1, Integer.valueOf(toArticle.getText()) - 1);
                     List<Integer> fields = Arrays.asList(Integer.valueOf(fromField.getText()) - 1, Integer.valueOf(toField.getText()) - 1);
                     List<List<Object>> merged = excelMerger.mergeOneField(articles, fields);
-                    excel.write(merged, directory.getPath() + "\\merged.xlsx");
+                    excel.write(merged, directory.getPath() + "\\" + "merged_" + getCurrentTime() + ".xlsx");
                     complete.setFill(Color.GREEN);
                     complete.setText("DONE!");
                 }catch (Exception e) {
@@ -145,6 +147,10 @@ public class Main extends Application {
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private String getCurrentTime() {
+        return new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(new Date());
     }
 
     private String getNumericRegex() {
