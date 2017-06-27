@@ -8,16 +8,16 @@ import javafx.scene.layout.HBox;
  */
 public class ToFieldsHBox extends HBox {
 
-    private TextField toArticle;
+    private TextField toId;
     private TextField toField;
 
     public ToFieldsHBox(final String numericRegex) {
-        toArticle = new TextField();
-        toArticle.setPromptText("Enter 'to' id");
-        toArticle.setFocusTraversable(true);
-        toArticle.textProperty().addListener((observable, oldValue, newValue) -> {
+        toId = new TextField();
+        toId.setPromptText("Enter 'to' id");
+        toId.setFocusTraversable(true);
+        toId.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches(numericRegex)) {
-                toArticle.setText(oldValue);
+                toId.setText(oldValue);
             }
         });
         toField = new TextField();
@@ -28,11 +28,11 @@ public class ToFieldsHBox extends HBox {
                 toField.setText(oldValue);
             }
         });
-        getChildren().addAll(toArticle, toField);
+        getChildren().addAll(toId, toField);
     }
 
-    public TextField getToArticle() {
-        return toArticle;
+    public TextField getToId() {
+        return toId;
     }
 
     public TextField getToField() {
