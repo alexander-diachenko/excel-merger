@@ -14,21 +14,20 @@ public class ExcelMergerImpl implements ExcelMerger {
     }
 
     @Override
-    public List<List<Object>> mergeOneField(final List<Integer> articles, final List<Integer> fields) {
-        final Integer articleColumnFrom = articles.get(0);
-        final Integer articleColumnTo = articles.get(1);
+    public List<List<Object>> mergeOneField(final List<Integer> ids, final List<Integer> fields) {
+        final Integer idColumnFrom = ids.get(0);
+        final Integer idColumnTo = ids.get(1);
         final Integer mergeColumnFrom = fields.get(0);
         final Integer mergeColumnTo = fields.get(1);
         for (List<Object> rawTo : to) {
-            final String articleTo = String.valueOf(rawTo.get(articleColumnTo));
+            final String idTo = String.valueOf(rawTo.get(idColumnTo));
             for (List<Object> rawFrom : from) {
-                final String articleFrom = String.valueOf(rawFrom.get(articleColumnFrom));
-                if (articleTo.equals(articleFrom)) {
-                    if (rawTo.size() > mergeColumnTo) {
-                        rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
-                    } else {
-                        rawTo.add(mergeColumnTo, rawFrom.get(mergeColumnFrom));
+                final String idFrom = String.valueOf(rawFrom.get(idColumnFrom));
+                if (idTo.equals(idFrom)) {
+                    while (rawTo.size() <= mergeColumnTo) {
+                        rawTo.add("");
                     }
+                    rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
                     break;
                 }
             }
