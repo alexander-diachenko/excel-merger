@@ -47,18 +47,18 @@ public class ExcelImpl implements Excel {
                 cell.setCellValue(String.valueOf(obj));
             }
         }
-        try (FileOutputStream outputStream = new FileOutputStream(new File(path))) {
+        try (final FileOutputStream outputStream = new FileOutputStream(new File(path))) {
             workbook.write(outputStream);
         }
     }
 
-    private String getFormattedCell(Cell cell) {
+    private String getFormattedCell(final Cell cell) {
         final DataFormatter df = new DataFormatter();
         return df.formatCellValue(cell);
     }
 
-    private Workbook getWorkbook(String path) throws IOException, InvalidFormatException {
-        try (FileInputStream is = new FileInputStream(new File(path))) {
+    private Workbook getWorkbook(final String path) throws IOException, InvalidFormatException {
+        try (final FileInputStream is = new FileInputStream(new File(path))) {
             return WorkbookFactory.create(is);
         }
     }
