@@ -22,13 +22,15 @@ public class ExcelMergerImpl implements ExcelMerger {
         for (List<Object> rawTo : to) {
             final String idTo = String.valueOf(rawTo.get(idColumnTo));
             for (List<Object> rawFrom : from) {
-                final String idFrom = String.valueOf(rawFrom.get(idColumnFrom));
-                if (idTo.equals(idFrom)) {
-                    while (rawTo.size() <= mergeColumnTo) {
-                        rawTo.add("");
+                if (rawFrom.size() > idColumnFrom) {
+                    final String idFrom = String.valueOf(rawFrom.get(idColumnFrom));
+                    if (idTo.equals(idFrom)) {
+                        while (rawTo.size() <= mergeColumnTo) {
+                            rawTo.add("");
+                        }
+                        rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
+                        break;
                     }
-                    rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
-                    break;
                 }
             }
         }

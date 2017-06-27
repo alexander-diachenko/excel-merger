@@ -19,41 +19,19 @@ public class ExcelImpl implements Excel {
         final Workbook workbook = getWorkbook(path);
         final Sheet sheet = workbook.getSheetAt(0);
         final Iterator rows = sheet.rowIterator();
-        final int workbookSize = getWorkbookSize(path);
         while (rows.hasNext()) {
             final List<Object> raw = new ArrayList<>();
             final Row row = (Row) rows.next();
             final short lastCellNum = row.getLastCellNum();
             int index = 0;
-            while (index < workbookSize) {
-                if (index < lastCellNum) {
-                    final Cell cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    raw.add(getFormattedCell(cell));
-                    index++;
-                } else {
-                    raw.add("");
-                    index++;
-                }
+            while (index < lastCellNum) {
+                final Cell cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                raw.add(getFormattedCell(cell));
+                index++;
             }
             table.add(raw);
         }
         return table;
-    }
-
-    @Override
-    public int getWorkbookSize(final String path) throws IOException, InvalidFormatException {
-        final Workbook workbook = getWorkbook(path);
-        final Sheet sheet = workbook.getSheetAt(0);
-        final Iterator rows = sheet.rowIterator();
-        int workbookSize = 0;
-        while (rows.hasNext()) {
-            final Row row = (Row) rows.next();
-            final short lastCellNum = row.getLastCellNum();
-            if (workbookSize < lastCellNum) {
-                workbookSize = lastCellNum;
-            }
-        }
-        return workbookSize;
     }
 
     @Override

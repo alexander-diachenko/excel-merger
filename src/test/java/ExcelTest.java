@@ -79,7 +79,7 @@ public class ExcelTest {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/twoFieldDifferentSizeFirstShorter.xlsx"));
         Assert.assertEquals(
-                "[[SOT440001, 3760260453042, , ], " +
+                "[[SOT440001, 3760260453042], " +
                         "[SOT190003, 3760260451994, 50 ml, U]]", table.toString());
     }
 
@@ -89,7 +89,7 @@ public class ExcelTest {
         List<List<Object>> table = excel.read(getFilePath("file/twoFieldDifferentSizeSecondShorter.xlsx"));
         Assert.assertEquals(
                 "[[SOT190003, 3760260451994, 50 ml, U], " +
-                        "[SOT440001, 3760260453042, , ]]", table.toString());
+                        "[SOT440001, 3760260453042]]", table.toString());
     }
 
     @Test
@@ -97,8 +97,8 @@ public class ExcelTest {
         Excel excel = new ExcelImpl();
         List<List<Object>> table = excel.read(getFilePath("file/threeFieldDifferentSize.xlsx"));
         Assert.assertEquals(
-                "[[SOT190003, 3760260451994, 50 ml, U, ], " +
-                        "[SOT440001, 3760260453042, , , ], " +
+                "[[SOT190003, 3760260451994, 50 ml, U], " +
+                        "[SOT440001, 3760260453042], " +
                         "[SOT470001, 3760260623042, 100 ml, M, EDP]]", table.toString());
     }
 

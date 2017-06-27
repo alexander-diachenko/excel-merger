@@ -11,6 +11,4 @@ public interface Excel {
     List<List<Object>> read(final String path) throws IOException, InvalidFormatException;
 
     void write(final List<List<Object>> table, final String path) throws IOException;
-
-    int getWorkbookSize(final String path) throws IOException, InvalidFormatException;
 }
