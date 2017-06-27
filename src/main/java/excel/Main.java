@@ -21,18 +21,15 @@ import java.util.List;
  * Created by User on 22.06.2017.
  */
 public class Main extends Application {
-
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Excel excel = new ExcelImpl();
-
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(10, 50, 50, 50));
-        vBox.setSpacing(10);
+        VBox root = new VBox();
+        root.setPadding(new Insets(10, 50, 50, 50));
+        root.setSpacing(10);
 
         final FileFromHBox fileFromHBox = new FileFromHBox(primaryStage);
         final FromFieldsHBox fromFieldsHBox = new FromFieldsHBox(getNumericRegex());
@@ -49,10 +46,11 @@ public class Main extends Application {
             final File fileDirectory = fileDirectoryHBox.getFileDirectory();
             if (fileFrom != null && fileTo != null && fileDirectory != null) {
                 try {
+                    Excel excel = new ExcelImpl();
                     List<List<Object>> from = excel.read(fileFrom.getAbsolutePath());
                     List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
                     ExcelMerger excelMerger = new ExcelMergerImpl(from, to);
-                    List<Integer> articles = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromArticle().getText()) - 1, Integer.valueOf(toFieldsHBox.getToArticle().getText()) - 1);
+                    List<Integer> articles = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToId().getText()) - 1);
                     List<Integer> fields = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
                     List<List<Object>> merged = excelMerger.mergeOneField(articles, fields);
                     excel.write(merged, fileDirectory.getPath() + "\\" + "merged_" + getCurrentTime() + ".xlsx");
@@ -66,9 +64,9 @@ public class Main extends Application {
             }
         });
 
-        vBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
+        root.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
 
-        Scene scene = new Scene(vBox);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
