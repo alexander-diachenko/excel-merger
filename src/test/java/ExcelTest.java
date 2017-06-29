@@ -6,12 +6,13 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by User on 20.06.2017.
+ * @author Alexander Diachenko.
  */
 public class ExcelTest {
 
@@ -106,7 +107,10 @@ public class ExcelTest {
 
     private String getFilePath(String fileName) {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(fileName).getFile());
-        return file.getAbsolutePath();
+        final URL resource = classLoader.getResource(fileName);
+        if (resource != null) {
+            return new File(resource.getFile()).getAbsolutePath();
+        }
+        return null;
     }
 }

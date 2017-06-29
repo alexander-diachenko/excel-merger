@@ -18,7 +18,7 @@ import java.util.List;
 
 
 /**
- * Created by User on 22.06.2017.
+ * @author Alexander Diachenko.
  */
 public class Main extends Application {
     public static void main(String[] args) {

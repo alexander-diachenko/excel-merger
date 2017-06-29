@@ -4,7 +4,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 /**
- * Created by User on 27.06.2017.
+ * @author Alexander Diachenko.
  */
 public class ToFieldsHBox extends HBox {
 

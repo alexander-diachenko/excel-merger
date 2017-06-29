@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.File;
 
 /**
- * Created by User on 27.06.2017.
+ * @author Alexander Diachenko.
  */
 public class FileToHBox extends HBox {
 

@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by User on 20.06.2017.
+ * @author Alexander Diachenko.
  */
 public class ExcelMergerTest {
 

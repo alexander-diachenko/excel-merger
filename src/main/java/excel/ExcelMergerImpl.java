@@ -3,7 +3,7 @@ package excel;
 import java.util.List;
 
 /**
- * Created by User on 19.06.2017.
+ * @author Alexander Diachenko.
  */
 public class ExcelMergerImpl implements ExcelMerger {
 

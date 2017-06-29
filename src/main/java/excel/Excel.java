@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by User on 13.06.2017.
+ * @author Alexander Diachenko.
  */
 public interface Excel {
     List<List<Object>> read(final String path) throws IOException, InvalidFormatException;
