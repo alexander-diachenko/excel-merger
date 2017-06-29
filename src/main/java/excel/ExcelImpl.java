@@ -15,6 +15,13 @@ import java.util.List;
  */
 public class ExcelImpl implements Excel {
 
+    /**
+     * Return list representation of excel file.
+     * @param path Path to excel file.
+     * @return List representation of excel file.
+     * @throws IOException Throws IOException if file read failed.
+     * @throws InvalidFormatException Throws InvalidFormatException if it is not excel file(.xls or .xlsx).
+     */
     @Override
     public List<List<Object>> read(final String path) throws IOException, InvalidFormatException {
         final List<List<Object>> table = new ArrayList<>();
@@ -36,6 +43,12 @@ public class ExcelImpl implements Excel {
         return table;
     }
 
+    /**
+     * Write List<List<>> to excel file.
+     * @param table Data in List<List<>>.
+     * @param path Path to new excel file.
+     * @throws IOException Throws IOException if file write failed.
+     */
     @Override
     public void write(final List<List<Object>> table, final String path) throws IOException {
         final Workbook workbook = new XSSFWorkbook();

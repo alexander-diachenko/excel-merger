@@ -10,17 +10,28 @@ public class ExcelMergerImpl implements ExcelMerger {
     private final List<List<Object>> from;
     private final List<List<Object>> to;
 
+    /**
+     * Create merger by given columns.
+     * @param from List representation from excel file.
+     * @param to List representation to excel file.
+     */
     public ExcelMergerImpl(final List<List<Object>> from, final List<List<Object>> to) {
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Return merged lists.
+     * @param idColumnNumbers List<Integer>. First index number of id column from file. Second index number of id column to file.
+     * @param mergeColumnNumbers List<Integer>.  First index number of merged column from file. Second index number of merged column to file.
+     * @return Merged lists.
+     */
     @Override
-    public List<List<Object>> mergeOneField(final List<Integer> idColumnNumber, final List<Integer> mergeColumnNumber) {
-        final Integer idColumnFrom = idColumnNumber.get(0);
-        final Integer idColumnTo = idColumnNumber.get(1);
-        final Integer mergeColumnFrom = mergeColumnNumber.get(0);
-        final Integer mergeColumnTo = mergeColumnNumber.get(1);
+    public List<List<Object>> mergeOneField(final List<Integer> idColumnNumbers, final List<Integer> mergeColumnNumbers) {
+        final Integer idColumnFrom = idColumnNumbers.get(0);
+        final Integer idColumnTo = idColumnNumbers.get(1);
+        final Integer mergeColumnFrom = mergeColumnNumbers.get(0);
+        final Integer mergeColumnTo = mergeColumnNumbers.get(1);
         for (List<Object> rawTo : to) {
             final String idTo = String.valueOf(rawTo.get(idColumnTo));
             for (List<Object> rawFrom : from) {
