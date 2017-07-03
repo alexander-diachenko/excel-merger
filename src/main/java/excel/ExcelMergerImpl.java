@@ -33,9 +33,9 @@ public class ExcelMergerImpl implements ExcelMerger {
         final Integer mergeColumnFrom = mergeColumnNumbers.get(0);
         final Integer mergeColumnTo = mergeColumnNumbers.get(1);
         for (List<Object> rawTo : to) {
-            final String idTo = String.valueOf(rawTo.get(idColumnTo));
             for (List<Object> rawFrom : from) {
-                if (rawFrom.size() > idColumnFrom) {
+                if (rawFrom.size() > idColumnFrom && rawTo.size() > idColumnTo) {
+                    final String idTo = String.valueOf(rawTo.get(idColumnTo));
                     final String idFrom = String.valueOf(rawFrom.get(idColumnFrom));
                     if (idTo.equals(idFrom) && rawFrom.size() > mergeColumnFrom) {
                         while (rawTo.size() <= mergeColumnTo) {
