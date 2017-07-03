@@ -154,4 +154,23 @@ public class ExcelMergerTest {
         final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
         Assert.assertEquals("[[SAN030004]]", tableMerged.toString());
     }
+
+    @Test
+    public void mergeTest_oneField_To_idColumnHigherFromSize() {
+        final List<List<Object>> tableTo = new ArrayList<>();
+        final List<Object> rowTo = new ArrayList<>();
+        rowTo.add("SAN030004");
+        tableTo.add(rowTo);
+
+        final List<List<Object>> tableFrom = new ArrayList<>();
+        final List<Object> rowFrom = new ArrayList<>();
+        rowFrom.add("SAN030004");
+        tableFrom.add(rowFrom);
+
+        final List<Integer> articles = Arrays.asList(0, 1);
+        final List<Integer> fields = Arrays.asList(1, 2);
+        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        Assert.assertEquals("[[SAN030004]]", tableMerged.toString());
+    }
 }
