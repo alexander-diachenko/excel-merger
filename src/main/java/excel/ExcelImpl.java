@@ -73,8 +73,7 @@ public class ExcelImpl implements Excel {
     @Override
     public int getColumnCount(final Sheet sheet) {
         int columnCount = 0;
-        final int lastRowNum = sheet.getLastRowNum();
-        for (int rowIndex = 0; rowIndex < lastRowNum; rowIndex++) {
+        for (int rowIndex = 0; rowIndex < sheet.getLastRowNum(); rowIndex++) {
             final Row row = sheet.getRow(rowIndex);
             for (int colIndex = 0; colIndex < row.getLastCellNum(); colIndex++) {
                 final short lastCellNum = row.getLastCellNum();
