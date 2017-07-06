@@ -88,7 +88,7 @@ public class ExcelImpl implements Excel {
         return columnCount;
     }
 
-    private void autoResizeSheet(Sheet sheet, int columnCount) {
+    private void autoResizeSheet(final Sheet sheet, int columnCount) {
         for (int index = 0; index < columnCount; index++) {
             sheet.autoSizeColumn(index);
         }
