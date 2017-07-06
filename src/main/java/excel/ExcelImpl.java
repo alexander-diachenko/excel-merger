@@ -17,7 +17,6 @@ public class ExcelImpl implements Excel {
 
     /**
      * Return list representation of excel file.
-     *
      * @param path Path to excel file.
      * @return List representation of excel file.
      * @throws IOException            Throws IOException if file read failed.
@@ -46,7 +45,6 @@ public class ExcelImpl implements Excel {
 
     /**
      * Write List<List<>> to excel file.
-     *
      * @param table Data in List<List<>>.
      * @param path  Path to new excel file.
      * @throws IOException Throws IOException if file write failed.
