@@ -53,12 +53,12 @@ public class ExcelImpl implements Excel {
     public void write(final List<List<Object>> table, final String path) throws IOException {
         final Workbook workbook = new XSSFWorkbook();
         final Sheet sheet = workbook.createSheet(WorkbookUtil.createSafeSheetName("New sheet"));
-        int rowNum = 0;
-        for (List<Object> rows : table) {
-            final Row row = sheet.createRow(rowNum++);
-            int colNum = 0;
-            for (Object obj : rows) {
-                final Cell cell = row.createCell(colNum++);
+        for (int rawIndex = 0; rawIndex < table.size(); rawIndex++) {
+            final List<Object> raw = table.get(rawIndex);
+            final Row row = sheet.createRow(rawIndex);
+            for (int colIndex = 0; colIndex < raw.size(); colIndex++) {
+                final Object obj = raw.get(colIndex);
+                final Cell cell = row.createCell(colIndex);
                 cell.setCellValue(String.valueOf(obj));
             }
         }
