@@ -70,16 +70,19 @@ public class ExcelImpl implements Excel {
         }
     }
 
+    /**
+     * Return sheet column count.
+     * @param sheet sheet of excel file.
+     * @return int column count.
+     */
     @Override
     public int getColumnCount(final Sheet sheet) {
         int columnCount = 0;
         for (int rowIndex = 0; rowIndex < sheet.getLastRowNum(); rowIndex++) {
             final Row row = sheet.getRow(rowIndex);
-            for (int colIndex = 0; colIndex < row.getLastCellNum(); colIndex++) {
-                final short lastCellNum = row.getLastCellNum();
-                if (columnCount < lastCellNum) {
-                    columnCount = lastCellNum;
-                }
+            final short lastCellNum = row.getLastCellNum();
+            for (int colIndex = 0; colIndex < lastCellNum; colIndex++) {
+                columnCount = Math.max(columnCount, lastCellNum);
             }
         }
         return columnCount;

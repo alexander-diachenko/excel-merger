@@ -27,5 +27,10 @@ public interface Excel {
      */
     void write(final List<List<Object>> table, final String path) throws IOException;
 
-    int getColumnCount(Sheet sheet);
+    /**
+     * Return sheet column count.
+     * @param sheet sheet of excel file.
+     * @return column count.
+     */
+    int getColumnCount(final Sheet sheet);
 }
