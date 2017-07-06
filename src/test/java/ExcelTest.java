@@ -1,10 +1,12 @@
 import excel.Excel;
 import excel.ExcelImpl;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -105,6 +107,18 @@ public class ExcelTest {
                         "[SOT470001, 3760260623042, 100 ml, M, EDP]]", table.toString());
     }
 
+    @Test
+    public void getColumnCountTest_ThreeFieldDifferentSize() throws IOException, InvalidFormatException {
+        final String path = getFilePath("file/threeFieldDifferentSize.xlsx");
+        final int columnCount = excel.getColumnCount(getSheet(path));
+        Assert.assertTrue(columnCount == 5);
+    }
+
+    private Sheet getSheet(final String path) throws IOException, InvalidFormatException {
+        final Workbook workbook = getWorkbook(path);
+        return workbook.getSheetAt(0);
+    }
+
     private String getFilePath(String fileName) {
         final ClassLoader classLoader = getClass().getClassLoader();
         final URL resource = classLoader.getResource(fileName);
@@ -112,5 +126,11 @@ public class ExcelTest {
             return new File(resource.getFile()).getAbsolutePath();
         }
         return null;
+    }
+
+    private Workbook getWorkbook(final String path) throws IOException, InvalidFormatException {
+        try (final FileInputStream is = new FileInputStream(new File(path))) {
+            return WorkbookFactory.create(is);
+        }
     }
 }
