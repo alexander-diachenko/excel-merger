@@ -17,9 +17,10 @@ public class ExcelImpl implements Excel {
 
     /**
      * Return list representation of excel file.
+     *
      * @param path Path to excel file.
      * @return List representation of excel file.
-     * @throws IOException Throws IOException if file read failed.
+     * @throws IOException            Throws IOException if file read failed.
      * @throws InvalidFormatException Throws InvalidFormatException if it is not excel file(.xls or .xlsx).
      */
     @Override
@@ -45,8 +46,9 @@ public class ExcelImpl implements Excel {
 
     /**
      * Write List<List<>> to excel file.
+     *
      * @param table Data in List<List<>>.
-     * @param path Path to new excel file.
+     * @param path  Path to new excel file.
      * @throws IOException Throws IOException if file write failed.
      */
     @Override
@@ -62,8 +64,31 @@ public class ExcelImpl implements Excel {
                 cell.setCellValue(String.valueOf(obj));
             }
         }
+        autoResizeSheet(sheet, getColumnCount(sheet));
         try (final FileOutputStream outputStream = new FileOutputStream(new File(path))) {
             workbook.write(outputStream);
+        }
+    }
+
+    @Override
+    public int getColumnCount(final Sheet sheet) {
+        int columnCount = 0;
+        final int lastRowNum = sheet.getLastRowNum();
+        for (int rowIndex = 0; rowIndex < lastRowNum; rowIndex++) {
+            final Row row = sheet.getRow(rowIndex);
+            for (int colIndex = 0; colIndex < row.getLastCellNum(); colIndex++) {
+                final short lastCellNum = row.getLastCellNum();
+                if (columnCount < lastCellNum) {
+                    columnCount = lastCellNum;
+                }
+            }
+        }
+        return columnCount;
+    }
+
+    private void autoResizeSheet(Sheet sheet, int columnCount) {
+        for (int index = 0; index < columnCount; index++) {
+            sheet.autoSizeColumn(index);
         }
     }
 

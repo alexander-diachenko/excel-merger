@@ -1,6 +1,7 @@
 package excel;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,4 +26,6 @@ public interface Excel {
      * @throws IOException Throws IOException if file write failed.
      */
     void write(final List<List<Object>> table, final String path) throws IOException;
+
+    int getColumnCount(Sheet sheet);
 }
