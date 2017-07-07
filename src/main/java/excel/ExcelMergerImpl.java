@@ -34,10 +34,10 @@ public class ExcelMergerImpl implements ExcelMerger {
         final Integer mergeColumnTo = mergeColumnNumbers.get(1);
         for (List<Object> rawTo : to) {
             for (List<Object> rawFrom : from) {
-                if (rawFrom.size() > idColumnFrom && rawTo.size() > idColumnTo) {
+                if (isCorrectInput(idColumnFrom, idColumnTo, rawFrom.size(), rawTo.size(), mergeColumnFrom)) {
                     final String idTo = String.valueOf(rawTo.get(idColumnTo));
                     final String idFrom = String.valueOf(rawFrom.get(idColumnFrom));
-                    if (idTo.equals(idFrom) && rawFrom.size() > mergeColumnFrom && !idTo.isEmpty()) {
+                    if (idTo.equals(idFrom) && !idTo.isEmpty()) {
                         while (rawTo.size() <= mergeColumnTo) {
                             rawTo.add("");
                         }
@@ -48,5 +48,9 @@ public class ExcelMergerImpl implements ExcelMerger {
             }
         }
         return to;
+    }
+
+    private boolean isCorrectInput(Integer idColumnFrom, Integer idColumnTo, Integer rawFromSize, Integer rawToSize, Integer mergeColumnFrom) {
+        return rawFromSize > idColumnFrom && rawToSize > idColumnTo && rawFromSize > mergeColumnFrom;
     }
 }
