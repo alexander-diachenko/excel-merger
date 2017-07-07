@@ -50,7 +50,11 @@ public class ExcelMergerImpl implements ExcelMerger {
         return to;
     }
 
-    private boolean isCorrectInput(Integer idColumnFrom, Integer idColumnTo, Integer rawFromSize, Integer rawToSize, Integer mergeColumnFrom) {
-        return rawFromSize > idColumnFrom && rawToSize > idColumnTo && rawFromSize > mergeColumnFrom;
+    private boolean isCorrectInput(final Integer idColumnFrom, final Integer idColumnTo,
+                                   final Integer rawFromSize, final Integer rawToSize,
+                                   final Integer mergeColumnFrom) {
+        return rawFromSize > idColumnFrom &&
+                rawToSize > idColumnTo &&
+                rawFromSize > mergeColumnFrom;
     }
 }
