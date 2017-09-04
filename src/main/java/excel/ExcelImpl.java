@@ -17,6 +17,7 @@ public class ExcelImpl implements Excel {
 
     /**
      * Return list representation of excel file.
+     *
      * @param path Path to excel file.
      * @return List representation of excel file.
      * @throws IOException            Throws IOException if file read failed.
@@ -45,6 +46,7 @@ public class ExcelImpl implements Excel {
 
     /**
      * Write List<List<>> to excel file.
+     *
      * @param table Data in List<List<>>.
      * @param path  Path to new excel file.
      * @throws IOException Throws IOException if file write failed.
@@ -70,6 +72,7 @@ public class ExcelImpl implements Excel {
 
     /**
      * Return sheet column count.
+     *
      * @param sheet sheet of excel file.
      * @return int column count.
      */
@@ -94,7 +97,8 @@ public class ExcelImpl implements Excel {
 
     private String getFormattedCell(final Cell cell) {
         final DataFormatter df = new DataFormatter();
-        return df.formatCellValue(cell);
+        final String result = df.formatCellValue(cell);
+        return !result.equals("#NULL!") ? result : "";
     }
 
     private Workbook getWorkbook(final String path) throws IOException, InvalidFormatException {
