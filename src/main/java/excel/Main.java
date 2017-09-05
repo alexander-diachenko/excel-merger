@@ -67,6 +67,7 @@ public class Main extends Application {
         root.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
 
         Scene scene = new Scene(root);
+        primaryStage.setTitle("Excel merger");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

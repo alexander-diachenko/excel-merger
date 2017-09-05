@@ -20,7 +20,7 @@ public class FileDirectoryHBox extends HBox {
         Text fileDirectoryPath = new Text();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         Button selectDirectoryButton = new Button();
-        selectDirectoryButton.setText("Select fileDirectory");
+        selectDirectoryButton.setText("Select file directory");
         selectDirectoryButton.setOnAction(event -> {
             fileDirectory = directoryChooser.showDialog(primaryStage);
             if(fileDirectory != null) {
