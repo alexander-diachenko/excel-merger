@@ -1,5 +1,6 @@
 package excel;
 
+import excel.components.formatterTab.FormatterTab;
 import excel.components.mergerTab.MergerTab;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -27,12 +28,11 @@ public class Main extends Application {
         final BorderPane mainPane = new BorderPane();
 
         //merger tab
-        final MergerTab mergerTab = new MergerTab(primaryStage);
+        final Tab mergerTab = new MergerTab(primaryStage);
         tabPane.getTabs().add(mergerTab);
 
         //formatter tab
-        final Tab formatterTab = new Tab();
-        formatterTab.setText("Formatter");
+        final Tab formatterTab = new FormatterTab();
         tabPane.getTabs().add(formatterTab);
 
         mainPane.setCenter(tabPane);

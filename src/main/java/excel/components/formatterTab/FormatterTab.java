@@ -8,6 +8,6 @@ import javafx.scene.control.Tab;
 public class FormatterTab extends Tab {
 
     public FormatterTab() {
-
+        setText("Formatter");
     }
 }
