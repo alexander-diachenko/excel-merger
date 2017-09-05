@@ -29,12 +29,11 @@ public class Main extends Application {
 
         //merger tab
         final Tab mergerTab = new MergerTab(primaryStage);
-        tabPane.getTabs().add(mergerTab);
 
         //formatter tab
         final Tab formatterTab = new FormatterTab();
-        tabPane.getTabs().add(formatterTab);
 
+        tabPane.getTabs().addAll(mergerTab, formatterTab);
         mainPane.setCenter(tabPane);
         mainPane.prefHeightProperty().bind(scene.heightProperty());
         mainPane.prefWidthProperty().bind(scene.widthProperty());
