@@ -15,11 +15,11 @@ public class FileToHBox extends HBox {
 
     private File fileTo;
 
-    public FileToHBox(Stage primaryStage) {
+    public FileToHBox(final Stage primaryStage) {
         setSpacing(10);
-        FileChooser fileFromChooser = new FileChooser();
-        Button selectFileFromButton = new Button();
-        Text fileFromPath = new Text();
+        final FileChooser fileFromChooser = new FileChooser();
+        final Button selectFileFromButton = new Button();
+        final Text fileFromPath = new Text();
         selectFileFromButton.setText("Select 'to' file");
         selectFileFromButton.setOnAction(event -> {
             fileTo = fileFromChooser.showOpenDialog(primaryStage);

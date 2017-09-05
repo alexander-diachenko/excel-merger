@@ -17,9 +17,9 @@ public class FileDirectoryHBox extends HBox {
 
     public FileDirectoryHBox(final Stage primaryStage) {
         setSpacing(10);
-        Text fileDirectoryPath = new Text();
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        Button selectDirectoryButton = new Button();
+        final Text fileDirectoryPath = new Text();
+        final DirectoryChooser directoryChooser = new DirectoryChooser();
+        final Button selectDirectoryButton = new Button();
         selectDirectoryButton.setText("Select file directory");
         selectDirectoryButton.setOnAction(event -> {
             fileDirectory = directoryChooser.showDialog(primaryStage);

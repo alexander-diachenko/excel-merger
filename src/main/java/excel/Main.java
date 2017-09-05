@@ -20,18 +20,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Group root = new Group();
-        Scene scene = new Scene(root, 400, 300, Color.WHITE);
+        final Group root = new Group();
+        final Scene scene = new Scene(root, 400, 300, Color.WHITE);
 
-        TabPane tabPane = new TabPane();
-        BorderPane mainPane = new BorderPane();
+        final TabPane tabPane = new TabPane();
+        final BorderPane mainPane = new BorderPane();
 
         //merger tab
-        MergerTab mergerTab = new MergerTab(primaryStage);
+        final MergerTab mergerTab = new MergerTab(primaryStage);
         tabPane.getTabs().add(mergerTab);
 
         //formatter tab
-        Tab formatterTab = new Tab();
+        final Tab formatterTab = new Tab();
         formatterTab.setText("Formatter");
         tabPane.getTabs().add(formatterTab);
 

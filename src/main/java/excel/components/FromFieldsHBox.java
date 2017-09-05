@@ -8,8 +8,8 @@ import javafx.scene.layout.HBox;
  */
 public class FromFieldsHBox extends HBox {
 
-    private TextField fromId;
-    private TextField fromField;
+    private final TextField fromId;
+    private final TextField fromField;
 
     public FromFieldsHBox(final String numericRegex) {
         fromId = new TextField();
