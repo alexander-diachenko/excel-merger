@@ -3,8 +3,12 @@ package excel;
 import excel.components.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -27,10 +31,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        VBox root = new VBox();
-        root.setPadding(new Insets(10, 50, 50, 50));
-        root.setSpacing(10);
+        Group root = new Group();
+        Scene scene = new Scene(root, 400, 300, Color.WHITE);
 
+        TabPane tabPane = new TabPane();
+        BorderPane mainPane = new BorderPane();
+
+        //merger tab
+        Tab mergerTab = new Tab();
+        mergerTab.setText("Merger");
+        VBox mergerVBox = new VBox();
+        mergerVBox.setPadding(new Insets(10, 50, 50, 50));
+        mergerVBox.setSpacing(10);
         final FileFromHBox fileFromHBox = new FileFromHBox(primaryStage);
         final FromFieldsHBox fromFieldsHBox = new FromFieldsHBox(getNumericRegex());
         final FileToHBox fileToHBox = new FileToHBox(primaryStage);
@@ -64,10 +76,21 @@ public class Main extends Application {
             }
         });
 
-        root.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
+        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
+        mergerTab.setContent(mergerVBox);
+        tabPane.getTabs().add(mergerTab);
 
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("Excel merger");
+        //formatter tab
+        Tab formatterTab = new Tab();
+        formatterTab.setText("Formatter");
+        tabPane.getTabs().add(formatterTab);
+
+        mainPane.setCenter(tabPane);
+        mainPane.prefHeightProperty().bind(scene.heightProperty());
+        mainPane.prefWidthProperty().bind(scene.widthProperty());
+
+        root.getChildren().add(mainPane);
+        primaryStage.setTitle("Excel utils");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
