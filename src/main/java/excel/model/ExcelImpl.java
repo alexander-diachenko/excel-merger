@@ -1,4 +1,4 @@
-package excel;
+package excel.model;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;

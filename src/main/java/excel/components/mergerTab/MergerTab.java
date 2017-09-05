@@ -1,11 +1,12 @@
-package excel.components;
+package excel.components.mergerTab;
 
-import excel.Excel;
-import excel.ExcelImpl;
-import excel.ExcelMerger;
-import excel.ExcelMergerImpl;
+import excel.model.Excel;
+import excel.model.ExcelImpl;
+import excel.model.ExcelMerger;
+import excel.model.ExcelMergerImpl;
 import excel.Util.RegexUtil;
 import excel.Util.TimeUtil;
+import excel.components.mergerTab.components.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;

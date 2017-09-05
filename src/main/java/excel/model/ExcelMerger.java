@@ -1,4 +1,4 @@
-package excel;
+package excel.model;
 
 import java.util.List;
 

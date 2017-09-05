@@ -1,4 +1,4 @@
-package excel.components;
+package excel.components.mergerTab.components;
 
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;

@@ -1,6 +1,6 @@
 package excel;
 
-import excel.components.*;
+import excel.components.mergerTab.MergerTab;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

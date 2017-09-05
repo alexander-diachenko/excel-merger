@@ -1,5 +1,5 @@
-import excel.ExcelMerger;
-import excel.ExcelMergerImpl;
+import excel.model.ExcelMerger;
+import excel.model.ExcelMergerImpl;
 import org.junit.Assert;
 import org.junit.Test;
 

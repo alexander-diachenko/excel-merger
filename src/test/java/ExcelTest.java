@@ -1,5 +1,5 @@
-import excel.Excel;
-import excel.ExcelImpl;
+import excel.model.Excel;
+import excel.model.ExcelImpl;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.junit.Assert;
