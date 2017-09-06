@@ -1,6 +1,7 @@
 package excel.components.formatterTab;
 
 import excel.components.formatterTab.components.FilesHBox;
+import excel.components.formatterTab.components.FillColumnHBox;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
 import javafx.geometry.Insets;
@@ -28,6 +29,8 @@ public class FormatterTab extends Tab {
 
         final FilesHBox filesHBox = new FilesHBox(primaryStage);
 
+        final FillColumnHBox fillColumnHBox = new FillColumnHBox();
+
         final Button formatButton = new Button();
         formatButton.setText("Format");
         final Text complete = new Text();
@@ -53,7 +56,7 @@ public class FormatterTab extends Tab {
             }
         });
 
-        formatterVBox.getChildren().addAll(filesHBox, formatButton, complete);
+        formatterVBox.getChildren().addAll(filesHBox, fillColumnHBox, formatButton, complete);
         setContent(formatterVBox);
     }
 
