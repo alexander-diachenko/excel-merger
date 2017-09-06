@@ -44,6 +44,16 @@ public class FormatterTab extends Tab {
                     }
                     try {
                         final List<List<Object>> table = excel.read(file.getPath());
+                        final String columnNumber = fillColumnHBox.getColumnNumber().getText();
+                        final String fill = fillColumnHBox.getFill().getText();
+                        if(!columnNumber.isEmpty() && !fill.isEmpty()) {
+                            for(List<Object> row : table) {
+                                final int index = Integer.parseInt(columnNumber) - 1;
+                                if(row.size() > index) {
+                                    row.add(index, fill);
+                                }
+                            }
+                        }
                         excel.write(table, file.getPath());
                         complete.setFill(Color.GREEN);
                         complete.setText("DONE!");
