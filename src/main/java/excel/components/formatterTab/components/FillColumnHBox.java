@@ -33,8 +33,8 @@ public class FillColumnHBox extends HBox {
         fill.setFocusTraversable(true);
 
         isFill.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            columnNumber.setText("");
-            fill.setText("");
+            columnNumber.clear();
+            fill.clear();
             columnNumber.setDisable(!newValue);
             fill.setDisable(!newValue);
         });

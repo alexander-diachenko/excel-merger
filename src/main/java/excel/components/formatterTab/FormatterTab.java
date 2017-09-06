@@ -35,6 +35,7 @@ public class FormatterTab extends Tab {
         formatButton.setText("Format");
         final Text complete = new Text();
         formatButton.setOnAction(event -> {
+            complete.setText("");
             final List<File> files = filesHBox.getFiles();
             final Excel excel = new ExcelImpl();
             if (files != null) {

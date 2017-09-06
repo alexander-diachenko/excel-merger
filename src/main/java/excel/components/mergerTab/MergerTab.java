@@ -39,6 +39,7 @@ public class MergerTab extends Tab {
         final Button startButton = new Button();
         startButton.setText("Merge");
         startButton.setOnAction(event -> {
+            complete.setText("");
             final File fileFrom = fileFromHBox.getFileFrom();
             final File fileTo = fileToHBox.getFileTo();
             final File fileDirectory = fileDirectoryHBox.getFileDirectory();
