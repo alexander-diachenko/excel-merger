@@ -31,7 +31,7 @@ public class Main extends Application {
         final Tab mergerTab = new MergerTab(primaryStage);
 
         //formatter tab
-        final Tab formatterTab = new FormatterTab();
+        final Tab formatterTab = new FormatterTab(primaryStage);
 
         tabPane.getTabs().addAll(mergerTab, formatterTab);
         mainPane.setCenter(tabPane);
