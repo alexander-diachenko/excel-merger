@@ -2,6 +2,7 @@ package excel.model;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.SheetUtil;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -91,6 +92,10 @@ public class ExcelImpl implements Excel {
 
     private void autoResizeSheet(final Sheet sheet, int columnCount) {
         for (int index = 0; index < columnCount; index++) {
+            final double columnWidth = SheetUtil.getColumnWidth(sheet, index, true);
+            if(columnWidth < 2) {
+                sheet.setColumnHidden(index, true);
+            }
             sheet.autoSizeColumn(index);
         }
     }
