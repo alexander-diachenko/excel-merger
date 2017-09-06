@@ -1,5 +1,6 @@
 package excel.components.formatterTab;
 
+import excel.Util.ExcelUtil;
 import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
 import excel.model.Excel;
@@ -11,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.util.List;
@@ -40,20 +40,15 @@ public class FormatterTab extends Tab {
             final Excel excel = new ExcelImpl();
             if (files != null) {
                 for (File file : files) {
-                    if (!isExcel(file)) {
+                    if (!ExcelUtil.isExcel(file)) {
                         continue;
                     }
                     try {
                         final List<List<Object>> table = excel.read(file.getPath());
-                        final String columnNumber = fillColumnHBox.getColumnNumber().getText();
-                        final String fill = fillColumnHBox.getFill().getText();
-                        if(!columnNumber.isEmpty() && !fill.isEmpty()) {
-                            for(List<Object> row : table) {
-                                final int index = Integer.parseInt(columnNumber) - 1;
-                                if(row.size() > index) {
-                                    row.add(index, fill);
-                                }
-                            }
+                        final int columnNumber = Integer.parseInt(fillColumnHBox.getColumnNumber().getText());
+                        final String columnValue = fillColumnHBox.getColumnValue().getText();
+                        if(isFilled(columnNumber, columnValue)) {
+                            insert(table, columnNumber, columnValue);
                         }
                         excel.write(table, file.getPath());
                         complete.setFill(Color.GREEN);
@@ -71,7 +66,16 @@ public class FormatterTab extends Tab {
         setContent(formatterVBox);
     }
 
-    private boolean isExcel(final File file) {
-        return FilenameUtils.isExtension(file.getName(), "xls") || FilenameUtils.isExtension(file.getName(), "xlsx");
+    private boolean isFilled(final int columnNumber, final String columnValue) {
+        return !columnValue.isEmpty() && columnNumber > 0;
+    }
+
+    private void insert(final List<List<Object>> table, final int columnNumber, final String fill) {
+        final int index = columnNumber - 1;
+        for(List<Object> row : table) {
+            if(row.size() > index) {
+                row.add(index, fill);
+            }
+        }
     }
 }
