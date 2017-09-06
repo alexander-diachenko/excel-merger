@@ -25,9 +25,10 @@ public class Main extends Application {
         final Scene scene = new Scene(root, 400, 300, Color.WHITE);
 
         final TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         final BorderPane mainPane = new BorderPane();
 
-        //merger tab
+        //merger    tab
         final Tab mergerTab = new MergerTab(primaryStage);
 
         //formatter tab
