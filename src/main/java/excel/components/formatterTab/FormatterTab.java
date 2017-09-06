@@ -70,11 +70,11 @@ public class FormatterTab extends Tab {
         return !columnValue.isEmpty() && columnNumber > 0;
     }
 
-    private void insert(final List<List<Object>> table, final int columnNumber, final String fill) {
+    private void insert(final List<List<Object>> table, final int columnNumber, final String columnValue) {
         final int index = columnNumber - 1;
         for(List<Object> row : table) {
             if(row.size() > index) {
-                row.add(index, fill);
+                row.add(index, columnValue);
             }
         }
     }
