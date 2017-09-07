@@ -45,10 +45,10 @@ public class FormatterTab extends Tab {
                     }
                     try {
                         final List<List<Object>> table = excel.read(file.getPath());
-                        final int columnNumber = Integer.parseInt(fillColumnHBox.getColumnNumber().getText());
+                        final String columnNumber = fillColumnHBox.getColumnNumber().getText();
                         final String columnValue = fillColumnHBox.getColumnValue().getText();
-                        if(isFilled(columnNumber, columnValue)) {
-                            insert(table, columnNumber, columnValue);
+                        if(isCorrect(columnNumber, columnValue)) {
+                            insert(table, Integer.parseInt(columnNumber), columnValue);
                         }
                         excel.write(table, file.getPath());
                         complete.setFill(Color.GREEN);
@@ -66,8 +66,8 @@ public class FormatterTab extends Tab {
         setContent(formatterVBox);
     }
 
-    private boolean isFilled(final int columnNumber, final String columnValue) {
-        return !columnValue.isEmpty() && columnNumber > 0;
+    private boolean isCorrect(final String columnNumber, final String columnValue) {
+        return !columnValue.isEmpty() && !columnNumber.isEmpty() && Integer.parseInt(columnNumber) > 0;
     }
 
     private void insert(final List<List<Object>> table, final int columnNumber, final String columnValue) {
