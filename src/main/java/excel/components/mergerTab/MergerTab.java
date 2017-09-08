@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -30,7 +31,6 @@ public class MergerTab extends Tab implements ThreadListener {
     private final Text complete = new Text();
 
     private ExcelMergeWriteThread excelMergeWriteThread;
-
 
     public MergerTab(final Stage primaryStage) {
         setText("Merger");
@@ -67,6 +67,8 @@ public class MergerTab extends Tab implements ThreadListener {
         excelMergeWriteThread = new ExcelMergeWriteThread(excel, articles, fields, fileFrom, fileTo, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
         excelMergeWriteThread.addListener(this);
         new Thread(excelMergeWriteThread).start();
+        complete.setFill(Color.YELLOWGREEN);
+        complete.setText("Working...");
     }
 
     @Override
