@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * @author Alexander Diachenko
  */
-public class ExcelFormatThread implements Runnable {
+public class ExcelFormatWriteThread implements Runnable {
 
     private final Excel excel;
     private final File file;
@@ -21,7 +21,7 @@ public class ExcelFormatThread implements Runnable {
     private Color textColor;
     private String text;
 
-    public ExcelFormatThread(final Excel excel, final File file, final String columnNumber, final String columnValue) {
+    public ExcelFormatWriteThread(final Excel excel, final File file, final String columnNumber, final String columnValue) {
         this.excel = excel;
         this.file = file;
         this.columnNumber = columnNumber;

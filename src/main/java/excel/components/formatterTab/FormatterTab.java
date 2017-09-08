@@ -5,7 +5,7 @@ import excel.Util.ThreadListener;
 import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
 import excel.model.Excel;
-import excel.model.ExcelFormatThread;
+import excel.model.ExcelFormatWriteThread;
 import excel.model.ExcelImpl;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class FormatterTab extends Tab implements ThreadListener {
 
-    private ExcelFormatThread excelFormatThread;
+    private ExcelFormatWriteThread excelFormatWriteThread;
     private FilesHBox filesHBox;
     private FillColumnHBox fillColumnHBox;
     private Button formatButton;
@@ -60,16 +60,16 @@ public class FormatterTab extends Tab implements ThreadListener {
     }
 
     private void logic(Excel excel, File file, String columnNumber, String columnValue) {
-        excelFormatThread = new ExcelFormatThread(excel, file, columnNumber, columnValue);
-        excelFormatThread.addListener(this);
-        new Thread(excelFormatThread).start();
+        excelFormatWriteThread = new ExcelFormatWriteThread(excel, file, columnNumber, columnValue);
+        excelFormatWriteThread.addListener(this);
+        new Thread(excelFormatWriteThread).start();
         setComplete(Color.YELLOWGREEN, "Working...");
     }
 
     @Override
     public void notifyOfThread(Thread thread) {
         setAllDisable(false);
-        setComplete(excelFormatThread.getTextColor(), excelFormatThread.getText());
+        setComplete(excelFormatWriteThread.getTextColor(), excelFormatWriteThread.getText());
     }
 
     private void setComplete(Color color, String message) {
