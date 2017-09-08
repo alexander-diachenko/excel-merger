@@ -1,9 +1,11 @@
 package excel.components.formatterTab;
 
 import excel.Util.ExcelUtil;
+import excel.Util.ThreadListener;
 import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
 import excel.model.Excel;
+import excel.model.ExcelFormatThread;
 import excel.model.ExcelImpl;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -19,7 +21,13 @@ import java.util.List;
 /**
  * @author Alexander Diachenko.
  */
-public class FormatterTab extends Tab {
+public class FormatterTab extends Tab implements ThreadListener {
+
+    private ExcelFormatThread excelFormatThread;
+    private FilesHBox filesHBox;
+    private FillColumnHBox fillColumnHBox;
+    private Button formatButton;
+    private final Text complete = new Text();
 
     public FormatterTab(Stage primaryStage) {
         setText("Formatter");
@@ -27,37 +35,23 @@ public class FormatterTab extends Tab {
         formatterVBox.setPadding(new Insets(10, 50, 50, 50));
         formatterVBox.setSpacing(10);
 
-        final FilesHBox filesHBox = new FilesHBox(primaryStage);
-
-        final FillColumnHBox fillColumnHBox = new FillColumnHBox();
-
-        final Button formatButton = new Button();
+        filesHBox = new FilesHBox(primaryStage);
+        fillColumnHBox = new FillColumnHBox();
+        formatButton = new Button();
         formatButton.setText("Format");
-        final Text complete = new Text();
         formatButton.setOnAction(event -> {
-            complete.setText("");
             final List<File> files = filesHBox.getFiles();
-            final Excel excel = new ExcelImpl();
             if (files != null) {
+                setAllDisable(true);
+                complete.setText("");
+                final Excel excel = new ExcelImpl();
                 for (File file : files) {
                     if (!ExcelUtil.isExcel(file)) {
                         continue;
                     }
-                    try {
-                        final List<List<Object>> table = excel.read(file.getPath());
-                        final String columnNumber = fillColumnHBox.getColumnNumber().getText();
-                        final String columnValue = fillColumnHBox.getColumnValue().getText();
-                        if(isCorrect(columnNumber, columnValue)) {
-                            insert(table, Integer.parseInt(columnNumber), columnValue);
-                        }
-                        excel.write(table, file.getPath());
-                        complete.setFill(Color.GREEN);
-                        complete.setText("DONE!");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        complete.setFill(Color.RED);
-                        complete.setText("ERROR!\n" + e.getMessage());
-                    }
+                    final String columnNumber = fillColumnHBox.getColumnNumber().getText();
+                    final String columnValue = fillColumnHBox.getColumnValue().getText();
+                    logic(excel, file, columnNumber, columnValue);
                 }
             }
         });
@@ -66,16 +60,24 @@ public class FormatterTab extends Tab {
         setContent(formatterVBox);
     }
 
-    private boolean isCorrect(final String columnNumber, final String columnValue) {
-        return !columnValue.isEmpty() && !columnNumber.isEmpty() && Integer.parseInt(columnNumber) > 0;
+    private void logic(Excel excel, File file, String columnNumber, String columnValue) {
+        excelFormatThread = new ExcelFormatThread(excel, file, columnNumber, columnValue);
+        excelFormatThread.addListener(this);
+        new Thread(excelFormatThread).start();
+        complete.setFill(Color.YELLOWGREEN);
+        complete.setText("Working...");
     }
 
-    private void insert(final List<List<Object>> table, final int columnNumber, final String columnValue) {
-        final int index = columnNumber - 1;
-        for(List<Object> row : table) {
-            if(row.size() > index) {
-                row.add(index, columnValue);
-            }
-        }
+    @Override
+    public void notifyOfThread(Thread thread) {
+        setAllDisable(false);
+        complete.setFill(excelFormatThread.getTextColor());
+        complete.setText(excelFormatThread.getText());
+    }
+
+    private void setAllDisable(boolean value) {
+        filesHBox.setDisable(value);
+        fillColumnHBox.setDisable(value);
+        formatButton.setDisable(value);
     }
 }
