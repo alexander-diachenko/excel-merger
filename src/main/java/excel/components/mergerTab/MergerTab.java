@@ -1,9 +1,6 @@
 package excel.components.mergerTab;
 
-import excel.model.Excel;
-import excel.model.ExcelImpl;
-import excel.model.ExcelMerger;
-import excel.model.ExcelMergerImpl;
+import excel.model.*;
 import excel.Util.RegexUtil;
 import excel.Util.TimeUtil;
 import excel.components.mergerTab.components.*;
@@ -11,7 +8,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -39,27 +35,15 @@ public class MergerTab extends Tab {
         final Button startButton = new Button();
         startButton.setText("Merge");
         startButton.setOnAction(event -> {
-            complete.setText("");
             final File fileFrom = fileFromHBox.getFileFrom();
             final File fileTo = fileToHBox.getFileTo();
             final File fileDirectory = fileDirectoryHBox.getFileDirectory();
             if (fileFrom != null && fileTo != null && fileDirectory != null) {
-                try {
-                    final Excel excel = new ExcelImpl();
-                    final List<List<Object>> from = excel.read(fileFrom.getAbsolutePath());
-                    final List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
-                    final ExcelMerger excelMerger = new ExcelMergerImpl(from, to);
-                    final List<Integer> articles = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToId().getText()) - 1);
-                    final List<Integer> fields = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
-                    final List<List<Object>> merged = excelMerger.mergeOneField(articles, fields);
-                    excel.write(merged, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
-                    complete.setFill(Color.GREEN);
-                    complete.setText("DONE!");
-                }catch (Exception e) {
-                    e.printStackTrace();
-                    complete.setFill(Color.RED);
-                    complete.setText("ERROR!\n" + e.getMessage());
-                }
+                final List<Integer> articles = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToId().getText()) - 1);
+                final List<Integer> fields = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
+                final Excel excel = new ExcelImpl();
+                final ExcelWriteThread excelWriteThread = new ExcelWriteThread(excel, articles, fields, fileFrom, fileTo, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
+                new Thread(excelWriteThread).start();
             }
         });
 
