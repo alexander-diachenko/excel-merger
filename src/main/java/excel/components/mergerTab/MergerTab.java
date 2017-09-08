@@ -21,24 +21,32 @@ import java.util.List;
  */
 public class MergerTab extends Tab implements ThreadListener {
 
+    private FileFromHBox fileFromHBox;
+    private FromFieldsHBox fromFieldsHBox;
+    private FileToHBox fileToHBox;
+    private ToFieldsHBox toFieldsHBox;
+    private FileDirectoryHBox fileDirectoryHBox;
+    private Button startButton;
     private final Text complete = new Text();
 
     private ExcelMergeWriteThread excelMergeWriteThread;
+
 
     public MergerTab(final Stage primaryStage) {
         setText("Merger");
         final VBox mergerVBox = new VBox();
         mergerVBox.setPadding(new Insets(10, 50, 50, 50));
         mergerVBox.setSpacing(10);
-        final FileFromHBox fileFromHBox = new FileFromHBox(primaryStage);
-        final FromFieldsHBox fromFieldsHBox = new FromFieldsHBox(RegexUtil.getNumericRegex());
-        final FileToHBox fileToHBox = new FileToHBox(primaryStage);
-        final ToFieldsHBox toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
-        final FileDirectoryHBox fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
+        fileFromHBox = new FileFromHBox(primaryStage);
+        fromFieldsHBox = new FromFieldsHBox(RegexUtil.getNumericRegex());
+        fileToHBox = new FileToHBox(primaryStage);
+        toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
+        fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
 
-        final Button startButton = new Button();
+        startButton = new Button();
         startButton.setText("Merge");
         startButton.setOnAction(event -> {
+            setAllDisable(true);
             complete.setText("");
             final File fileFrom = fileFromHBox.getFileFrom();
             final File fileTo = fileToHBox.getFileTo();
@@ -63,7 +71,17 @@ public class MergerTab extends Tab implements ThreadListener {
 
     @Override
     public void notifyOfThread(Thread thread) {
+        setAllDisable(false);
         complete.setFill(excelMergeWriteThread.getTextColor());
         complete.setText(excelMergeWriteThread.getText());
+    }
+
+    private void setAllDisable(boolean value) {
+        fileFromHBox.setDisable(value);
+        fromFieldsHBox.setDisable(value);
+        fileToHBox.setDisable(value);
+        toFieldsHBox.setDisable(value);
+        fileDirectoryHBox.setDisable(value);
+        startButton.setDisable(value);
     }
 }
