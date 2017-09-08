@@ -54,15 +54,18 @@ public class ExcelMergeWriteThread implements Runnable {
             final ExcelMerger excelMerger = new ExcelMergerImpl(from, to);
             final List<List<Object>> merged = excelMerger.mergeOneField(articles, fields);
             excel.write(merged, path);
-            textColor = Color.GREEN;
-            text = "DONE!";
+            setText(Color.GREEN, "DONE!");
         } catch (Exception e) {
-            textColor = Color.RED;
-            text = e.getMessage();
+            setText(Color.RED, e.getMessage());
             e.printStackTrace();
         } finally {
             notifyListeners();
         }
+    }
+
+    private void setText(Color color, String message) {
+        textColor = color;
+        text = message;
     }
 
     public Color getTextColor() {

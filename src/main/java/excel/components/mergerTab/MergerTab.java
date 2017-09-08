@@ -47,7 +47,6 @@ public class MergerTab extends Tab implements ThreadListener {
         startButton.setText("Merge");
         startButton.setOnAction(event -> {
             setAllDisable(true);
-            complete.setText("");
             final File fileFrom = fileFromHBox.getFileFrom();
             final File fileTo = fileToHBox.getFileTo();
             final File fileDirectory = fileDirectoryHBox.getFileDirectory();
@@ -67,15 +66,18 @@ public class MergerTab extends Tab implements ThreadListener {
         excelMergeWriteThread = new ExcelMergeWriteThread(excel, articles, fields, fileFrom, fileTo, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
         excelMergeWriteThread.addListener(this);
         new Thread(excelMergeWriteThread).start();
-        complete.setFill(Color.YELLOWGREEN);
-        complete.setText("Working...");
+        setComplete(Color.YELLOWGREEN, "Working...");
     }
 
     @Override
     public void notifyOfThread(Thread thread) {
         setAllDisable(false);
-        complete.setFill(excelMergeWriteThread.getTextColor());
-        complete.setText(excelMergeWriteThread.getText());
+        setComplete(excelMergeWriteThread.getTextColor(), excelMergeWriteThread.getText());
+    }
+
+    private void setComplete(Color color, String message) {
+        complete.setFill(color);
+        complete.setText(message);
     }
 
     private void setAllDisable(boolean value) {

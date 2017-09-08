@@ -43,7 +43,6 @@ public class FormatterTab extends Tab implements ThreadListener {
             final List<File> files = filesHBox.getFiles();
             if (files != null) {
                 setAllDisable(true);
-                complete.setText("");
                 final Excel excel = new ExcelImpl();
                 for (File file : files) {
                     if (!ExcelUtil.isExcel(file)) {
@@ -64,15 +63,18 @@ public class FormatterTab extends Tab implements ThreadListener {
         excelFormatThread = new ExcelFormatThread(excel, file, columnNumber, columnValue);
         excelFormatThread.addListener(this);
         new Thread(excelFormatThread).start();
-        complete.setFill(Color.YELLOWGREEN);
-        complete.setText("Working...");
+        setComplete(Color.YELLOWGREEN, "Working...");
     }
 
     @Override
     public void notifyOfThread(Thread thread) {
         setAllDisable(false);
-        complete.setFill(excelFormatThread.getTextColor());
-        complete.setText(excelFormatThread.getText());
+        setComplete(excelFormatThread.getTextColor(), excelFormatThread.getText());
+    }
+
+    private void setComplete(Color color, String message) {
+        complete.setFill(color);
+        complete.setText(message);
     }
 
     private void setAllDisable(boolean value) {

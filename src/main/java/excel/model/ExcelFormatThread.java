@@ -48,15 +48,18 @@ public class ExcelFormatThread implements Runnable {
                 insert(table, Integer.parseInt(columnNumber), columnValue);
             }
             excel.write(table, file.getPath());
-            textColor = Color.GREEN;
-            text = "DONE!";
+            setText(Color.GREEN, "DONE!");
         } catch (Exception e) {
-            textColor = Color.RED;
-            text = e.getMessage();
+            setText(Color.RED, e.getMessage());
             e.printStackTrace();
         } finally {
             notifyListeners();
         }
+    }
+
+    private void setText(Color color, String message) {
+        textColor = color;
+        text = message;
     }
 
     private boolean isCorrect(final String columnNumber, final String columnValue) {
