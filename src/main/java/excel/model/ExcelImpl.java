@@ -5,6 +5,8 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.SheetUtil;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.helpers.ColumnHelper;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTWorksheet;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -90,14 +92,36 @@ public class ExcelImpl implements Excel {
         return columnCount;
     }
 
-    private void autoResizeSheet(final Sheet sheet, int columnCount) {
+    /**
+     * Auto resize excel table. If column is empty - hide it
+     * @param sheet of table
+     * @param columnCount number of columns
+     */
+    @Override
+    public void autoResizeSheet(final Sheet sheet, int columnCount) {
+        final CTWorksheet worksheet = CTWorksheet.Factory.newInstance();
+        final ColumnHelper columnHelper = new ColumnHelper(worksheet);
         for (int index = 0; index < columnCount; index++) {
-            final double columnWidth = SheetUtil.getColumnWidth(sheet, index, true);
-            if(columnWidth < 2) {
+            double width = SheetUtil.getColumnWidth(sheet, index, true);
+
+            if(width < 2) {
                 sheet.setColumnHidden(index, true);
+            } else  {
+                width *= 256;
+                int maxColumnWidth = 255*256; // The maximum column width for an individual cell is 255 characters
+                if (width > maxColumnWidth) {
+                    width = maxColumnWidth;
+                }
+                setColumnWidth(columnHelper, index, (int)(width));
+                columnHelper.setColBestFit(index, true);
             }
-            sheet.autoSizeColumn(index);
         }
+    }
+
+    private void setColumnWidth(ColumnHelper columnHelper, int columnIndex, int width) {
+        if(width > 255*256) throw new IllegalArgumentException("The maximum column width for an individual cell is 255 characters.");
+        columnHelper.setColWidth(columnIndex, (double)width/256);
+        columnHelper.setCustomWidth(columnIndex, true);
     }
 
     private String getFormattedCell(final Cell cell) {

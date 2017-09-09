@@ -1,5 +1,6 @@
 package excel.components.formatterTab;
 
+import com.sun.jmx.snmp.Timestamp;
 import excel.Util.ExcelUtil;
 import excel.Util.ThreadListener;
 import excel.components.formatterTab.components.FilesHBox;
@@ -16,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +30,8 @@ public class FormatterTab extends Tab implements ThreadListener {
     private FillColumnHBox fillColumnHBox;
     private Button formatButton;
     private final Text complete = new Text();
+    private Timestamp start;
+    private Timestamp end;
 
     public FormatterTab(Stage primaryStage) {
         setText("Formatter");
@@ -60,6 +64,8 @@ public class FormatterTab extends Tab implements ThreadListener {
     }
 
     private void logic(Excel excel, File file, String columnNumber, String columnValue) {
+        start = new Timestamp(new Date().getTime());
+        System.out.println("start: " + start.getDateTime());
         excelFormatWriteThread = new ExcelFormatWriteThread(excel, file, columnNumber, columnValue);
         excelFormatWriteThread.addListener(this);
         new Thread(excelFormatWriteThread).start();
@@ -68,6 +74,9 @@ public class FormatterTab extends Tab implements ThreadListener {
 
     @Override
     public void notifyOfThread(Thread thread) {
+        end = new Timestamp(new Date().getTime());
+        System.out.println("end: " + end.getDateTime());
+        System.out.println("duration: " + (end.getDateTime() - start.getDateTime()));
         setAllDisable(false);
         setComplete(excelFormatWriteThread.getTextColor(), excelFormatWriteThread.getText());
     }
