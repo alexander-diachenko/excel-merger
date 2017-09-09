@@ -98,7 +98,7 @@ public class ExcelImpl implements Excel {
      * @param columnCount number of columns
      */
     @Override
-    public void autoResizeSheet(final Sheet sheet, int columnCount) {
+    public void autoResizeSheet(final Sheet sheet, final int columnCount) {
         final CTWorksheet worksheet = CTWorksheet.Factory.newInstance();
         final ColumnHelper columnHelper = new ColumnHelper(worksheet);
         for (int index = 0; index < columnCount; index++) {
@@ -108,7 +108,7 @@ public class ExcelImpl implements Excel {
                 sheet.setColumnHidden(index, true);
             } else  {
                 width *= 256;
-                int maxColumnWidth = 255*256; // The maximum column width for an individual cell is 255 characters
+                final int maxColumnWidth = 255*256; // The maximum column width for an individual cell is 255 characters
                 if (width > maxColumnWidth) {
                     width = maxColumnWidth;
                 }
@@ -118,7 +118,7 @@ public class ExcelImpl implements Excel {
         }
     }
 
-    private void setColumnWidth(ColumnHelper columnHelper, int columnIndex, int width) {
+    private void setColumnWidth(final ColumnHelper columnHelper, final int columnIndex, final int width) {
         if(width > 255*256) throw new IllegalArgumentException("The maximum column width for an individual cell is 255 characters.");
         columnHelper.setColWidth(columnIndex, (double)width/256);
         columnHelper.setCustomWidth(columnIndex, true);
