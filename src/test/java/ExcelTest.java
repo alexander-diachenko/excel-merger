@@ -114,6 +114,16 @@ public class ExcelTest {
         Assert.assertTrue(columnCount == 5);
     }
 
+    @Test
+    public void readExcelTest_fiveSheets() throws IOException, InvalidFormatException {
+        final List<List<Object>> table = excel.read(getFilePath("file/fiveSheets.xlsx"));
+        Assert.assertEquals(
+                "[[SBA030010, , 34], " +
+                        "[SOT190003, 3760260451994, 50 ml, U, ], " +
+                        "[SOT440001, 3760260453042, , , ], " +
+                        "[SOT470001, 3760260623042, 100 ml, M, EDP]]", table.toString());
+    }
+
     private Sheet getSheet(final String path) throws IOException, InvalidFormatException {
         final Workbook workbook = getWorkbook(path);
         return workbook.getSheetAt(0);
