@@ -51,8 +51,8 @@ public class ExcelMergeWriteThread implements Runnable {
         try {
             final List<List<Object>> from = excel.read(fileFrom.getAbsolutePath());
             final List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
-            final ExcelMerger excelMerger = new ExcelMergerImpl(from, to);
-            final List<List<Object>> merged = excelMerger.mergeOneField(articles, fields);
+            final ExcelMerger excelMerger = new ExcelMergerImpl();
+            final List<List<Object>> merged = excelMerger.mergeOneField(from, to, articles, fields);
             excel.write(merged, path);
             setText(Color.GREEN, "DONE!");
         } catch (Exception e) {

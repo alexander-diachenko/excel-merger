@@ -23,8 +23,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 0);
         final List<Integer> fields = Arrays.asList(1, 1);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030003, 3]]", tableMerged.toString());
     }
 
@@ -42,8 +42,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 0);
         final List<Integer> fields = Arrays.asList(1, 1);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN040003, ], [SAN030003, 3]]", tableMerged.toString());
     }
 
@@ -61,8 +61,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 0);
         final List<Integer> fields = Arrays.asList(1, 1);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030003, 3]]", tableMerged.toString());
     }
 
@@ -77,8 +77,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 0);
         final List<Integer> fields = Arrays.asList(1, 1);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030003, 1234567891234]]", tableMerged.toString());
     }
 
@@ -95,8 +95,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 0);
         final List<Integer> fields = Arrays.asList(1, 1);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030003, 1234567891234]]", tableMerged.toString());
     }
 
@@ -114,8 +114,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 0);
         final List<Integer> fields = Arrays.asList(1, 1);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030003]]", tableMerged.toString());
     }
 
@@ -132,8 +132,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 0);
         final List<Integer> fields = Arrays.asList(1, 1);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030003]]", tableMerged.toString());
     }
 
@@ -150,8 +150,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 1);
         final List<Integer> fields = Arrays.asList(1, 2);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030004]]", tableMerged.toString());
     }
 
@@ -169,8 +169,8 @@ public class ExcelMergerTest {
 
         final List<Integer> articles = Arrays.asList(0, 1);
         final List<Integer> fields = Arrays.asList(1, 2);
-        final ExcelMerger excelMerger = new ExcelMergerImpl(tableFrom, tableTo);
-        final List<List<Object>> tableMerged = excelMerger.mergeOneField(articles, fields);
+        final ExcelMerger excelMerger = new ExcelMergerImpl();
+        final List<List<Object>> tableMerged = excelMerger.mergeOneField(tableFrom, tableTo, articles, fields);
         Assert.assertEquals("[[SAN030004]]", tableMerged.toString());
     }
 }
