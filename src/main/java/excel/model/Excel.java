@@ -41,7 +41,6 @@ public interface Excel {
      * Auto resize excel table. If column is empty - hide it
      *
      * @param sheet       of table
-     * @param columnCount number of columns
      */
-    void autoResizeSheet(Sheet sheet, int columnCount);
+    void autoResizeSheet(final Sheet sheet);
 }

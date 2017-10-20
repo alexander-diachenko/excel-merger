@@ -92,7 +92,7 @@ public class ExcelImpl implements Excel {
                 cell.setCellValue(String.valueOf(obj));
             }
         }
-        autoResizeSheet(sheet, getColumnCount(sheet));
+        autoResizeSheet(sheet);
         write(workbook, path);
     }
 
@@ -121,14 +121,14 @@ public class ExcelImpl implements Excel {
 
     /**
      * Auto resize excel table. If column is empty - hide it
+     *
      * @param sheet of table
-     * @param columnCount number of columns
      */
     @Override
-    public void autoResizeSheet(final Sheet sheet, int columnCount) {
-        for (int index = 0; index < columnCount; index++) {
+    public void autoResizeSheet(final Sheet sheet) {
+        for (int index = 0; index < getColumnCount(sheet); index++) {
             final double columnWidth = SheetUtil.getColumnWidth(sheet, index, true);
-            if(columnWidth < 2) {
+            if (columnWidth < 2) {
                 sheet.setColumnHidden(index, true);
             }
             sheet.autoSizeColumn(index);
