@@ -93,6 +93,10 @@ public class ExcelImpl implements Excel {
             }
         }
         autoResizeSheet(sheet, getColumnCount(sheet));
+        write(workbook, path);
+    }
+
+    private void write(final Workbook workbook, final String path) throws IOException {
         try (final FileOutputStream outputStream = new FileOutputStream(new File(path))) {
             workbook.write(outputStream);
         }
@@ -107,12 +111,10 @@ public class ExcelImpl implements Excel {
     @Override
     public int getColumnCount(final Sheet sheet) {
         int columnCount = 0;
-        for (int rowIndex = 0; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-            final Row row = sheet.getRow(rowIndex);
+        for (int rowNumber = 0; rowNumber <= sheet.getLastRowNum(); rowNumber++) {
+            final Row row = sheet.getRow(rowNumber);
             final short lastCellNum = row.getLastCellNum();
-            for (int colIndex = 0; colIndex < lastCellNum; colIndex++) {
-                columnCount = Math.max(columnCount, lastCellNum);
-            }
+            columnCount = Math.max(columnCount, lastCellNum);
         }
         return columnCount;
     }
