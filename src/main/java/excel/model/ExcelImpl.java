@@ -30,21 +30,46 @@ public class ExcelImpl implements Excel {
         final Workbook workbook = getWorkbook(path);
         for (int sheetIndex = 0; sheetIndex < workbook.getNumberOfSheets(); sheetIndex++) {
             final Sheet sheet = workbook.getSheetAt(sheetIndex);
-            final Iterator rows = sheet.rowIterator();
-            while (rows.hasNext()) {
-                final List<Object> raw = new ArrayList<>();
-                final Row row = (Row) rows.next();
-                final short lastCellNum = row.getLastCellNum();
-                int index = 0;
-                while (index < lastCellNum) {
-                    final Cell cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    raw.add(getFormattedCell(cell));
-                    index++;
-                }
-                table.add(raw);
-            }
+            table.addAll(getTableFromSheet(sheet));
         }
         return table;
+    }
+
+    private Workbook getWorkbook(final String path) throws IOException, InvalidFormatException {
+        try (final FileInputStream is = new FileInputStream(new File(path))) {
+            return WorkbookFactory.create(is);
+        }
+    }
+
+    private List<List<Object>> getTableFromSheet(final Sheet sheet) {
+        final List<List<Object>> table = new ArrayList<>();
+        final Iterator rows = sheet.rowIterator();
+        while (rows.hasNext()) {
+            table.add(getRaw(rows));
+        }
+        return table;
+    }
+
+    private List<Object> getRaw(final Iterator rows) {
+        final List<Object> raw = new ArrayList<>();
+        final Row row = (Row) rows.next();
+        int index = 0;
+        final short lastCellNum = row.getLastCellNum();
+        while (index < lastCellNum) {
+            raw.add(getCell(row, index++));
+        }
+        return raw;
+    }
+
+    private String getCell(final Row row, final int index) {
+        final Cell cell = row.getCell(index, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+        return getFormattedCell(cell);
+    }
+
+    private String getFormattedCell(final Cell cell) {
+        final DataFormatter df = new DataFormatter();
+        final String result = df.formatCellValue(cell);
+        return !result.equals("#NULL!") ? result : "";
     }
 
     /**
@@ -105,18 +130,6 @@ public class ExcelImpl implements Excel {
                 sheet.setColumnHidden(index, true);
             }
             sheet.autoSizeColumn(index);
-        }
-    }
-
-    private String getFormattedCell(final Cell cell) {
-        final DataFormatter df = new DataFormatter();
-        final String result = df.formatCellValue(cell);
-        return !result.equals("#NULL!") ? result : "";
-    }
-
-    private Workbook getWorkbook(final String path) throws IOException, InvalidFormatException {
-        try (final FileInputStream is = new FileInputStream(new File(path))) {
-            return WorkbookFactory.create(is);
         }
     }
 }
