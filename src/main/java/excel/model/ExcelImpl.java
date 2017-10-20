@@ -126,12 +126,20 @@ public class ExcelImpl implements Excel {
      */
     @Override
     public void autoResizeSheet(final Sheet sheet) {
-        for (int index = 0; index < getColumnCount(sheet); index++) {
-            final double columnWidth = SheetUtil.getColumnWidth(sheet, index, true);
-            if (columnWidth < 2) {
-                sheet.setColumnHidden(index, true);
+        for (int columnIndex = 0; columnIndex < getColumnCount(sheet); columnIndex++) {
+            if (isEmpty(sheet, columnIndex)) {
+                hide(sheet, columnIndex);
             }
-            sheet.autoSizeColumn(index);
+            sheet.autoSizeColumn(columnIndex);
         }
+    }
+
+    private boolean isEmpty(final Sheet sheet, final int index) {
+        final double columnWidth = SheetUtil.getColumnWidth(sheet, index, true);
+        return columnWidth < 2;
+    }
+
+    private void hide(final Sheet sheet, final int index) {
+        sheet.setColumnHidden(index, true);
     }
 }
