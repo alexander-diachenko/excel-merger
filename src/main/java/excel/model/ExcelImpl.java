@@ -128,7 +128,7 @@ public class ExcelImpl implements Excel {
     public void autoResizeSheet(final Sheet sheet) {
         for (int columnIndex = 0; columnIndex < getColumnCount(sheet); columnIndex++) {
             if (isEmpty(sheet, columnIndex)) {
-                hide(sheet, columnIndex);
+                hideColumn(sheet, columnIndex);
             }
             sheet.autoSizeColumn(columnIndex);
         }
@@ -139,7 +139,7 @@ public class ExcelImpl implements Excel {
         return columnWidth < 2;
     }
 
-    private void hide(final Sheet sheet, final int index) {
+    private void hideColumn(final Sheet sheet, final int index) {
         sheet.setColumnHidden(index, true);
     }
 }
