@@ -50,9 +50,9 @@ public class MergerTab extends Tab implements Observer {
             final File fileTo = fileToHBox.getFileTo();
             final File fileDirectory = fileDirectoryHBox.getFileDirectory();
             if (fileFrom != null && fileTo != null && fileDirectory != null) {
-                final List<Integer> articles = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToId().getText()) - 1);
-                final List<Integer> fields = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
-                logic(fileFrom, fileTo, fileDirectory, articles, fields);
+                final List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1);
+                final List<Integer> toColumns = Arrays.asList(Integer.valueOf(toFieldsHBox.getToId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
+                logic(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
             }
         });
 

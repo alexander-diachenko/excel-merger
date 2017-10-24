@@ -14,8 +14,8 @@ import java.util.Set;
 public class ExcelMergeWriteThread implements Runnable, Subject {
 
     private final Excel excel;
-    private final List<Integer> articles;
-    private final List<Integer> fields;
+    private final List<Integer> fromColumns;
+    private final List<Integer> toColumns;
     private final File fileFrom;
     private final File fileTo;
     private final String path;
@@ -23,11 +23,11 @@ public class ExcelMergeWriteThread implements Runnable, Subject {
     private Color textColor;
     private String text;
 
-    public ExcelMergeWriteThread(final Excel excel, final List<Integer> articles, final List<Integer> fields,
+    public ExcelMergeWriteThread(final Excel excel, final List<Integer> fromColumns, final List<Integer> toColumns,
                                  final File fileFrom, final File fileTo, final String path) {
         this.excel = excel;
-        this.articles = articles;
-        this.fields = fields;
+        this.fromColumns = fromColumns;
+        this.toColumns = toColumns;
         this.fileFrom = fileFrom;
         this.fileTo = fileTo;
         this.path = path;
@@ -56,7 +56,7 @@ public class ExcelMergeWriteThread implements Runnable, Subject {
             final List<List<Object>> from = excel.read(fileFrom.getAbsolutePath());
             final List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
             final ExcelMerger excelMerger = new ExcelMergerImpl();
-            final List<List<Object>> merged = excelMerger.mergeOneField(from, to, articles, fields);
+            final List<List<Object>> merged = excelMerger.mergeOneField(from, to, fromColumns, toColumns);
             excel.write(merged, path);
             setText(Color.GREEN, "DONE!");
         } catch (Exception e) {
