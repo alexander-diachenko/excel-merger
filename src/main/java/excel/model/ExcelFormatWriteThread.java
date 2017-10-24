@@ -1,23 +1,22 @@
 package excel.model;
 
-import excel.Util.ThreadListener;
 import javafx.scene.paint.Color;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * @author Alexander Diachenko
  */
-public class ExcelFormatWriteThread implements Runnable {
+public class ExcelFormatWriteThread implements Runnable, Subject {
 
     private final Excel excel;
     private final File file;
     private final String columnNumber;
     private final String columnValue;
-    private final Set<ThreadListener> listeners = new CopyOnWriteArraySet<>();
+    private final Set<Observer> observers = new HashSet<>();
     private Color textColor;
     private String text;
 
@@ -28,15 +27,20 @@ public class ExcelFormatWriteThread implements Runnable {
         this.columnValue = columnValue;
     }
 
-    public final void addListener(final ThreadListener listener) {
-        listeners.add(listener);
+    @Override
+    public final void registerObserver(final Observer observer) {
+        observers.add(observer);
     }
-    public final void removeListener(final ThreadListener listener) {
-        listeners.remove(listener);
+
+    @Override
+    public final void removeObserver(final Observer observer) {
+        observers.remove(observer);
     }
-    private final void notifyListeners() {
-        for (ThreadListener listener : listeners) {
-            listener.notifyOfThread(new Thread(this));
+
+    @Override
+    public final void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
         }
     }
 
@@ -53,7 +57,7 @@ public class ExcelFormatWriteThread implements Runnable {
             setText(Color.RED, e.getMessage());
             e.printStackTrace();
         } finally {
-            notifyListeners();
+            notifyObservers();
         }
     }
 

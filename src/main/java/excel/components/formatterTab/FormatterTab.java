@@ -1,12 +1,9 @@
 package excel.components.formatterTab;
 
 import excel.Util.ExcelUtil;
-import excel.Util.ThreadListener;
 import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
-import excel.model.Excel;
-import excel.model.ExcelFormatWriteThread;
-import excel.model.ExcelImpl;
+import excel.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -21,7 +18,7 @@ import java.util.List;
 /**
  * @author Alexander Diachenko.
  */
-public class FormatterTab extends Tab implements ThreadListener {
+public class FormatterTab extends Tab implements Observer {
 
     private ExcelFormatWriteThread excelFormatWriteThread;
     private FilesHBox filesHBox;
@@ -61,13 +58,14 @@ public class FormatterTab extends Tab implements ThreadListener {
 
     private void logic(Excel excel, File file, String columnNumber, String columnValue) {
         excelFormatWriteThread = new ExcelFormatWriteThread(excel, file, columnNumber, columnValue);
-        excelFormatWriteThread.addListener(this);
+        excelFormatWriteThread.registerObserver(this);
         new Thread(excelFormatWriteThread).start();
         setComplete(Color.YELLOWGREEN, "Working...");
     }
 
     @Override
-    public void notifyOfThread(Thread thread) {
+    public void update() {
+        excelFormatWriteThread.removeObserver(this);
         setAllDisable(false);
         setComplete(excelFormatWriteThread.getTextColor(), excelFormatWriteThread.getText());
     }

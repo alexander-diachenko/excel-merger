@@ -1,6 +1,5 @@
 package excel.components.mergerTab;
 
-import excel.Util.ThreadListener;
 import excel.model.*;
 import excel.Util.RegexUtil;
 import excel.Util.TimeUtil;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * @author Alexander Diachenko.
  */
-public class MergerTab extends Tab implements ThreadListener {
+public class MergerTab extends Tab implements Observer {
 
     private FileFromHBox fileFromHBox;
     private FromFieldsHBox fromFieldsHBox;
@@ -64,13 +63,14 @@ public class MergerTab extends Tab implements ThreadListener {
     private void logic(File fileFrom, File fileTo, File fileDirectory, List<Integer> articles, List<Integer> fields) {
         final Excel excel = new ExcelImpl();
         excelMergeWriteThread = new ExcelMergeWriteThread(excel, articles, fields, fileFrom, fileTo, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
-        excelMergeWriteThread.addListener(this);
+        excelMergeWriteThread.registerObserver(this);
         new Thread(excelMergeWriteThread).start();
         setComplete(Color.YELLOWGREEN, "Working...");
     }
 
     @Override
-    public void notifyOfThread(Thread thread) {
+    public void update() {
+        excelMergeWriteThread.removeObserver(this);
         setAllDisable(false);
         setComplete(excelMergeWriteThread.getTextColor(), excelMergeWriteThread.getText());
     }
