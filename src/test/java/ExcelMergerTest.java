@@ -65,10 +65,7 @@ public class ExcelMergerTest {
     @Test
     public void mergeTest_oneField_To_ColumnNull() {
         final List<List<Object>> tableFrom = createTable(createList("SAN030003", "1234567891234"));
-        // TODO придумать как сделать createList() без java.lang.UnsupportedOperationException
-        final List<Object> row = new ArrayList<>();
-        row.add("SAN030003");
-        final List<List<Object>> tableTo = createTable(row);
+        final List<List<Object>> tableTo = createTable(new ArrayList<>(createList("SAN030003")));
         final List<Integer> fromColumns = Arrays.asList(0, 1);
         final List<Integer> toColumns = Arrays.asList(0, 1);
 
