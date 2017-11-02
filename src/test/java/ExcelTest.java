@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,30 +48,31 @@ public class ExcelTest {
 
     @Test
     public void writeExcelTest_oneField() throws IOException, InvalidFormatException {
-        final List<List<Object>> table = new ArrayList<>();
-        final List<Object> raw = Arrays.asList("SBA160002", "8411061784273", "ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray", "100", "EDT", "М", "15,30");
-        table.add(raw);
+        final List<List<Object>> table = createTable(
+                createList("SBA160002", "8411061784273", "ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray", "100", "EDT", "М", "15,30")
+        );
         final File tempFile = File.createTempFile("got-", ".xlsx");
         final String outputPath = tempFile.getAbsolutePath();
+
         excel.write(table, outputPath);
-        final List<List<Object>> tempTable = excel.read(outputPath);
-        Assert.assertEquals("[[SBA160002, 8411061784273, ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray, 100, EDT, М, 15,30]]", tempTable.toString());
+
+        Assert.assertEquals("[[SBA160002, 8411061784273, ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray, 100, EDT, М, 15,30]]", excel.read(outputPath).toString());
     }
 
     @Test
     public void writeExcelTest_twoField() throws IOException, InvalidFormatException {
-        final List<List<Object>> table = new ArrayList<>();
-        final List<Object> raw1 = Arrays.asList("SBA160002", "8411061784273", "ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray", "100", "EDT", "М", "15,30");
-        final List<Object> raw2 = Arrays.asList("SAN020002", "8427395660206", "ANGEL SCHLESSER HOMME EDT 125 ml spray", "125", "EDT", "М", "16,40");
-        table.add(raw1);
-        table.add(raw2);
+        final List<List<Object>> table = createTable(
+                createList("SBA160002", "8411061784273", "ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray", "100", "EDT", "М", "15,30"),
+                createList("SAN020002", "8427395660206", "ANGEL SCHLESSER HOMME EDT 125 ml spray", "125", "EDT", "М", "16,40")
+        );
         final File tempFile = File.createTempFile("got-", ".xlsx");
         final String outputPath = tempFile.getAbsolutePath();
+
         excel.write(table, outputPath);
-        final List<List<Object>> tempTable = excel.read(outputPath);
+
         Assert.assertEquals(
                 "[[SBA160002, 8411061784273, ANTONIO BANDERAS KING OF SEDUCTION  MAN EDT 100 ml spray, 100, EDT, М, 15,30], " +
-                        "[SAN020002, 8427395660206, ANGEL SCHLESSER HOMME EDT 125 ml spray, 125, EDT, М, 16,40]]", tempTable.toString());
+                        "[SAN020002, 8427395660206, ANGEL SCHLESSER HOMME EDT 125 ml spray, 125, EDT, М, 16,40]]", excel.read(outputPath).toString());
     }
 
     @Test
@@ -135,12 +135,21 @@ public class ExcelTest {
         if (resource != null) {
             return new File(resource.getFile()).getAbsolutePath();
         }
-        return null;
+        return "";
     }
 
     private Workbook getWorkbook(final String path) throws IOException, InvalidFormatException {
         try (final FileInputStream is = new FileInputStream(new File(path))) {
             return WorkbookFactory.create(is);
         }
+    }
+
+    private List<Object> createList(final Object... objects) {
+        return Arrays.asList(objects);
+    }
+
+    @SafeVarargs
+    private final List<List<Object>> createTable(final List<Object>... lists) {
+        return Arrays.asList(lists);
     }
 }
