@@ -1,5 +1,6 @@
 package excel;
 
+import excel.components.allInTab.AllInTab;
 import excel.components.formatterTab.FormatterTab;
 import excel.components.mergerTab.MergerTab;
 import javafx.application.Application;
@@ -34,7 +35,9 @@ public class Main extends Application {
         //formatter tab
         final Tab formatterTab = new FormatterTab(primaryStage);
 
-        tabPane.getTabs().addAll(mergerTab, formatterTab);
+        final AllInTab allInTab = new AllInTab(primaryStage);
+
+        tabPane.getTabs().addAll(mergerTab, formatterTab, allInTab);
         mainPane.setCenter(tabPane);
         mainPane.prefHeightProperty().bind(scene.heightProperty());
         mainPane.prefWidthProperty().bind(scene.widthProperty());

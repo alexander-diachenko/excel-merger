@@ -36,12 +36,12 @@ public class MergerTab extends Tab implements Observer {
         final VBox mergerVBox = new VBox();
         mergerVBox.setPadding(new Insets(10, 50, 50, 50));
         mergerVBox.setSpacing(10);
+
         fileFromHBox = new FileFromHBox(primaryStage);
         fromFieldsHBox = new FromFieldsHBox(RegexUtil.getNumericRegex());
         fileToHBox = new FileToHBox(primaryStage);
         toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
-
         startButton = new Button();
         startButton.setText("Merge");
         startButton.setOnAction(event -> {
