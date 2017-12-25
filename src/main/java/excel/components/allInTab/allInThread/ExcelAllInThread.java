@@ -1,36 +1,31 @@
-package excel.model;
+package excel.components.allInTab.allInThread;
 
-
+import excel.Util.ExcelUtil;
+import excel.Util.TimeUtil;
+import excel.model.Excel;
+import excel.model.Observer;
+import excel.model.Subject;
 import javafx.scene.paint.Color;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Alexander Diachenko
  */
-public class ExcelMergeWriteThread implements Runnable, Subject {
+public class ExcelAllInThread implements Runnable, Subject {
 
     private final Excel excel;
-    private final List<Integer> fromColumns;
-    private final List<Integer> toColumns;
-    private final File fileFrom;
-    private final File fileTo;
-    private final String path;
     private final Set<Observer> observers = new HashSet<>();
     private Color textColor;
     private String text;
+    private List<File> files;
+    private String directoryPath;
 
-    public ExcelMergeWriteThread(final Excel excel, final List<Integer> fromColumns, final List<Integer> toColumns,
-                                 final File fileFrom, final File fileTo, final String path) {
+    public ExcelAllInThread(final Excel excel, final List<File> files, final String directoryPath) {
         this.excel = excel;
-        this.fromColumns = fromColumns;
-        this.toColumns = toColumns;
-        this.fileFrom = fileFrom;
-        this.fileTo = fileTo;
-        this.path = path;
+        this.files = files;
+        this.directoryPath = directoryPath;
     }
 
     @Override
@@ -52,12 +47,16 @@ public class ExcelMergeWriteThread implements Runnable, Subject {
 
     @Override
     public void run() {
+        final List<List<Object>> tables = new LinkedList<>();
         try {
-            final List<List<Object>> from = excel.read(fileFrom.getAbsolutePath());
-            final List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
-            final ExcelMerger excelMerger = new ExcelMergerImpl();
-            final List<List<Object>> merged = excelMerger.mergeOneField(from, to, fromColumns, toColumns);
-            excel.write(merged, path);
+            for (File file : files) {
+                if (!ExcelUtil.isExcel(file)) {
+                    continue;
+                }
+                tables.addAll(excel.read(file.getAbsolutePath()));
+            }
+            final String absolutePath = directoryPath + "\\" + "AllIn_" + TimeUtil.getCurrentTime() + ".xlsx";
+            excel.write(tables, absolutePath);
             setText(Color.GREEN, "DONE!");
         } catch (Exception e) {
             setText(Color.RED, e.getMessage());

@@ -1,5 +1,7 @@
-package excel.model;
+package excel.components.mergerTab.mergeThread;
 
+
+import excel.model.*;
 import javafx.scene.paint.Color;
 
 import java.io.File;
@@ -10,21 +12,26 @@ import java.util.Set;
 /**
  * @author Alexander Diachenko
  */
-public class ExcelFormatWriteThread implements Runnable, Subject {
+public class ExcelMergeWriteThread implements Runnable, Subject {
 
     private final Excel excel;
-    private final File file;
-    private final String columnNumber;
-    private final String columnValue;
+    private final List<Integer> fromColumns;
+    private final List<Integer> toColumns;
+    private final File fileFrom;
+    private final File fileTo;
+    private final String path;
     private final Set<Observer> observers = new HashSet<>();
     private Color textColor;
     private String text;
 
-    public ExcelFormatWriteThread(final Excel excel, final File file, final String columnNumber, final String columnValue) {
+    public ExcelMergeWriteThread(final Excel excel, final List<Integer> fromColumns, final List<Integer> toColumns,
+                                 final File fileFrom, final File fileTo, final String path) {
         this.excel = excel;
-        this.file = file;
-        this.columnNumber = columnNumber;
-        this.columnValue = columnValue;
+        this.fromColumns = fromColumns;
+        this.toColumns = toColumns;
+        this.fileFrom = fileFrom;
+        this.fileTo = fileTo;
+        this.path = path;
     }
 
     @Override
@@ -47,11 +54,11 @@ public class ExcelFormatWriteThread implements Runnable, Subject {
     @Override
     public void run() {
         try {
-            final List<List<Object>> table = excel.read(file.getPath());
-            if(isCorrect(columnNumber, columnValue)) {
-                insert(table, Integer.parseInt(columnNumber), columnValue);
-            }
-            excel.write(table, file.getPath());
+            final List<List<Object>> from = excel.read(fileFrom.getAbsolutePath());
+            final List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
+            final ExcelMerger excelMerger = new ExcelMergerImpl();
+            final List<List<Object>> merged = excelMerger.mergeOneField(from, to, fromColumns, toColumns);
+            excel.write(merged, path);
             setText(Color.GREEN, "DONE!");
         } catch (Exception e) {
             setText(Color.RED, e.getMessage());
@@ -64,19 +71,6 @@ public class ExcelFormatWriteThread implements Runnable, Subject {
     private void setText(Color color, String message) {
         textColor = color;
         text = message;
-    }
-
-    private boolean isCorrect(final String columnNumber, final String columnValue) {
-        return !columnValue.isEmpty() && !columnNumber.isEmpty() && Integer.parseInt(columnNumber) > 0;
-    }
-
-    private void insert(final List<List<Object>> table, final int columnNumber, final String columnValue) {
-        final int index = columnNumber - 1;
-        for(List<Object> row : table) {
-            if(row.size() > index) {
-                row.add(index, columnValue);
-            }
-        }
     }
 
     public Color getTextColor() {

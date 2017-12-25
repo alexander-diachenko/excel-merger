@@ -3,6 +3,7 @@ package excel.components.formatterTab;
 import excel.Util.ExcelUtil;
 import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
+import excel.components.formatterTab.formattThread.ExcelFormatWriteThread;
 import excel.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -47,7 +48,7 @@ public class FormatterTab extends Tab implements Observer {
                     }
                     final String columnNumber = fillColumnHBox.getColumnNumber().getText();
                     final String columnValue = fillColumnHBox.getColumnValue().getText();
-                    logic(excel, file, columnNumber, columnValue);
+                    logicInNewThread(excel, file, columnNumber, columnValue);
                 }
             }
         });
@@ -56,7 +57,7 @@ public class FormatterTab extends Tab implements Observer {
         setContent(formatterVBox);
     }
 
-    private void logic(Excel excel, File file, String columnNumber, String columnValue) {
+    private void logicInNewThread(Excel excel, File file, String columnNumber, String columnValue) {
         excelFormatWriteThread = new ExcelFormatWriteThread(excel, file, columnNumber, columnValue);
         excelFormatWriteThread.registerObserver(this);
         new Thread(excelFormatWriteThread).start();

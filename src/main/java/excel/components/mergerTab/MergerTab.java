@@ -1,5 +1,6 @@
 package excel.components.mergerTab;
 
+import excel.components.mergerTab.mergeThread.ExcelMergeWriteThread;
 import excel.model.*;
 import excel.Util.RegexUtil;
 import excel.Util.TimeUtil;
@@ -52,7 +53,7 @@ public class MergerTab extends Tab implements Observer {
             if (fileFrom != null && fileTo != null && fileDirectory != null) {
                 final List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1);
                 final List<Integer> toColumns = Arrays.asList(Integer.valueOf(toFieldsHBox.getToId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
-                logic(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
+                logicInNewThread(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
             }
         });
 
@@ -60,7 +61,7 @@ public class MergerTab extends Tab implements Observer {
         setContent(mergerVBox);
     }
 
-    private void logic(File fileFrom, File fileTo, File fileDirectory, List<Integer> articles, List<Integer> fields) {
+    private void logicInNewThread(File fileFrom, File fileTo, File fileDirectory, List<Integer> articles, List<Integer> fields) {
         final Excel excel = new ExcelImpl();
         excelMergeWriteThread = new ExcelMergeWriteThread(excel, articles, fields, fileFrom, fileTo, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
         excelMergeWriteThread.registerObserver(this);
