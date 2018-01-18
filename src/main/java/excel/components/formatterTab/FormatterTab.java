@@ -1,6 +1,5 @@
 package excel.components.formatterTab;
 
-import excel.Util.ExcelUtil;
 import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
 import excel.components.formatterTab.formattThread.ExcelFormatWriteThread;
@@ -27,7 +26,7 @@ public class FormatterTab extends Tab implements Observer {
     private Button formatButton;
     private final Text complete = new Text();
 
-    public FormatterTab(Stage primaryStage) {
+    public FormatterTab(final Stage primaryStage) {
         setText("Formatter");
         final VBox formatterVBox = new VBox();
         formatterVBox.setPadding(new Insets(10, 50, 50, 50));
@@ -39,29 +38,24 @@ public class FormatterTab extends Tab implements Observer {
         formatButton.setText("Format");
         formatButton.setOnAction(event -> {
             final List<File> files = filesHBox.getFiles();
-            if (files != null) {
-                setAllDisable(true);
-                final Excel excel = new ExcelImpl();
-                for (File file : files) {
-                    if (!ExcelUtil.isExcel(file)) {
-                        continue;
-                    }
-                    final String columnNumber = fillColumnHBox.getColumnNumber().getText();
-                    final String columnValue = fillColumnHBox.getColumnValue().getText();
-                    logicInNewThread(excel, file, columnNumber, columnValue);
-                }
-            }
+            setAllDisable(true);
+            logicInNewThread(files);
         });
 
         formatterVBox.getChildren().addAll(filesHBox, fillColumnHBox, formatButton, complete);
         setContent(formatterVBox);
     }
 
-    private void logicInNewThread(Excel excel, File file, String columnNumber, String columnValue) {
-        excelFormatWriteThread = new ExcelFormatWriteThread(excel, file, columnNumber, columnValue);
-        excelFormatWriteThread.registerObserver(this);
-        new Thread(excelFormatWriteThread).start();
-        setComplete(Color.YELLOWGREEN, "Working...");
+    private void logicInNewThread(final List<File> files) {
+        if (files != null) {
+            final Excel excel = new ExcelImpl();
+            final String columnNumber = fillColumnHBox.getColumnNumber().getText();
+            final String columnValue = fillColumnHBox.getColumnValue().getText();
+            excelFormatWriteThread = new ExcelFormatWriteThread(excel, files, columnNumber, columnValue);
+            excelFormatWriteThread.registerObserver(this);
+            new Thread(excelFormatWriteThread).start();
+            setComplete(Color.YELLOWGREEN, "Working...");
+        }
     }
 
     @Override
@@ -71,12 +65,12 @@ public class FormatterTab extends Tab implements Observer {
         setComplete(excelFormatWriteThread.getTextColor(), excelFormatWriteThread.getText());
     }
 
-    private void setComplete(Color color, String message) {
+    private void setComplete(final Color color, final String message) {
         complete.setFill(color);
         complete.setText(message);
     }
 
-    private void setAllDisable(boolean value) {
+    private void setAllDisable(final boolean value) {
         filesHBox.setDisable(value);
         fillColumnHBox.setDisable(value);
         formatButton.setDisable(value);

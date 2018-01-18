@@ -61,7 +61,7 @@ public class MergerTab extends Tab implements Observer {
         setContent(mergerVBox);
     }
 
-    private void logicInNewThread(File fileFrom, File fileTo, File fileDirectory, List<Integer> articles, List<Integer> fields) {
+    private void logicInNewThread(final File fileFrom, final File fileTo, final File fileDirectory, final List<Integer> articles, final List<Integer> fields) {
         final Excel excel = new ExcelImpl();
         excelMergeWriteThread = new ExcelMergeWriteThread(excel, articles, fields, fileFrom, fileTo, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
         excelMergeWriteThread.registerObserver(this);
@@ -76,12 +76,12 @@ public class MergerTab extends Tab implements Observer {
         setComplete(excelMergeWriteThread.getTextColor(), excelMergeWriteThread.getText());
     }
 
-    private void setComplete(Color color, String message) {
+    private void setComplete(final Color color, final String message) {
         complete.setFill(color);
         complete.setText(message);
     }
 
-    private void setAllDisable(boolean value) {
+    private void setAllDisable(final boolean value) {
         fileFromHBox.setDisable(value);
         fromFieldsHBox.setDisable(value);
         fileToHBox.setDisable(value);

@@ -28,7 +28,7 @@ public class AllInTab extends Tab implements Observer {
     private ExcelAllInThread excelAllInThread;
     private final Text complete = new Text();
 
-    public AllInTab(Stage primaryStage) {
+    public AllInTab(final Stage primaryStage) {
         setText("All In");
         final VBox vBox = new VBox();
         vBox.setPadding(new Insets(10, 50, 50, 50));
@@ -51,7 +51,7 @@ public class AllInTab extends Tab implements Observer {
         setContent(vBox);
     }
 
-    private void logicInNewThread(Excel excel, List<File> files, String directoryPath) {
+    private void logicInNewThread(final Excel excel, final List<File> files, final String directoryPath) {
         excelAllInThread = new ExcelAllInThread(excel, files, directoryPath);
         excelAllInThread.registerObserver(this);
         new Thread(excelAllInThread).start();
@@ -65,12 +65,12 @@ public class AllInTab extends Tab implements Observer {
         setComplete(excelAllInThread.getTextColor(), excelAllInThread.getText());
     }
 
-    private void setComplete(Color color, String message) {
+    private void setComplete(final Color color, final String message) {
         complete.setFill(color);
         complete.setText(message);
     }
 
-    private void setAllDisable(boolean value) {
+    private void setAllDisable(final boolean value) {
         filesHBox.setDisable(value);
         fileDirectoryHBox.setDisable(value);
         allInButton.setDisable(value);

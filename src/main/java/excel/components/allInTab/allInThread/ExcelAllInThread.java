@@ -66,7 +66,7 @@ public class ExcelAllInThread implements Runnable, Subject {
         }
     }
 
-    private void setText(Color color, String message) {
+    private void setText(final Color color, final String message) {
         textColor = color;
         text = message;
     }

@@ -1,5 +1,6 @@
 package excel.components.formatterTab.formattThread;
 
+import excel.Util.ExcelUtil;
 import excel.model.Excel;
 import excel.model.Observer;
 import excel.model.Subject;
@@ -16,16 +17,16 @@ import java.util.Set;
 public class ExcelFormatWriteThread implements Runnable, Subject {
 
     private final Excel excel;
-    private final File file;
+    private final List<File> files;
     private final String columnNumber;
     private final String columnValue;
     private final Set<Observer> observers = new HashSet<>();
     private Color textColor;
     private String text;
 
-    public ExcelFormatWriteThread(final Excel excel, final File file, final String columnNumber, final String columnValue) {
+    public ExcelFormatWriteThread(final Excel excel, final List<File> files, final String columnNumber, final String columnValue) {
         this.excel = excel;
-        this.file = file;
+        this.files = files;
         this.columnNumber = columnNumber;
         this.columnValue = columnValue;
     }
@@ -50,11 +51,16 @@ public class ExcelFormatWriteThread implements Runnable, Subject {
     @Override
     public void run() {
         try {
-            final List<List<Object>> table = excel.read(file.getPath());
-            if(isCorrect(columnNumber, columnValue)) {
-                insert(table, Integer.parseInt(columnNumber), columnValue);
+            for (File file : files) {
+                if (!ExcelUtil.isExcel(file)) {
+                    continue;
+                }
+                final List<List<Object>> table = excel.read(file.getPath());
+                if (isCorrect(columnNumber, columnValue)) {
+                    insert(table, Integer.parseInt(columnNumber), columnValue);
+                }
+                excel.write(table, file.getPath());
             }
-            excel.write(table, file.getPath());
             setText(Color.GREEN, "DONE!");
         } catch (Exception e) {
             setText(Color.RED, e.getMessage());
@@ -64,7 +70,7 @@ public class ExcelFormatWriteThread implements Runnable, Subject {
         }
     }
 
-    private void setText(Color color, String message) {
+    private void setText(final Color color, final String message) {
         textColor = color;
         text = message;
     }
@@ -75,8 +81,8 @@ public class ExcelFormatWriteThread implements Runnable, Subject {
 
     private void insert(final List<List<Object>> table, final int columnNumber, final String columnValue) {
         final int index = columnNumber - 1;
-        for(List<Object> row : table) {
-            if(row.size() > index) {
+        for (List<Object> row : table) {
+            if (row.size() > index) {
                 row.add(index, columnValue);
             }
         }
