@@ -5,6 +5,7 @@ import excel.model.*;
 import excel.Util.RegexUtil;
 import excel.Util.TimeUtil;
 import excel.components.mergerTab.components.*;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -45,6 +46,7 @@ public class MergerTab extends Tab implements Observer {
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         startButton = new Button();
         startButton.setText("Merge");
+        startButton.disableProperty().bind(getBooleanBinding());
         startButton.setOnAction(event -> {
             setAllDisable(true);
             final File fileFrom = fileFromHBox.getFileFrom();
@@ -73,6 +75,7 @@ public class MergerTab extends Tab implements Observer {
     public void update() {
         excelMergeWriteThread.removeObserver(this);
         setAllDisable(false);
+        startButton.disableProperty().bind(getBooleanBinding());
         setComplete(excelMergeWriteThread.getTextColor(), excelMergeWriteThread.getText());
     }
 
@@ -87,6 +90,18 @@ public class MergerTab extends Tab implements Observer {
         fileToHBox.setDisable(value);
         toFieldsHBox.setDisable(value);
         fileDirectoryHBox.setDisable(value);
-        startButton.setDisable(value);
+        startButton.disableProperty().bind(new BooleanBinding() {
+            @Override
+            protected boolean computeValue() {
+                return true;
+            }
+        });
+    }
+
+    private BooleanBinding getBooleanBinding() {
+        return fileFromHBox.getFileFromPath().textProperty().isEmpty()
+                .or(fromFieldsHBox.getFromId().textProperty().isEmpty())
+                .or(fileToHBox.getFileToPath().textProperty().isEmpty())
+                .or(fileDirectoryHBox.getFileDirectoryPath().textProperty().isEmpty());
     }
 }

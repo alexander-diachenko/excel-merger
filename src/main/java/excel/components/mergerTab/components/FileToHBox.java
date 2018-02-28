@@ -14,23 +14,30 @@ import java.io.File;
 public class FileToHBox extends HBox {
 
     private File fileTo;
+    private Text fileToPath;
 
     public FileToHBox(final Stage primaryStage) {
         setSpacing(10);
         final FileChooser fileFromChooser = new FileChooser();
         final Button selectFileFromButton = new Button();
-        final Text fileFromPath = new Text();
+        fileToPath = new Text();
         selectFileFromButton.setText("Select 'to' file");
         selectFileFromButton.setOnAction(event -> {
             fileTo = fileFromChooser.showOpenDialog(primaryStage);
             if (fileTo != null) {
-                fileFromPath.setText(fileTo.getAbsolutePath());
+                fileToPath.setText(fileTo.getAbsolutePath());
+            } else {
+                fileToPath.setText("");
             }
         });
-        getChildren().addAll(selectFileFromButton, fileFromPath);
+        getChildren().addAll(selectFileFromButton, fileToPath);
     }
 
     public File getFileTo() {
         return fileTo;
+    }
+
+    public Text getFileToPath() {
+        return fileToPath;
     }
 }
