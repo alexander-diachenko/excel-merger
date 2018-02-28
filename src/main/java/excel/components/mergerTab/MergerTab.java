@@ -52,13 +52,10 @@ public class MergerTab extends Tab implements Observer {
             final File fileFrom = fileFromHBox.getFileFrom();
             final File fileTo = fileToHBox.getFileTo();
             final File fileDirectory = fileDirectoryHBox.getFileDirectory();
-            if (fileFrom != null && fileTo != null && fileDirectory != null) {
-                final List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1);
-                final List<Integer> toColumns = Arrays.asList(Integer.valueOf(toFieldsHBox.getToId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
-                logicInNewThread(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
-            }
+            final List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1);
+            final List<Integer> toColumns = Arrays.asList(Integer.valueOf(toFieldsHBox.getToId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
+            logicInNewThread(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
         });
-
         mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
         setContent(mergerVBox);
     }
@@ -101,7 +98,10 @@ public class MergerTab extends Tab implements Observer {
     private BooleanBinding getBooleanBinding() {
         return fileFromHBox.getFileFromPath().textProperty().isEmpty()
                 .or(fromFieldsHBox.getFromId().textProperty().isEmpty())
+                .or(fromFieldsHBox.getFromField().textProperty().isEmpty())
                 .or(fileToHBox.getFileToPath().textProperty().isEmpty())
+                .or(toFieldsHBox.getToId().textProperty().isEmpty())
+                .or(toFieldsHBox.getToField().textProperty().isEmpty())
                 .or(fileDirectoryHBox.getFileDirectoryPath().textProperty().isEmpty());
     }
 }

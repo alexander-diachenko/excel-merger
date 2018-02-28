@@ -44,10 +44,8 @@ public class AllInTab extends Tab implements Observer {
             final String directoryPath = fileDirectoryHBox.getFileDirectory().getAbsolutePath();
             final List<File> files = filesHBox.getFiles();
             final Excel excel = new ExcelImpl();
-            if (files != null) {
-                setAllDisable(true);
-                logicInNewThread(excel, files, directoryPath);
-            }
+            setAllDisable(true);
+            logicInNewThread(excel, files, directoryPath);
         });
         vBox.getChildren().addAll(filesHBox, fileDirectoryHBox, allInButton, complete);
         setContent(vBox);
