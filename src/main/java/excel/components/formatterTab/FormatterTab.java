@@ -69,15 +69,13 @@ public class FormatterTab extends Tab implements Observer {
     }
 
     private void logicInNewThread(final List<File> files) {
-        if (files != null) {
-            final Excel excel = new ExcelImpl();
-            final String columnNumber = fillColumnHBox.getColumnNumber().getText();
-            final String columnValue = fillColumnHBox.getColumnValue().getText();
-            excelFormatWriteThread = new ExcelFormatWriteThread(excel, files, columnNumber, columnValue);
-            excelFormatWriteThread.registerObserver(this);
-            new Thread(excelFormatWriteThread).start();
-            setComplete(Color.YELLOWGREEN, "Working...");
-        }
+        final Excel excel = new ExcelImpl();
+        final String columnNumber = fillColumnHBox.getColumnNumber().getText();
+        final String columnValue = fillColumnHBox.getColumnValue().getText();
+        excelFormatWriteThread = new ExcelFormatWriteThread(excel, files, columnNumber, columnValue);
+        excelFormatWriteThread.registerObserver(this);
+        new Thread(excelFormatWriteThread).start();
+        setComplete(Color.YELLOWGREEN, "Working...");
     }
 
     @Override
