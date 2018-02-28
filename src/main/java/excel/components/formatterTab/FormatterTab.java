@@ -25,27 +25,47 @@ public class FormatterTab extends Tab implements Observer {
     private FilesHBox filesHBox;
     private FillColumnHBox fillColumnHBox;
     private Button formatButton;
-    private final Text complete = new Text();
+    private Text complete = new Text();
 
     public FormatterTab(final Stage primaryStage) {
         setText("Formatter");
         final VBox formatterVBox = new VBox();
-        formatterVBox.setPadding(new Insets(10, 50, 50, 50));
-        formatterVBox.setSpacing(10);
+        setFormatterVBoxOptions(formatterVBox);
 
-        filesHBox = new FilesHBox(primaryStage);
-        fillColumnHBox = new FillColumnHBox();
-        formatButton = new Button();
-        formatButton.setText("Format");
+        createElements(primaryStage);
         formatButton.disableProperty().bind(getBooleanBinding());
-        formatButton.setOnAction(event -> {
-            final List<File> files = filesHBox.getFiles();
-            setAllDisable(true);
-            logicInNewThread(files);
-        });
+        formatButton.setOnAction(event -> formatButtonActions());
 
         formatterVBox.getChildren().addAll(filesHBox, fillColumnHBox, formatButton, complete);
         setContent(formatterVBox);
+    }
+
+    private void setFormatterVBoxOptions(VBox vBox) {
+        vBox.setPadding(new Insets(10, 50, 50, 50));
+        vBox.setSpacing(10);
+    }
+
+    private void createElements(Stage primaryStage) {
+        filesHBox = new FilesHBox(primaryStage);
+        fillColumnHBox = new FillColumnHBox();
+        formatButton = new Button("Format");
+    }
+
+    private void formatButtonActions() {
+        final List<File> files = filesHBox.getFiles();
+        setAllDisable(true);
+        logicInNewThread(files);
+    }
+
+    private void setAllDisable(final boolean value) {
+        filesHBox.setDisable(value);
+        fillColumnHBox.setDisable(value);
+        formatButton.disableProperty().bind(new BooleanBinding() {
+            @Override
+            protected boolean computeValue() {
+                return true;
+            }
+        });
     }
 
     private void logicInNewThread(final List<File> files) {
@@ -71,17 +91,6 @@ public class FormatterTab extends Tab implements Observer {
     private void setComplete(final Color color, final String message) {
         complete.setFill(color);
         complete.setText(message);
-    }
-
-    private void setAllDisable(final boolean value) {
-        filesHBox.setDisable(value);
-        fillColumnHBox.setDisable(value);
-        formatButton.disableProperty().bind(new BooleanBinding() {
-            @Override
-            protected boolean computeValue() {
-                return true;
-            }
-        });
     }
 
     private BooleanBinding getBooleanBinding() {

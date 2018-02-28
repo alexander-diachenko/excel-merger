@@ -27,28 +27,49 @@ public class AllInTab extends Tab implements Observer {
     private FileDirectoryHBox fileDirectoryHBox;
     private Button allInButton;
     private ExcelAllInThread excelAllInThread;
-    private final Text complete = new Text();
+    private Text complete = new Text();
 
     public AllInTab(final Stage primaryStage) {
         setText("All In");
-        final VBox vBox = new VBox();
+        final VBox allInVBox = new VBox();
+        setAllInVBoxOptions(allInVBox);
+
+        createElements(primaryStage);
+
+        allInButton.disableProperty().bind(getBooleanBinding());
+        allInButton.setOnAction(event -> allInButtonActions());
+        allInVBox.getChildren().addAll(filesHBox, fileDirectoryHBox, allInButton, complete);
+        setContent(allInVBox);
+    }
+
+    private void setAllInVBoxOptions(VBox vBox) {
         vBox.setPadding(new Insets(10, 50, 50, 50));
         vBox.setSpacing(10);
+    }
 
+    private void createElements(Stage primaryStage) {
         filesHBox = new FilesHBox(primaryStage);
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
-        allInButton = new Button();
-        allInButton.setText("All in");
-        allInButton.disableProperty().bind(getBooleanBinding());
-        allInButton.setOnAction(event -> {
-            final String directoryPath = fileDirectoryHBox.getFileDirectory().getAbsolutePath();
-            final List<File> files = filesHBox.getFiles();
-            final Excel excel = new ExcelImpl();
-            setAllDisable(true);
-            logicInNewThread(excel, files, directoryPath);
+        allInButton = new Button("All in");
+    }
+
+    private void allInButtonActions() {
+        final String directoryPath = fileDirectoryHBox.getFileDirectory().getAbsolutePath();
+        final List<File> files = filesHBox.getFiles();
+        final Excel excel = new ExcelImpl();
+        setAllDisable(true);
+        logicInNewThread(excel, files, directoryPath);
+    }
+
+    private void setAllDisable(final boolean value) {
+        filesHBox.setDisable(value);
+        fileDirectoryHBox.setDisable(value);
+        allInButton.disableProperty().bind(new BooleanBinding() {
+            @Override
+            protected boolean computeValue() {
+                return true;
+            }
         });
-        vBox.getChildren().addAll(filesHBox, fileDirectoryHBox, allInButton, complete);
-        setContent(vBox);
     }
 
     private void logicInNewThread(final Excel excel, final List<File> files, final String directoryPath) {
@@ -69,17 +90,6 @@ public class AllInTab extends Tab implements Observer {
     private void setComplete(final Color color, final String message) {
         complete.setFill(color);
         complete.setText(message);
-    }
-
-    private void setAllDisable(final boolean value) {
-        filesHBox.setDisable(value);
-        fileDirectoryHBox.setDisable(value);
-        allInButton.disableProperty().bind(new BooleanBinding() {
-            @Override
-            protected boolean computeValue() {
-                return true;
-            }
-        });
     }
 
     private BooleanBinding getBooleanBinding() {

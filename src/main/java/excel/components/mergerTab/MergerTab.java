@@ -29,35 +29,59 @@ public class MergerTab extends Tab implements Observer {
     private ToFieldsHBox toFieldsHBox;
     private FileDirectoryHBox fileDirectoryHBox;
     private Button startButton;
-    private final Text complete = new Text();
+    private Text complete = new Text();
 
     private ExcelMergeWriteThread excelMergeWriteThread;
 
     public MergerTab(final Stage primaryStage) {
         setText("Merger");
         final VBox mergerVBox = new VBox();
-        mergerVBox.setPadding(new Insets(10, 50, 50, 50));
-        mergerVBox.setSpacing(10);
+        setMergeVBoxOptions(mergerVBox);
 
+        createElements(primaryStage);
+
+        startButton.disableProperty().bind(getBooleanBinding());
+        startButton.setOnAction(event -> startButtonActions());
+        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
+        setContent(mergerVBox);
+    }
+
+    private void setMergeVBoxOptions(VBox vBox) {
+        vBox.setPadding(new Insets(10, 50, 50, 50));
+        vBox.setSpacing(10);
+    }
+
+    private void createElements(Stage primaryStage) {
         fileFromHBox = new FileFromHBox(primaryStage);
         fromFieldsHBox = new FromFieldsHBox(RegexUtil.getNumericRegex());
         fileToHBox = new FileToHBox(primaryStage);
         toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
-        startButton = new Button();
-        startButton.setText("Merge");
-        startButton.disableProperty().bind(getBooleanBinding());
-        startButton.setOnAction(event -> {
-            setAllDisable(true);
-            final File fileFrom = fileFromHBox.getFileFrom();
-            final File fileTo = fileToHBox.getFileTo();
-            final File fileDirectory = fileDirectoryHBox.getFileDirectory();
-            final List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1);
-            final List<Integer> toColumns = Arrays.asList(Integer.valueOf(toFieldsHBox.getToId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
-            logicInNewThread(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
+        startButton = new Button("Merge");
+    }
+
+    private void startButtonActions() {
+        setAllDisable(true);
+        final File fileFrom = fileFromHBox.getFileFrom();
+        final File fileTo = fileToHBox.getFileTo();
+        final File fileDirectory = fileDirectoryHBox.getFileDirectory();
+        final List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1);
+        final List<Integer> toColumns = Arrays.asList(Integer.valueOf(toFieldsHBox.getToId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
+        logicInNewThread(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
+    }
+
+    private void setAllDisable(final boolean value) {
+        fileFromHBox.setDisable(value);
+        fromFieldsHBox.setDisable(value);
+        fileToHBox.setDisable(value);
+        toFieldsHBox.setDisable(value);
+        fileDirectoryHBox.setDisable(value);
+        startButton.disableProperty().bind(new BooleanBinding() {
+            @Override
+            protected boolean computeValue() {
+                return true;
+            }
         });
-        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
-        setContent(mergerVBox);
     }
 
     private void logicInNewThread(final File fileFrom, final File fileTo, final File fileDirectory, final List<Integer> articles, final List<Integer> fields) {
@@ -79,20 +103,6 @@ public class MergerTab extends Tab implements Observer {
     private void setComplete(final Color color, final String message) {
         complete.setFill(color);
         complete.setText(message);
-    }
-
-    private void setAllDisable(final boolean value) {
-        fileFromHBox.setDisable(value);
-        fromFieldsHBox.setDisable(value);
-        fileToHBox.setDisable(value);
-        toFieldsHBox.setDisable(value);
-        fileDirectoryHBox.setDisable(value);
-        startButton.disableProperty().bind(new BooleanBinding() {
-            @Override
-            protected boolean computeValue() {
-                return true;
-            }
-        });
     }
 
     private BooleanBinding getBooleanBinding() {
