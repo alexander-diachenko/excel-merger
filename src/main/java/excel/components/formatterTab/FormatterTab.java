@@ -4,6 +4,7 @@ import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
 import excel.components.formatterTab.formattThread.ExcelFormatWriteThread;
 import excel.model.*;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -36,6 +37,7 @@ public class FormatterTab extends Tab implements Observer {
         fillColumnHBox = new FillColumnHBox();
         formatButton = new Button();
         formatButton.setText("Format");
+        formatButton.disableProperty().bind(getBooleanBinding());
         formatButton.setOnAction(event -> {
             final List<File> files = filesHBox.getFiles();
             setAllDisable(true);
@@ -62,6 +64,7 @@ public class FormatterTab extends Tab implements Observer {
     public void update() {
         excelFormatWriteThread.removeObserver(this);
         setAllDisable(false);
+        formatButton.disableProperty().bind(getBooleanBinding());
         setComplete(excelFormatWriteThread.getTextColor(), excelFormatWriteThread.getText());
     }
 
@@ -73,6 +76,15 @@ public class FormatterTab extends Tab implements Observer {
     private void setAllDisable(final boolean value) {
         filesHBox.setDisable(value);
         fillColumnHBox.setDisable(value);
-        formatButton.setDisable(value);
+        formatButton.disableProperty().bind(new BooleanBinding() {
+            @Override
+            protected boolean computeValue() {
+                return true;
+            }
+        });
+    }
+
+    private BooleanBinding getBooleanBinding() {
+        return filesHBox.getSelectedFilesCount().textProperty().isEmpty();
     }
 }

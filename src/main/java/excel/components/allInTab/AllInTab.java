@@ -88,5 +88,4 @@ public class AllInTab extends Tab implements Observer {
         return fileDirectoryHBox.getFileDirectoryPath().textProperty().isEmpty().or(
                 filesHBox.getSelectedFilesCount().textProperty().isEmpty());
     }
-
 }
