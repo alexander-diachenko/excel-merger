@@ -6,6 +6,7 @@ import excel.components.mergerTab.components.FileDirectoryHBox;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.model.Observer;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -38,6 +39,7 @@ public class AllInTab extends Tab implements Observer {
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         allInButton = new Button();
         allInButton.setText("All in");
+        allInButton.disableProperty().bind(getBooleanBinding());
         allInButton.setOnAction(event -> {
             final String directoryPath = fileDirectoryHBox.getFileDirectory().getAbsolutePath();
             final List<File> files = filesHBox.getFiles();
@@ -62,6 +64,7 @@ public class AllInTab extends Tab implements Observer {
     public void update() {
         excelAllInThread.removeObserver(this);
         setAllDisable(false);
+        allInButton.disableProperty().bind(getBooleanBinding());
         setComplete(excelAllInThread.getTextColor(), excelAllInThread.getText());
     }
 
@@ -73,6 +76,17 @@ public class AllInTab extends Tab implements Observer {
     private void setAllDisable(final boolean value) {
         filesHBox.setDisable(value);
         fileDirectoryHBox.setDisable(value);
-        allInButton.setDisable(value);
+        allInButton.disableProperty().bind(new BooleanBinding() {
+            @Override
+            protected boolean computeValue() {
+                return true;
+            }
+        });
     }
+
+    private BooleanBinding getBooleanBinding() {
+        return fileDirectoryHBox.getFileDirectoryPath().textProperty().isEmpty().or(
+                filesHBox.getSelectedFilesCount().textProperty().isEmpty());
+    }
+
 }

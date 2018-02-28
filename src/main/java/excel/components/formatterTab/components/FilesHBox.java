@@ -15,17 +15,20 @@ import java.util.List;
 public class FilesHBox extends HBox {
 
     private List<File> files;
+    private Text selectedFilesCount;
 
     public FilesHBox(final Stage primaryStage) {
         setSpacing(10);
         final FileChooser fileChooser = new FileChooser();
         final Button selectFilesButton = new Button();
-        final Text selectedFilesCount = new Text();
+        selectedFilesCount = new Text();
         selectFilesButton.setText("Select files");
         selectFilesButton.setOnAction(event -> {
             files = fileChooser.showOpenMultipleDialog(primaryStage);
             if(files != null) {
                 selectedFilesCount.setText(files.size() + " file(s)");
+            } else {
+                selectedFilesCount.setText("");
             }
         });
         getChildren().addAll(selectFilesButton, selectedFilesCount);
@@ -33,5 +36,9 @@ public class FilesHBox extends HBox {
 
     public List<File> getFiles() {
         return files;
+    }
+
+    public Text getSelectedFilesCount() {
+        return selectedFilesCount;
     }
 }

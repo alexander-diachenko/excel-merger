@@ -14,10 +14,11 @@ import java.io.File;
 public class FileDirectoryHBox extends HBox {
 
     private File fileDirectory;
+    private Text fileDirectoryPath;
 
     public FileDirectoryHBox(final Stage primaryStage) {
         setSpacing(10);
-        final Text fileDirectoryPath = new Text();
+        fileDirectoryPath = new Text();
         final DirectoryChooser directoryChooser = new DirectoryChooser();
         final Button selectDirectoryButton = new Button();
         selectDirectoryButton.setText("Select file directory");
@@ -25,6 +26,8 @@ public class FileDirectoryHBox extends HBox {
             fileDirectory = directoryChooser.showDialog(primaryStage);
             if(fileDirectory != null) {
                 fileDirectoryPath.setText(fileDirectory.getAbsolutePath());
+            } else {
+                fileDirectoryPath.setText("");
             }
         });
         getChildren().addAll(selectDirectoryButton, fileDirectoryPath);
@@ -32,5 +35,9 @@ public class FileDirectoryHBox extends HBox {
 
     public File getFileDirectory() {
         return fileDirectory;
+    }
+
+    public Text getFileDirectoryPath() {
+        return fileDirectoryPath;
     }
 }
