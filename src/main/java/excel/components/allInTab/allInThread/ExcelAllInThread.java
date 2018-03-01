@@ -19,8 +19,8 @@ public class ExcelAllInThread implements Runnable, Subject {
     private final Set<Observer> observers = new HashSet<>();
     private Color textColor;
     private String text;
-    private List<File> files;
-    private String directoryPath;
+    private final List<File> files;
+    private final String directoryPath;
     private String absolutePath;
 
     public ExcelAllInThread(final Excel excel, final List<File> files, final String directoryPath) {

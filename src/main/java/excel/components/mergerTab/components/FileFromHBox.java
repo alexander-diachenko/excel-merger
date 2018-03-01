@@ -14,7 +14,7 @@ import java.io.File;
 public class FileFromHBox extends HBox {
 
     private File fileFrom;
-    private Text fileFromPath;
+    private final Text fileFromPath;
 
     public FileFromHBox(final Stage primaryStage) {
         setSpacing(10);

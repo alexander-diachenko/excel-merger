@@ -34,7 +34,7 @@ public class MergerTab extends Tab implements Observer {
     private HBox mergeOpenHBox;
     private Button mergeButton;
     private Button openButton;
-    private Text complete = new Text();
+    private final Text complete = new Text();
     private String path;
 
     private ExcelMergeWriteThread excelMergeWriteThread;

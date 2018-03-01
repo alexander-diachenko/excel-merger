@@ -32,7 +32,7 @@ public class AllInTab extends Tab implements Observer {
     private Button allInButton;
     private Button openButton;
     private ExcelAllInThread excelAllInThread;
-    private Text complete = new Text();
+    private final Text complete = new Text();
 
     public AllInTab(final Stage primaryStage) {
         setText("All In");

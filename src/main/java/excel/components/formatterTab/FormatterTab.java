@@ -25,7 +25,7 @@ public class FormatterTab extends Tab implements Observer {
     private FilesHBox filesHBox;
     private FillColumnHBox fillColumnHBox;
     private Button formatButton;
-    private Text complete = new Text();
+    private final Text complete = new Text();
 
     public FormatterTab(final Stage primaryStage) {
         setText("Formatter");
