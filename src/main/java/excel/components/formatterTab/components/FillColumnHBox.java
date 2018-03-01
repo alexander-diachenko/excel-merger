@@ -10,12 +10,12 @@ import javafx.scene.layout.HBox;
  */
 public class FillColumnHBox extends HBox {
 
-    private final TextField columnNumber;
-    private final TextField columnValue;
+    private TextField columnNumber;
+    private TextField columnValue;
 
     public FillColumnHBox() {
-        final CheckBox isChecked = new CheckBox();
-        isChecked.setSelected(false);
+        final CheckBox checkBox = new CheckBox();
+        checkBox.setSelected(false);
 
         columnNumber = new TextField();
         columnNumber.setPromptText("Enter column number");
@@ -32,14 +32,14 @@ public class FillColumnHBox extends HBox {
         columnValue.setDisable(true);
         columnValue.setFocusTraversable(true);
 
-        isChecked.selectedProperty().addListener((observable, oldValue, newValue) -> {
+        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             columnNumber.clear();
             columnValue.clear();
             columnNumber.setDisable(!newValue);
             columnValue.setDisable(!newValue);
         });
 
-        getChildren().addAll(isChecked, columnNumber, columnValue);
+        getChildren().addAll(checkBox, columnNumber, columnValue);
     }
 
     public TextField getColumnNumber() {
