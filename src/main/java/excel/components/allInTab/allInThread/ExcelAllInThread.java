@@ -21,6 +21,7 @@ public class ExcelAllInThread implements Runnable, Subject {
     private String text;
     private List<File> files;
     private String directoryPath;
+    private String absolutePath;
 
     public ExcelAllInThread(final Excel excel, final List<File> files, final String directoryPath) {
         this.excel = excel;
@@ -55,7 +56,7 @@ public class ExcelAllInThread implements Runnable, Subject {
                 }
                 tables.addAll(excel.read(file.getAbsolutePath()));
             }
-            final String absolutePath = directoryPath + "\\" + "AllIn_" + TimeUtil.getCurrentTime() + ".xlsx";
+            absolutePath = directoryPath + "\\" + "AllIn_" + TimeUtil.getCurrentTime() + ".xlsx";
             excel.write(tables, absolutePath);
             setText(Color.GREEN, "DONE!");
         } catch (Exception e) {
@@ -77,5 +78,9 @@ public class ExcelAllInThread implements Runnable, Subject {
 
     public String getText() {
         return text;
+    }
+
+    public String getAbsolutePath() {
+        return absolutePath;
     }
 }

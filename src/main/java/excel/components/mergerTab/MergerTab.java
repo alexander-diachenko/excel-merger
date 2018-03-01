@@ -68,7 +68,7 @@ public class MergerTab extends Tab implements Observer {
     }
 
     private HBox createMergeOpenHBox() {
-        mergeOpenHBox = new HBox(10);
+        HBox mergeOpenHBox = new HBox(10);
         mergeButton = new Button("Merge");
         openButton = new Button("Open");
         openButton.setDisable(true);
