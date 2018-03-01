@@ -9,12 +9,15 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,8 +31,11 @@ public class MergerTab extends Tab implements Observer {
     private FileToHBox fileToHBox;
     private ToFieldsHBox toFieldsHBox;
     private FileDirectoryHBox fileDirectoryHBox;
-    private Button startButton;
+    private HBox mergeOpenHBox;
+    private Button mergeButton;
+    private Button openButton;
     private Text complete = new Text();
+    private String path;
 
     private ExcelMergeWriteThread excelMergeWriteThread;
 
@@ -40,9 +46,10 @@ public class MergerTab extends Tab implements Observer {
 
         createElements(primaryStage);
 
-        startButton.disableProperty().bind(getBooleanBinding());
-        startButton.setOnAction(event -> startButtonActions());
-        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, startButton, complete);
+        mergeButton.disableProperty().bind(getBooleanBinding());
+        mergeButton.setOnAction(event -> mergeButtonActions());
+        openButton.setOnAction(event -> openButtonActions());
+        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, mergeOpenHBox, complete);
         setContent(mergerVBox);
     }
 
@@ -57,10 +64,19 @@ public class MergerTab extends Tab implements Observer {
         fileToHBox = new FileToHBox(primaryStage);
         toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
-        startButton = new Button("Merge");
+        mergeOpenHBox = createMergeOpenHBox();
     }
 
-    private void startButtonActions() {
+    private HBox createMergeOpenHBox() {
+        mergeOpenHBox = new HBox(10);
+        mergeButton = new Button("Merge");
+        openButton = new Button("Open");
+        openButton.setDisable(true);
+        mergeOpenHBox.getChildren().addAll(mergeButton, openButton);
+        return mergeOpenHBox;
+    }
+
+    private void mergeButtonActions() {
         setAllDisable(true);
         final File fileFrom = fileFromHBox.getFileFrom();
         final File fileTo = fileToHBox.getFileTo();
@@ -76,7 +92,7 @@ public class MergerTab extends Tab implements Observer {
         fileToHBox.setDisable(value);
         toFieldsHBox.setDisable(value);
         fileDirectoryHBox.setDisable(value);
-        startButton.disableProperty().bind(new BooleanBinding() {
+        mergeButton.disableProperty().bind(new BooleanBinding() {
             @Override
             protected boolean computeValue() {
                 return true;
@@ -85,8 +101,9 @@ public class MergerTab extends Tab implements Observer {
     }
 
     private void logicInNewThread(final File fileFrom, final File fileTo, final File fileDirectory, final List<Integer> articles, final List<Integer> fields) {
-        final Excel excel = new ExcelImpl();
-        excelMergeWriteThread = new ExcelMergeWriteThread(excel, articles, fields, fileFrom, fileTo, fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx");
+        Excel excel = new ExcelImpl();
+        path = fileDirectory.getPath() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx";
+        excelMergeWriteThread = new ExcelMergeWriteThread(excel, articles, fields, fileFrom, fileTo, path);
         excelMergeWriteThread.registerObserver(this);
         new Thread(excelMergeWriteThread).start();
         setComplete(Color.YELLOWGREEN, "Working...");
@@ -96,8 +113,22 @@ public class MergerTab extends Tab implements Observer {
     public void update() {
         excelMergeWriteThread.removeObserver(this);
         setAllDisable(false);
-        startButton.disableProperty().bind(getBooleanBinding());
+        mergeButton.disableProperty().bind(getBooleanBinding());
         setComplete(excelMergeWriteThread.getTextColor(), excelMergeWriteThread.getText());
+        if(excelMergeWriteThread.getTextColor().equals(Color.GREEN)) {
+            openButton.setDisable(false);
+        }
+    }
+
+    private void openButtonActions() {
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(new File(path));
+            openButton.setDisable(true);
+        } catch (IOException e) {
+            setComplete(Color.RED, e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void setComplete(final Color color, final String message) {
