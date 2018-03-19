@@ -9,6 +9,7 @@ import excel.model.Observer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -32,6 +33,8 @@ public class AllInTab extends Tab implements Observer {
     private Button allInButton;
     private Button openButton;
     private ExcelAllInThread excelAllInThread;
+    private HBox textIndicatorHBox;
+    private ProgressIndicator progressIndicator;
     private final Text complete = new Text();
 
     public AllInTab(final Stage primaryStage) {
@@ -44,7 +47,7 @@ public class AllInTab extends Tab implements Observer {
         allInButton.disableProperty().bind(getBooleanBinding());
         allInButton.setOnAction(event -> allInButtonActions());
         openButton.setOnAction(event -> openButtonActions());
-        allInVBox.getChildren().addAll(filesHBox, fileDirectoryHBox, allInOpenHBox, complete);
+        allInVBox.getChildren().addAll(filesHBox, fileDirectoryHBox, allInOpenHBox, textIndicatorHBox);
         setContent(allInVBox);
     }
 
@@ -57,6 +60,11 @@ public class AllInTab extends Tab implements Observer {
         filesHBox = new FilesHBox(primaryStage);
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         allInOpenHBox = createAllInOpenHBox();
+        textIndicatorHBox = new HBox();
+        progressIndicator = new ProgressIndicator();
+        progressIndicator.setVisible(false);
+        progressIndicator.setPrefSize(20, 20);
+        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
     }
 
     private HBox createAllInOpenHBox() {
@@ -74,6 +82,7 @@ public class AllInTab extends Tab implements Observer {
         final Excel excel = new ExcelImpl();
         setAllDisable(true);
         logicInNewThread(excel, files, directoryPath);
+        progressIndicator.setVisible(true);
     }
 
     private void setAllDisable(final boolean value) {
@@ -97,6 +106,7 @@ public class AllInTab extends Tab implements Observer {
     @Override
     public void update() {
         excelAllInThread.removeObserver(this);
+        progressIndicator.setVisible(false);
         setAllDisable(false);
         allInButton.disableProperty().bind(getBooleanBinding());
         setComplete(excelAllInThread.getTextColor(), excelAllInThread.getText());
