@@ -53,11 +53,16 @@ public class FormatterTab extends Tab implements Observer {
         filesHBox = new FilesHBox(primaryStage);
         fillColumnHBox = new FillColumnHBox();
         formatButton = new Button("Format");
-        textIndicatorHBox = new HBox();
+        textIndicatorHBox = createTextIndicatorHBox();
+    }
+
+    private HBox createTextIndicatorHBox() {
+        HBox textIndicatorHBox = new HBox();
         progressIndicator = new ProgressIndicator();
         progressIndicator.setVisible(false);
         progressIndicator.setPrefSize(20, 20);
         textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
+        return textIndicatorHBox;
     }
 
     private void formatButtonActions() {

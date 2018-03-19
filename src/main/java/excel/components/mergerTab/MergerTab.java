@@ -68,11 +68,16 @@ public class MergerTab extends Tab implements Observer {
         toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         mergeOpenHBox = createMergeOpenHBox();
-        textIndicatorHBox = new HBox();
+        textIndicatorHBox = createTextIndicatorHBox();
+    }
+
+    private HBox createTextIndicatorHBox() {
+        HBox textIndicatorHBox = new HBox();
         progressIndicator = new ProgressIndicator();
         progressIndicator.setVisible(false);
         progressIndicator.setPrefSize(20, 20);
         textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
+        return textIndicatorHBox;
     }
 
     private HBox createMergeOpenHBox() {

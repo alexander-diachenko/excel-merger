@@ -60,11 +60,7 @@ public class AllInTab extends Tab implements Observer {
         filesHBox = new FilesHBox(primaryStage);
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         allInOpenHBox = createAllInOpenHBox();
-        textIndicatorHBox = new HBox();
-        progressIndicator = new ProgressIndicator();
-        progressIndicator.setVisible(false);
-        progressIndicator.setPrefSize(20, 20);
-        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
+        textIndicatorHBox = createTextIndicatorHBox();
     }
 
     private HBox createAllInOpenHBox() {
@@ -74,6 +70,15 @@ public class AllInTab extends Tab implements Observer {
         openButton.setDisable(true);
         allInOpenHBox.getChildren().addAll(allInButton, openButton);
         return allInOpenHBox;
+    }
+
+    private HBox createTextIndicatorHBox() {
+        HBox textIndicatorHBox = new HBox();
+        progressIndicator = new ProgressIndicator();
+        progressIndicator.setVisible(false);
+        progressIndicator.setPrefSize(20, 20);
+        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
+        return textIndicatorHBox;
     }
 
     private void allInButtonActions() {
