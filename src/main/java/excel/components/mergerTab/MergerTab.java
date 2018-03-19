@@ -35,9 +35,9 @@ public class MergerTab extends Tab implements Observer {
     private HBox mergeOpenHBox;
     private Button mergeButton;
     private Button openButton;
-    private HBox textIndicatorHBox;
+    private CompleteIndicatorHBox completeIndicatorHBox;
     private ProgressIndicator progressIndicator;
-    private final Text complete = new Text();
+    private Text complete;
     private String path;
 
     private ExcelMergeWriteThread excelMergeWriteThread;
@@ -52,7 +52,7 @@ public class MergerTab extends Tab implements Observer {
         mergeButton.disableProperty().bind(getBooleanBinding());
         mergeButton.setOnAction(event -> mergeButtonActions());
         openButton.setOnAction(event -> openButtonActions());
-        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, mergeOpenHBox, textIndicatorHBox);
+        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, mergeOpenHBox, completeIndicatorHBox);
         setContent(mergerVBox);
     }
 
@@ -68,16 +68,9 @@ public class MergerTab extends Tab implements Observer {
         toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         mergeOpenHBox = createMergeOpenHBox();
-        textIndicatorHBox = createTextIndicatorHBox();
-    }
-
-    private HBox createTextIndicatorHBox() {
-        HBox textIndicatorHBox = new HBox();
-        progressIndicator = new ProgressIndicator();
-        progressIndicator.setVisible(false);
-        progressIndicator.setPrefSize(20, 20);
-        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
-        return textIndicatorHBox;
+        completeIndicatorHBox = new CompleteIndicatorHBox();
+        progressIndicator = completeIndicatorHBox.getProgressIndicator();
+        complete = completeIndicatorHBox.getComplete();
     }
 
     private HBox createMergeOpenHBox() {

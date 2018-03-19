@@ -3,13 +3,13 @@ package excel.components.formatterTab;
 import excel.components.formatterTab.components.FilesHBox;
 import excel.components.formatterTab.components.FillColumnHBox;
 import excel.components.formatterTab.formattThread.ExcelFormatWriteThread;
+import excel.components.mergerTab.components.CompleteIndicatorHBox;
 import excel.model.*;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -27,9 +27,9 @@ public class FormatterTab extends Tab implements Observer {
     private FilesHBox filesHBox;
     private FillColumnHBox fillColumnHBox;
     private Button formatButton;
-    private HBox textIndicatorHBox;
+    private CompleteIndicatorHBox completeIndicatorHBox;
     private ProgressIndicator progressIndicator;
-    private final Text complete = new Text();
+    private Text complete;
 
     public FormatterTab(final Stage primaryStage) {
         setText("Formatter");
@@ -40,7 +40,7 @@ public class FormatterTab extends Tab implements Observer {
         formatButton.disableProperty().bind(getBooleanBinding());
         formatButton.setOnAction(event -> formatButtonActions());
 
-        formatterVBox.getChildren().addAll(filesHBox, fillColumnHBox, formatButton, textIndicatorHBox);
+        formatterVBox.getChildren().addAll(filesHBox, fillColumnHBox, formatButton, completeIndicatorHBox);
         setContent(formatterVBox);
     }
 
@@ -53,16 +53,9 @@ public class FormatterTab extends Tab implements Observer {
         filesHBox = new FilesHBox(primaryStage);
         fillColumnHBox = new FillColumnHBox();
         formatButton = new Button("Format");
-        textIndicatorHBox = createTextIndicatorHBox();
-    }
-
-    private HBox createTextIndicatorHBox() {
-        HBox textIndicatorHBox = new HBox();
-        progressIndicator = new ProgressIndicator();
-        progressIndicator.setVisible(false);
-        progressIndicator.setPrefSize(20, 20);
-        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
-        return textIndicatorHBox;
+        completeIndicatorHBox = new CompleteIndicatorHBox();
+        progressIndicator = completeIndicatorHBox.getProgressIndicator();
+        complete = completeIndicatorHBox.getComplete();
     }
 
     private void formatButtonActions() {

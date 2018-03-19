@@ -2,6 +2,7 @@ package excel.components.allInTab;
 
 import excel.components.allInTab.allInThread.ExcelAllInThread;
 import excel.components.formatterTab.components.FilesHBox;
+import excel.components.mergerTab.components.CompleteIndicatorHBox;
 import excel.components.mergerTab.components.FileDirectoryHBox;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
@@ -33,9 +34,9 @@ public class AllInTab extends Tab implements Observer {
     private Button allInButton;
     private Button openButton;
     private ExcelAllInThread excelAllInThread;
-    private HBox textIndicatorHBox;
+    private CompleteIndicatorHBox completeIndicatorHBox;
     private ProgressIndicator progressIndicator;
-    private final Text complete = new Text();
+    private Text complete;
 
     public AllInTab(final Stage primaryStage) {
         setText("All In");
@@ -47,7 +48,7 @@ public class AllInTab extends Tab implements Observer {
         allInButton.disableProperty().bind(getBooleanBinding());
         allInButton.setOnAction(event -> allInButtonActions());
         openButton.setOnAction(event -> openButtonActions());
-        allInVBox.getChildren().addAll(filesHBox, fileDirectoryHBox, allInOpenHBox, textIndicatorHBox);
+        allInVBox.getChildren().addAll(filesHBox, fileDirectoryHBox, allInOpenHBox, completeIndicatorHBox);
         setContent(allInVBox);
     }
 
@@ -60,7 +61,9 @@ public class AllInTab extends Tab implements Observer {
         filesHBox = new FilesHBox(primaryStage);
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         allInOpenHBox = createAllInOpenHBox();
-        textIndicatorHBox = createTextIndicatorHBox();
+        completeIndicatorHBox = new CompleteIndicatorHBox();
+        progressIndicator = completeIndicatorHBox.getProgressIndicator();
+        complete = completeIndicatorHBox.getComplete();
     }
 
     private HBox createAllInOpenHBox() {
@@ -70,15 +73,6 @@ public class AllInTab extends Tab implements Observer {
         openButton.setDisable(true);
         allInOpenHBox.getChildren().addAll(allInButton, openButton);
         return allInOpenHBox;
-    }
-
-    private HBox createTextIndicatorHBox() {
-        HBox textIndicatorHBox = new HBox();
-        progressIndicator = new ProgressIndicator();
-        progressIndicator.setVisible(false);
-        progressIndicator.setPrefSize(20, 20);
-        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
-        return textIndicatorHBox;
     }
 
     private void allInButtonActions() {
