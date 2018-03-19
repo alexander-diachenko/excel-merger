@@ -7,7 +7,9 @@ import excel.model.*;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -25,6 +27,8 @@ public class FormatterTab extends Tab implements Observer {
     private FilesHBox filesHBox;
     private FillColumnHBox fillColumnHBox;
     private Button formatButton;
+    private HBox textIndicatorHBox;
+    private ProgressIndicator progressIndicator;
     private final Text complete = new Text();
 
     public FormatterTab(final Stage primaryStage) {
@@ -36,7 +40,7 @@ public class FormatterTab extends Tab implements Observer {
         formatButton.disableProperty().bind(getBooleanBinding());
         formatButton.setOnAction(event -> formatButtonActions());
 
-        formatterVBox.getChildren().addAll(filesHBox, fillColumnHBox, formatButton, complete);
+        formatterVBox.getChildren().addAll(filesHBox, fillColumnHBox, formatButton, textIndicatorHBox);
         setContent(formatterVBox);
     }
 
@@ -49,12 +53,18 @@ public class FormatterTab extends Tab implements Observer {
         filesHBox = new FilesHBox(primaryStage);
         fillColumnHBox = new FillColumnHBox();
         formatButton = new Button("Format");
+        textIndicatorHBox = new HBox();
+        progressIndicator = new ProgressIndicator();
+        progressIndicator.setVisible(false);
+        progressIndicator.setPrefSize(20, 20);
+        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
     }
 
     private void formatButtonActions() {
         final List<File> files = filesHBox.getFiles();
         setAllDisable(true);
         logicInNewThread(files);
+        progressIndicator.setVisible(true);
     }
 
     private void setAllDisable(final boolean value) {
@@ -81,6 +91,7 @@ public class FormatterTab extends Tab implements Observer {
     @Override
     public void update() {
         excelFormatWriteThread.removeObserver(this);
+        progressIndicator.setVisible(false);
         setAllDisable(false);
         formatButton.disableProperty().bind(getBooleanBinding());
         setComplete(excelFormatWriteThread.getTextColor(), excelFormatWriteThread.getText());
