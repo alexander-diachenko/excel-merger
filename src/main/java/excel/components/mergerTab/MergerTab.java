@@ -8,6 +8,7 @@ import excel.components.mergerTab.components.*;
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -34,6 +35,8 @@ public class MergerTab extends Tab implements Observer {
     private HBox mergeOpenHBox;
     private Button mergeButton;
     private Button openButton;
+    private HBox textIndicatorHBox;
+    private ProgressIndicator progressIndicator;
     private final Text complete = new Text();
     private String path;
 
@@ -49,7 +52,7 @@ public class MergerTab extends Tab implements Observer {
         mergeButton.disableProperty().bind(getBooleanBinding());
         mergeButton.setOnAction(event -> mergeButtonActions());
         openButton.setOnAction(event -> openButtonActions());
-        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, mergeOpenHBox, complete);
+        mergerVBox.getChildren().addAll(fileFromHBox, fromFieldsHBox, fileToHBox, toFieldsHBox, fileDirectoryHBox, mergeOpenHBox, textIndicatorHBox);
         setContent(mergerVBox);
     }
 
@@ -65,6 +68,11 @@ public class MergerTab extends Tab implements Observer {
         toFieldsHBox = new ToFieldsHBox(RegexUtil.getNumericRegex());
         fileDirectoryHBox = new FileDirectoryHBox(primaryStage);
         mergeOpenHBox = createMergeOpenHBox();
+        textIndicatorHBox = new HBox();
+        progressIndicator = new ProgressIndicator();
+        progressIndicator.setVisible(false);
+        progressIndicator.setPrefSize(20, 20);
+        textIndicatorHBox.getChildren().addAll(complete, progressIndicator);
     }
 
     private HBox createMergeOpenHBox() {
@@ -84,6 +92,7 @@ public class MergerTab extends Tab implements Observer {
         final List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromFieldsHBox.getFromId().getText()) - 1, Integer.valueOf(fromFieldsHBox.getFromField().getText()) - 1);
         final List<Integer> toColumns = Arrays.asList(Integer.valueOf(toFieldsHBox.getToId().getText()) - 1, Integer.valueOf(toFieldsHBox.getToField().getText()) - 1);
         logicInNewThread(fileFrom, fileTo, fileDirectory, fromColumns, toColumns);
+        progressIndicator.setVisible(true);
     }
 
     private void setAllDisable(final boolean value) {
@@ -112,6 +121,7 @@ public class MergerTab extends Tab implements Observer {
     @Override
     public void update() {
         excelMergeWriteThread.removeObserver(this);
+        progressIndicator.setVisible(false);
         setAllDisable(false);
         mergeButton.disableProperty().bind(getBooleanBinding());
         setComplete(excelMergeWriteThread.getTextColor(), excelMergeWriteThread.getText());
