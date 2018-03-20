@@ -10,9 +10,13 @@ import javafx.scene.text.Text;
 public class CompleteIndicatorHBox extends HBox {
 
     private ProgressIndicator progressIndicator;
-    private final Text complete;
+    private Text complete;
 
     public CompleteIndicatorHBox() {
+        init();
+    }
+
+    private void init() {
         progressIndicator = new ProgressIndicator();
         complete = new Text();
         progressIndicator.setVisible(false);

@@ -39,6 +39,10 @@ public class AllInTab extends Tab implements Observer {
     private Text complete;
 
     public AllInTab(final Stage primaryStage) {
+        init(primaryStage);
+    }
+
+    private void init(Stage primaryStage) {
         setText("All In");
         final VBox allInVBox = new VBox();
         setAllInVBoxOptions(allInVBox);
