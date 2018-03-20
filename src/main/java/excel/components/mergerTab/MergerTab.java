@@ -43,6 +43,10 @@ public class MergerTab extends Tab implements Observer {
     private ExcelMergeWriteThread excelMergeWriteThread;
 
     public MergerTab(final Stage primaryStage) {
+        init(primaryStage);
+    }
+
+    private void init(Stage primaryStage) {
         setText("Merger");
         final VBox mergerVBox = new VBox();
         setMergeVBoxOptions(mergerVBox);

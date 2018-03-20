@@ -14,9 +14,13 @@ import java.io.File;
 public class FileFromHBox extends HBox {
 
     private File fileFrom;
-    private final Text fileFromPath;
+    private Text fileFromPath;
 
     public FileFromHBox(final Stage primaryStage) {
+        init(primaryStage);
+    }
+
+    private void init(Stage primaryStage) {
         setSpacing(10);
         final FileChooser fileFromChooser = new FileChooser();
         final Button selectFileFromButton = new Button();

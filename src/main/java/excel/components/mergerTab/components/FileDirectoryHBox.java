@@ -14,9 +14,13 @@ import java.io.File;
 public class FileDirectoryHBox extends HBox {
 
     private File fileDirectory;
-    private final Text fileDirectoryPath;
+    private Text fileDirectoryPath;
 
     public FileDirectoryHBox(final Stage primaryStage) {
+        init(primaryStage);
+    }
+
+    private void init(Stage primaryStage) {
         setSpacing(10);
         fileDirectoryPath = new Text();
         final DirectoryChooser directoryChooser = new DirectoryChooser();

@@ -32,6 +32,10 @@ public class FormatterTab extends Tab implements Observer {
     private Text complete;
 
     public FormatterTab(final Stage primaryStage) {
+        init(primaryStage);
+    }
+
+    private void init(Stage primaryStage) {
         setText("Formatter");
         final VBox formatterVBox = new VBox();
         setFormatterVBoxOptions(formatterVBox);

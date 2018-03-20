@@ -10,10 +10,14 @@ import javafx.scene.layout.HBox;
  */
 public class FillColumnHBox extends HBox {
 
-    private final TextField columnNumber;
-    private final TextField columnValue;
+    private TextField columnNumber;
+    private TextField columnValue;
 
     public FillColumnHBox() {
+        init();
+    }
+
+    private void init() {
         final CheckBox checkBox = new CheckBox();
         checkBox.setSelected(false);
 

@@ -8,10 +8,14 @@ import javafx.scene.layout.HBox;
  */
 public class FromFieldsHBox extends HBox {
 
-    private final TextField fromId;
-    private final TextField fromField;
+    private TextField fromId;
+    private TextField fromField;
 
     public FromFieldsHBox(final String numericRegex) {
+        init(numericRegex);
+    }
+
+    private void init(String numericRegex) {
         fromId = new TextField();
         fromId.setPromptText("Enter 'from' id");
         fromId.setFocusTraversable(true);

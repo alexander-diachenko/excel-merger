@@ -15,9 +15,13 @@ import java.util.List;
 public class FilesHBox extends HBox {
 
     private List<File> files;
-    private final Text selectedFilesCount;
+    private Text selectedFilesCount;
 
     public FilesHBox(final Stage primaryStage) {
+        init(primaryStage);
+    }
+
+    private void init(Stage primaryStage) {
         setSpacing(10);
         final FileChooser fileChooser = new FileChooser();
         final Button selectFilesButton = new Button();
