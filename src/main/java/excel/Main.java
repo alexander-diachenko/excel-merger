@@ -1,17 +1,14 @@
 package excel;
 
-import excel.components.allInTab.AllInTab;
-import excel.components.formatterTab.FormatterTab;
-import excel.components.mergerTab.MergerTab;
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * @author Alexander Diachenko.
@@ -22,31 +19,16 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.getIcons().add(new Image("/img/logo.png"));
-        final Group root = new Group();
-        final Scene scene = new Scene(root, 400, 300, Color.WHITE);
+    public void start(Stage primaryStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        String fxmlDocPath = "D:\\Soft\\JavaProjects\\excel\\src\\main\\java\\excel\\view\\main.fxml";
+        FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
 
-        final TabPane tabPane = new TabPane();
-        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        final BorderPane mainPane = new BorderPane();
+        TabPane root = loader.load(fxmlStream);
 
-        //merger    tab
-        final Tab mergerTab = new MergerTab(primaryStage);
-
-        //formatter tab
-        final Tab formatterTab = new FormatterTab(primaryStage);
-
-        final AllInTab allInTab = new AllInTab(primaryStage);
-
-        tabPane.getTabs().addAll(mergerTab, formatterTab, allInTab);
-        mainPane.setCenter(tabPane);
-        mainPane.prefHeightProperty().bind(scene.heightProperty());
-        mainPane.prefWidthProperty().bind(scene.widthProperty());
-
-        root.getChildren().add(mainPane);
-        primaryStage.setTitle("Excel utils");
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Excel util");
         primaryStage.show();
     }
 }
