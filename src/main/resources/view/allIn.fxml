@@ -31,22 +31,22 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="file" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Select file" />
-                        <Button fx:id="saveDirectory" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="332.0" text="Select directory to save" GridPane.rowIndex="1">
+                        <Button fx:id="files" onAction="#selectFile" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Select file(s)" />
+                        <Button fx:id="saveDirectory" onAction="#selectSaveDirectory" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="332.0" text="Select directory to save" GridPane.rowIndex="1">
                             <padding>
                                 <Insets left="10.0" />
                             </padding>
                         </Button>
                         <HBox fx:id="actions" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="5">
                             <children>
-                                <Button fx:id="allIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="All in" />
+                                <Button fx:id="allIn" onAction="#allIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="All in" />
                                 <Button fx:id="open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" />
                             </children>
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
                         </HBox>
-                        <Label fx:id="filePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
+                        <Label fx:id="filesCount" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
                         <Label fx:id="saveDirectoryPath" prefHeight="24.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="complete" prefHeight="96.0" prefWidth="507.0" GridPane.rowIndex="6" />
                         <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
