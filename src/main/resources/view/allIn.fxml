@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<Tab fx:id="allIn" xmlns:fx="http://javafx.com/fxml/1" text="All in">
+    <content>
+        <AnchorPane fx:id="allInAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+                <GridPane fx:id="allInGridPane" alignment="CENTER" hgap="20.0" prefHeight="371.0" prefWidth="600.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="file" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Select file" />
+                        <Button fx:id="allInSaveDirectory" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="332.0" text="Select directory to save" GridPane.rowIndex="1">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </Button>
+                        <HBox fx:id="actions" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="5">
+                            <children>
+                                <Button fx:id="allInAllIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="All in" />
+                                <Button fx:id="open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" />
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </HBox>
+                        <Label fx:id="filePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
+                        <Label fx:id="allInSaveDirectoryPath" prefHeight="24.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="complete" prefHeight="96.0" prefWidth="507.0" GridPane.rowIndex="6" />
+                        <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </content>
+</Tab>
