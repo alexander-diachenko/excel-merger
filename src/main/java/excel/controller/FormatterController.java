@@ -32,7 +32,6 @@ public class FormatterController {
     private Label complete;
     @FXML
     private ProgressIndicator progressIndicator;
-
     private List<File> files;
 
     public void selectFiles() {

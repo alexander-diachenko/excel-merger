@@ -1,6 +1,5 @@
 package excel.service;
 
-import excel.Util.TimeUtil;
 import excel.model.Excel;
 import excel.model.ExcelMerger;
 import excel.model.ExcelMergerImpl;
@@ -20,15 +19,15 @@ public class MergerService extends Service<Void> {
     private File fileTo;
     private List<Integer> fromColumns;
     private List<Integer> toColumns;
-    private String saveDirectoryPath;
+    private String savedFilePath;
 
-    public MergerService(Excel excel, File fileFrom, File fileTo, List<Integer> fromColumns, List<Integer> toColumns, String saveDirectoryPath) {
+    public MergerService(Excel excel, File fileFrom, File fileTo, List<Integer> fromColumns, List<Integer> toColumns, String savedFilePath) {
         this.excel = excel;
         this.fileFrom = fileFrom;
         this.fileTo = fileTo;
         this.fromColumns = fromColumns;
         this.toColumns = toColumns;
-        this.saveDirectoryPath = saveDirectoryPath;
+        this.savedFilePath = savedFilePath;
     }
 
     @Override
@@ -40,8 +39,7 @@ public class MergerService extends Service<Void> {
                 List<List<Object>> to = excel.read(fileTo.getAbsolutePath());
                 ExcelMerger excelMerger = new ExcelMergerImpl();
                 List<List<Object>> merged = excelMerger.mergeOneField(from, to, fromColumns, toColumns);
-                String saveFilePath = saveDirectoryPath + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx";
-                excel.write(merged, saveFilePath);
+                excel.write(merged, savedFilePath);
                 return null;
             }
         };

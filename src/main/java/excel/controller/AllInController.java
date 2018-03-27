@@ -30,9 +30,7 @@ public class AllInController {
     private Label complete;
     @FXML
     private ProgressIndicator progressIndicator;
-
     private List<File> files;
-
     private File saveDirectory;
 
     public void selectFiles() {
