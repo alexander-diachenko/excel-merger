@@ -31,7 +31,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="fromFile" onAction="#selectFromFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'from' file" />
+                        <Button fx:id="fromFileButton" onAction="#selectFromFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'from' file" />
                         <Label fx:id="fromFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
                         <HBox fx:id="fromFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="1">
                             <children>
@@ -51,8 +51,8 @@
                         <Label fx:id="saveDirectoryPath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <HBox fx:id="actions" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="5">
                             <children>
-                                <Button fx:id="merge" onAction="#merge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Merge" />
-                                <Button fx:id="open" onAction="#open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" disable="true"/>
+                                <Button fx:id="mergeButton" onAction="#merge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Merge"/>
+                                <Button fx:id="openButton" onAction="#open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" disable="true"/>
                             </children>
                             <opaqueInsets>
                                 <Insets />

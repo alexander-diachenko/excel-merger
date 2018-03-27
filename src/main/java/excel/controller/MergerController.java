@@ -5,8 +5,10 @@ import excel.Util.TimeUtil;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.service.MergerService;
+import javafx.beans.binding.BooleanBinding;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -19,17 +21,17 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 /**
  * @author Alexander Diachenko.
  */
-public class MergerController {
+public class MergerController implements Initializable {
 
-    @FXML
-    public Button open;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -50,9 +52,18 @@ public class MergerController {
     private ProgressIndicator progressIndicator;
     @FXML
     private Label complete;
+    @FXML
+    private Button mergeButton;
+    @FXML
+    private Button openButton;
     private File fileFrom;
     private File fileTo;
     private String savedFilePath;
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        mergeButton.disableProperty().bind(getBooleanBinding());
+    }
 
     public void selectFromFile() {
         FileChooser fileFromChooser = new FileChooser();
@@ -107,7 +118,7 @@ public class MergerController {
         Desktop desktop = Desktop.getDesktop();
         try {
             desktop.open(new File(savedFilePath));
-            open.setDisable(true);
+            openButton.setDisable(true);
         } catch (IOException e) {
             setFailed(e);
             e.printStackTrace();
@@ -120,7 +131,7 @@ public class MergerController {
 
     private void setComplete() {
         anchorPane.setDisable(false);
-        open.setDisable(false);
+        openButton.setDisable(false);
         //TODO придумать вывод завершения
         complete.setText("DONE");
     }
@@ -129,5 +140,15 @@ public class MergerController {
         anchorPane.setDisable(false);
         //TODO придумать вывод ошибок
         complete.setText(exception.getMessage());
+    }
+
+    private BooleanBinding getBooleanBinding() {
+        return fromFilePath.textProperty().isEmpty()
+                .or(fromId.textProperty().isEmpty())
+                .or(fromField.textProperty().isEmpty())
+                .or(toFilePath.textProperty().isEmpty())
+                .or(toId.textProperty().isEmpty())
+                .or(toField.textProperty().isEmpty())
+                .or(saveDirectoryPath.textProperty().isEmpty());
     }
 }
