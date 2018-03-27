@@ -42,8 +42,4 @@ public class MergerController {
     private ProgressIndicator progressIndicator;
     @FXML
     private Label complete;
-
-    public void test(ActionEvent actionEvent) {
-        fromFilePath.setText("ура!");
-    }
 }

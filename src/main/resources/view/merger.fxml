@@ -31,7 +31,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="fromFile" onAction="#test" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'from' file" />
+                        <Button fx:id="fromFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'from' file" />
                         <Label fx:id="fromFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
                         <HBox fx:id="fromFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="1">
                             <children>

@@ -1,8 +1,10 @@
 package excel.controller;
 
-import javafx.event.ActionEvent;
+import excel.model.Excel;
+import excel.model.ExcelImpl;
+import excel.service.AllInService;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
@@ -21,14 +23,6 @@ public class AllInController {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button files;
-    @FXML
-    private Button saveDirectory;
-    @FXML
-    private Button allIn;
-    @FXML
-    private Button open;
-    @FXML
     private Label filesCount;
     @FXML
     private Label saveDirectoryPath;
@@ -37,21 +31,25 @@ public class AllInController {
     @FXML
     private ProgressIndicator progressIndicator;
 
-    public void selectFile(ActionEvent actionEvent) {
+    private List<File> files;
+
+    private File saveDirectory;
+
+    public void selectFile() {
         FileChooser fileChooser = new FileChooser();
-        List<File> files = fileChooser.showOpenMultipleDialog(getStage());
-        if(files != null) {
+        files = fileChooser.showOpenMultipleDialog(getStage());
+        if (files != null) {
             filesCount.setText(files.size() + " file(s)");
         } else {
             filesCount.setText("");
         }
     }
 
-    public void selectSaveDirectory(ActionEvent actionEvent) {
+    public void selectSaveDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File file = directoryChooser.showDialog(getStage());
-        if (file != null) {
-            saveDirectoryPath.setText(file.getAbsolutePath());
+        saveDirectory = directoryChooser.showDialog(getStage());
+        if (saveDirectory != null) {
+            saveDirectoryPath.setText(saveDirectory.getAbsolutePath());
         } else {
             saveDirectoryPath.setText("");
         }
@@ -61,7 +59,19 @@ public class AllInController {
         return (Stage) anchorPane.getScene().getWindow();
     }
 
-    public void allIn(ActionEvent actionEvent) {
-
+    public void allIn() {
+        Excel excel = new ExcelImpl();
+        AllInService allInService = new AllInService(files, excel, saveDirectoryPath.getText());
+        Task<Void> task = allInService.createTask();
+        progressIndicator.visibleProperty().bind(task.runningProperty());
+        new Thread(task).start();
+        task.setOnSucceeded(event -> {
+            //TODO придумать вывод завершения
+            complete.setText("DONE");
+        });
+        task.setOnFailed(event -> {
+            //TODO придумать вывод ошибок
+            complete.setText(task.getException().getMessage());
+        });
     }
 }
