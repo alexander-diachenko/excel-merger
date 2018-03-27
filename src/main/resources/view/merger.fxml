@@ -31,7 +31,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="fromFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'from' file" />
+                        <Button fx:id="fromFile" onAction="#selectFromFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'from' file" />
                         <Label fx:id="fromFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
                         <HBox fx:id="fromFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="1">
                             <children>
@@ -39,7 +39,7 @@
                                 <TextField fx:id="fromField" />
                             </children>
                         </HBox>
-                        <Button fx:id="toFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'to' file" GridPane.rowIndex="2" />
+                        <Button fx:id="toFile" onAction="#selectToFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'to' file" GridPane.rowIndex="2" />
                         <HBox fx:id="toFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="3">
                             <children>
                                 <TextField fx:id="toId" />
@@ -47,19 +47,20 @@
                             </children>
                         </HBox>
                         <Label fx:id="toFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Button fx:id="saveDirectory" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select directory to save" GridPane.rowIndex="4" />
+                        <Button fx:id="directory" onAction="#selectSaveDirectory" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select directory to save" GridPane.rowIndex="4" />
                         <Label fx:id="saveDirectoryPath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <HBox fx:id="actions" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="5">
                             <children>
-                                <Button fx:id="merge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Merge" />
-                                <Button fx:id="open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" />
+                                <Button fx:id="merge" onAction="#merge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Merge" />
+                                <Button fx:id="open" onAction="#open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" />
                             </children>
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
                         </HBox>
                         <Label fx:id="complete" prefHeight="96.0" prefWidth="507.0" GridPane.rowIndex="6" />
-                        <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0"
+                                           GridPane.columnIndex="1" GridPane.rowIndex="6" visible="false"/>
                     </children>
                     <padding>
                         <Insets left="10.0" right="10.0" />

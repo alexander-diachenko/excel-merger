@@ -60,6 +60,7 @@ public class FormatterController {
             complete.setText(task.getException().getMessage());
         });
     }
+
     private Stage getStage() {
         return (Stage) anchorPane.getScene().getWindow();
     }
