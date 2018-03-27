@@ -35,15 +35,31 @@
                         <Label fx:id="fromFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
                         <HBox fx:id="fromFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="1">
                             <children>
-                                <TextField fx:id="fromId" />
-                                <TextField fx:id="fromField" />
+                                <Spinner fx:id="fromId">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                                    </valueFactory>
+                                </Spinner>
+                                <Spinner fx:id="fromField">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                                    </valueFactory>
+                                </Spinner>
                             </children>
                         </HBox>
                         <Button fx:id="toFile" onAction="#selectToFile" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Select 'to' file" GridPane.rowIndex="2" />
                         <HBox fx:id="toFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="3">
                             <children>
-                                <TextField fx:id="toId" />
-                                <TextField fx:id="toField" />
+                                <Spinner fx:id="toId">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                                    </valueFactory>
+                                </Spinner>
+                                <Spinner fx:id="toField">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                                    </valueFactory>
+                                </Spinner>
                             </children>
                         </HBox>
                         <Label fx:id="toFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

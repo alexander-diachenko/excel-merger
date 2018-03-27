@@ -1,7 +1,6 @@
 package excel.controller;
 
 
-import excel.Util.RegexUtil;
 import excel.Util.TimeUtil;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
@@ -10,10 +9,9 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -38,13 +36,13 @@ public class MergerController implements Initializable {
     @FXML
     private Label fromFilePath;
     @FXML
-    private TextField fromId;
+    private Spinner<Integer> fromId;
     @FXML
-    private TextField fromField;
+    private Spinner<Integer> fromField;
     @FXML
-    private TextField toId;
+    private Spinner<Integer> toId;
     @FXML
-    private TextField toField;
+    private Spinner<Integer> toField;
     @FXML
     private Label toFilePath;
     @FXML
@@ -99,8 +97,8 @@ public class MergerController implements Initializable {
     public void merge() {
         anchorPane.setDisable(true);
         Excel excel = new ExcelImpl();
-        List<Integer> fromColumns = Arrays.asList(Integer.valueOf(fromId.getText()) - 1, Integer.valueOf(fromField.getText()) - 1);
-        List<Integer> toColumns = Arrays.asList(Integer.valueOf(toId.getText()) - 1, Integer.valueOf(toField.getText()) - 1);
+        List<Integer> fromColumns = Arrays.asList(fromId.getValue() - 1, fromField.getValue() - 1);
+        List<Integer> toColumns = Arrays.asList(toId.getValue() - 1, toField.getValue() - 1);
         savedFilePath = saveDirectoryPath.getText() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx";
         MergerService mergerService = new MergerService(excel, fileFrom, fileTo, fromColumns, toColumns, savedFilePath);
         Task<Void> task = mergerService.createTask();
@@ -128,26 +126,6 @@ public class MergerController implements Initializable {
 
     private void init() {
         mergeButton.disableProperty().bind(getBooleanBinding());
-        fromId.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches(RegexUtil.getNumericRegex())) {
-                fromId.setText(oldValue);
-            }
-        });
-        fromField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches(RegexUtil.getNumericRegex())) {
-                fromField.setText(oldValue);
-            }
-        });
-        toId.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches(RegexUtil.getNumericRegex())) {
-                toId.setText(oldValue);
-            }
-        });
-        toField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches(RegexUtil.getNumericRegex())) {
-                toField.setText(oldValue);
-            }
-        });
     }
 
     private Stage getStage() {
@@ -169,11 +147,7 @@ public class MergerController implements Initializable {
 
     private BooleanBinding getBooleanBinding() {
         return fromFilePath.textProperty().isEmpty()
-                .or(fromId.textProperty().isEmpty())
-                .or(fromField.textProperty().isEmpty())
                 .or(toFilePath.textProperty().isEmpty())
-                .or(toId.textProperty().isEmpty())
-                .or(toField.textProperty().isEmpty())
                 .or(saveDirectoryPath.textProperty().isEmpty());
     }
 }
