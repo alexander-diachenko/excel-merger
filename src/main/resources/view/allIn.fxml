@@ -31,8 +31,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="file" onAction="#selectFile" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Select file(s)" />
-                        <Button fx:id="saveDirectory" onAction="#selectSaveDirectory" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="332.0" text="Select directory to save" GridPane.rowIndex="1">
+                        <Button fx:id="file" onAction="#selectFiles" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Select file(s)" />
+                        <Button fx:id="directory" onAction="#selectSaveDirectory" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="332.0" text="Select directory to save" GridPane.rowIndex="1">
                             <padding>
                                 <Insets left="10.0" />
                             </padding>

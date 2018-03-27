@@ -35,7 +35,7 @@ public class AllInController {
 
     private File saveDirectory;
 
-    public void selectFile() {
+    public void selectFiles() {
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
         if (files != null) {
@@ -55,10 +55,6 @@ public class AllInController {
         }
     }
 
-    private Stage getStage() {
-        return (Stage) anchorPane.getScene().getWindow();
-    }
-
     public void allIn() {
         Excel excel = new ExcelImpl();
         AllInService allInService = new AllInService(files, excel, saveDirectoryPath.getText());
@@ -73,5 +69,9 @@ public class AllInController {
             //TODO придумать вывод ошибок
             complete.setText(task.getException().getMessage());
         });
+    }
+
+    private Stage getStage() {
+        return (Stage) anchorPane.getScene().getWindow();
     }
 }
