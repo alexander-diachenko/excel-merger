@@ -1,6 +1,7 @@
 package excel.controller;
 
 
+import excel.Util.RegexUtil;
 import excel.Util.TimeUtil;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
@@ -62,7 +63,7 @@ public class MergerController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        mergeButton.disableProperty().bind(getBooleanBinding());
+        init();
     }
 
     public void selectFromFile() {
@@ -123,6 +124,30 @@ public class MergerController implements Initializable {
             setFailed(e);
             e.printStackTrace();
         }
+    }
+
+    private void init() {
+        mergeButton.disableProperty().bind(getBooleanBinding());
+        fromId.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(RegexUtil.getNumericRegex())) {
+                fromId.setText(oldValue);
+            }
+        });
+        fromField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(RegexUtil.getNumericRegex())) {
+                fromField.setText(oldValue);
+            }
+        });
+        toId.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(RegexUtil.getNumericRegex())) {
+                toId.setText(oldValue);
+            }
+        });
+        toField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(RegexUtil.getNumericRegex())) {
+                toField.setText(oldValue);
+            }
+        });
     }
 
     private Stage getStage() {
