@@ -54,6 +54,7 @@ public class FormatterController implements Initializable {
     }
 
     public void format() {
+        anchorPane.setDisable(true);
         Excel excel = new ExcelImpl();
         FormatterService formatterService = new FormatterService(excel, files, field.getValue(), value.getText());
         Task<Void> task = formatterService.createTask();
@@ -73,11 +74,13 @@ public class FormatterController implements Initializable {
     }
 
     private void setComplete() {
+        anchorPane.setDisable(false);
         //TODO придумать вывод завершения
         complete.setText("DONE");
     }
 
     private void setFailed(Task<Void> task) {
+        anchorPane.setDisable(false);
         //TODO придумать вывод ошибок
         complete.setText(task.getException().getMessage());
     }
