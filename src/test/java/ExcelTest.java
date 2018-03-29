@@ -111,7 +111,7 @@ public class ExcelTest {
     public void getColumnCountTest_ThreeFieldDifferentSize() throws IOException, InvalidFormatException {
         final String path = getFilePath("file/threeFieldDifferentSize.xlsx");
         final int columnCount = excel.getColumnCount(getSheet(path));
-        Assert.assertTrue(columnCount == 5);
+        Assert.assertEquals(5, columnCount);
     }
 
     @Test

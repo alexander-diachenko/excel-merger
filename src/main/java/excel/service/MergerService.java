@@ -14,12 +14,12 @@ import java.util.List;
  */
 public class MergerService extends Service<Void> {
 
-    private Excel excel;
-    private File fileFrom;
-    private File fileTo;
-    private List<Integer> fromColumns;
-    private List<Integer> toColumns;
-    private String savedFilePath;
+    private final Excel excel;
+    private final File fileFrom;
+    private final File fileTo;
+    private final List<Integer> fromColumns;
+    private final List<Integer> toColumns;
+    private final String savedFilePath;
 
     public MergerService(Excel excel, File fileFrom, File fileTo, List<Integer> fromColumns, List<Integer> toColumns, String savedFilePath) {
         this.excel = excel;

@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class FormatterService extends Service<Void> {
 
-    private Excel excel;
-    private List<File> files;
-    private CheckBox options;
-    private Integer field;
-    private String value;
+    private final Excel excel;
+    private final List<File> files;
+    private final CheckBox options;
+    private final Integer field;
+    private final String value;
 
     public FormatterService(Excel excel, List<File> files, CheckBox options, Integer field, String value) {
         this.excel = excel;

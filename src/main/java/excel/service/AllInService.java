@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class AllInService extends Service<Void> {
 
-    private List<File> files;
-    private Excel excel;
-    private String savedFilePath;
+    private final List<File> files;
+    private final Excel excel;
+    private final String savedFilePath;
 
     public AllInService(List<File> files, Excel excel, String savedFilePath) {
         this.files = files;
