@@ -97,9 +97,9 @@ public class MergerController implements Initializable {
     public void merge() {
         anchorPane.setDisable(true);
         Excel excel = new ExcelImpl();
-        List<Integer> fromColumns = Arrays.asList(fromId.getValue() - 1, fromField.getValue() - 1);
-        List<Integer> toColumns = Arrays.asList(toId.getValue() - 1, toField.getValue() - 1);
-        savedFilePath = saveDirectoryPath.getText() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx";
+        List<Integer> fromColumns = getFromColumns();
+        List<Integer> toColumns = getToColumns();
+        savedFilePath = getSavedFilePath();
         MergerService mergerService = new MergerService(excel, fileFrom, fileTo, fromColumns, toColumns, savedFilePath);
         Task<Void> task = mergerService.createTask();
         progressIndicator.visibleProperty().bind(task.runningProperty());
@@ -116,6 +116,18 @@ public class MergerController implements Initializable {
             setFailed(e);
             e.printStackTrace();
         }
+    }
+
+    private List<Integer> getFromColumns() {
+        return Arrays.asList(fromId.getValue() - 1, fromField.getValue() - 1);
+    }
+
+    private List<Integer> getToColumns() {
+        return Arrays.asList(toId.getValue() - 1, toField.getValue() - 1);
+    }
+
+    private String getSavedFilePath() {
+        return saveDirectoryPath.getText() + "\\" + "merged_" + TimeUtil.getCurrentTime() + ".xlsx";
     }
 
     private void init() {

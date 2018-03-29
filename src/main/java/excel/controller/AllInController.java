@@ -73,7 +73,7 @@ public class AllInController implements Initializable{
     public void allIn() {
         anchorPane.setDisable(true);
         Excel excel = new ExcelImpl();
-        savedFilePath = saveDirectoryPath.getText() + "\\" + "AllIn_" + TimeUtil.getCurrentTime() + ".xlsx";
+        savedFilePath = getSavedFilePath();
         AllInService allInService = new AllInService(files, excel, savedFilePath);
         Task<Void> task = allInService.createTask();
         progressIndicator.visibleProperty().bind(task.runningProperty());
@@ -90,6 +90,10 @@ public class AllInController implements Initializable{
             setFailed(e);
             e.printStackTrace();
         }
+    }
+
+    private String getSavedFilePath() {
+        return saveDirectoryPath.getText() + "\\" + "AllIn_" + TimeUtil.getCurrentTime() + ".xlsx";
     }
 
     private void init() {
