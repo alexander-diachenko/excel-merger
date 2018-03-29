@@ -48,7 +48,7 @@
                         </HBox>
                         <Label fx:id="filesCount" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
                         <Label fx:id="saveDirectoryPath" prefHeight="24.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="complete" prefHeight="96.0" prefWidth="507.0" GridPane.rowIndex="6" />
+                        <Label fx:id="complete" style="-fx-text-fill: GREEN; -fx-font-weight: bold;" prefHeight="96.0" prefWidth="507.0" GridPane.rowIndex="6" />
                         <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0"
                                            GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
                     </children>

@@ -51,6 +51,7 @@ public class AllInController implements Initializable{
     }
 
     public void selectFiles() {
+        clear(complete);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
         if (files != null) {
@@ -61,6 +62,7 @@ public class AllInController implements Initializable{
     }
 
     public void selectSaveDirectory() {
+        clear(complete);
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File saveDirectory = directoryChooser.showDialog(getStage());
         if (saveDirectory != null) {
@@ -71,6 +73,7 @@ public class AllInController implements Initializable{
     }
 
     public void allIn() {
+        clear(complete);
         disableTab(true);
         Excel excel = new ExcelImpl();
         savedFilePath = getSavedFilePath();
@@ -107,8 +110,7 @@ public class AllInController implements Initializable{
     private void setComplete() {
         disableTab(false);
         openButton.setDisable(false);
-        //TODO придумать вывод завершения
-        complete.setText("DONE");
+        complete.setText("COMPLETE");
     }
 
     private void setFailed(Throwable exception) {
@@ -123,5 +125,9 @@ public class AllInController implements Initializable{
     private BooleanBinding getBooleanBinding() {
         return filesCount.textProperty().isEmpty()
                 .or(saveDirectoryPath.textProperty().isEmpty());
+    }
+
+    private void clear(Label label) {
+        label.setText("");
     }
 }

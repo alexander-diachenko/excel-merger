@@ -46,6 +46,7 @@ public class FormatterController implements Initializable {
     }
 
     public void selectFiles() {
+        clear(complete);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
         if (files != null) {
@@ -56,6 +57,7 @@ public class FormatterController implements Initializable {
     }
 
     public void format() {
+        clear(complete);
         disableTab(true);
         Excel excel = new ExcelImpl();
         FormatterService formatterService = new FormatterService(excel, files, optionsCheckBox, field.getValue(), value.getText());
@@ -78,8 +80,7 @@ public class FormatterController implements Initializable {
 
     private void setComplete() {
         disableTab(false);
-        //TODO придумать вывод завершения
-        complete.setText("DONE");
+        complete.setText("COMPLETE");
     }
 
     private void setFailed(Throwable exception) {
@@ -97,5 +98,9 @@ public class FormatterController implements Initializable {
 
     private BooleanBinding getOptionsBooleanBinding() {
         return optionsCheckBox.selectedProperty().not();
+    }
+
+    private void clear(Label label) {
+        label.setText("");
     }
 }

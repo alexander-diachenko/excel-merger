@@ -65,6 +65,7 @@ public class MergerController implements Initializable {
     }
 
     public void selectFromFile() {
+        clear(complete);
         FileChooser fileFromChooser = new FileChooser();
         fileFrom = fileFromChooser.showOpenDialog(getStage());
         if (fileFrom != null) {
@@ -75,6 +76,7 @@ public class MergerController implements Initializable {
     }
 
     public void selectToFile() {
+        clear(complete);
         FileChooser fileFromChooser = new FileChooser();
         fileTo = fileFromChooser.showOpenDialog(getStage());
         if (fileTo != null) {
@@ -85,6 +87,7 @@ public class MergerController implements Initializable {
     }
 
     public void selectSaveDirectory() {
+        clear(complete);
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File saveDirectory = directoryChooser.showDialog(getStage());
         if (saveDirectory != null) {
@@ -95,6 +98,7 @@ public class MergerController implements Initializable {
     }
 
     public void merge() {
+        clear(complete);
         disableTab(true);
         Excel excel = new ExcelImpl();
         List<Integer> fromColumns = getFromColumns();
@@ -141,8 +145,7 @@ public class MergerController implements Initializable {
     private void setComplete() {
         disableTab(false);
         openButton.setDisable(false);
-        //TODO придумать вывод завершения
-        complete.setText("DONE");
+        complete.setText("COMPLETE");
     }
 
     private void setFailed(Throwable exception) {
@@ -158,5 +161,9 @@ public class MergerController implements Initializable {
         return fromFilePath.textProperty().isEmpty()
                 .or(toFilePath.textProperty().isEmpty())
                 .or(saveDirectoryPath.textProperty().isEmpty());
+    }
+
+    private void clear(Label label) {
+        label.setText("");
     }
 }
