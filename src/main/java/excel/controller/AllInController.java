@@ -1,5 +1,6 @@
 package excel.controller;
 
+import excel.Util.FileUtil;
 import excel.Util.TimeUtil;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
@@ -16,7 +17,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -83,10 +83,9 @@ public class AllInController implements Initializable{
     }
 
     public void open() {
-        Desktop desktop = Desktop.getDesktop();
+        openButton.setDisable(true);
         try {
-            openButton.setDisable(true);
-            desktop.open(new File(savedFilePath));
+            FileUtil.open(new File(savedFilePath));
         } catch (IOException e) {
             setFailed(e);
             e.printStackTrace();
