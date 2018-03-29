@@ -4,6 +4,7 @@ import excel.Util.ExcelUtil;
 import excel.model.Excel;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.scene.control.CheckBox;
 
 import java.io.File;
 import java.util.List;
@@ -15,12 +16,14 @@ public class FormatterService extends Service<Void> {
 
     private Excel excel;
     private List<File> files;
+    private CheckBox options;
     private Integer field;
     private String value;
 
-    public FormatterService(Excel excel, List<File> files, Integer field, String value) {
+    public FormatterService(Excel excel, List<File> files, CheckBox options, Integer field, String value) {
         this.excel = excel;
         this.files = files;
+        this.options = options;
         this.field = field;
         this.value = value;
     }
@@ -35,7 +38,7 @@ public class FormatterService extends Service<Void> {
                         continue;
                     }
                     final List<List<Object>> table = excel.read(file.getPath());
-                    if (!value.isEmpty()) {
+                    if (options.isSelected() && !value.isEmpty()) {
                         insert(table, field, value);
                     }
                     excel.write(table, file.getPath());
