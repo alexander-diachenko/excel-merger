@@ -47,7 +47,7 @@
                                 <Insets />
                             </opaqueInsets>
                         </HBox>
-                        <Button fx:id="format" onAction="#format" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Format" GridPane.rowIndex="5">
+                        <Button fx:id="formatButton" onAction="#format" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Format" GridPane.rowIndex="5" disable="true">
                             <opaqueInsets>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </opaqueInsets>

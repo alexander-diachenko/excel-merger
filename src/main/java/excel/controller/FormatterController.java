@@ -35,6 +35,8 @@ public class FormatterController implements Initializable {
     @FXML
     private Label complete;
     @FXML
+    private Button formatButton;
+    @FXML
     private ProgressIndicator progressIndicator;
     private List<File> files;
 
@@ -56,7 +58,7 @@ public class FormatterController implements Initializable {
     public void format() {
         anchorPane.setDisable(true);
         Excel excel = new ExcelImpl();
-        FormatterService formatterService = new FormatterService(excel, files, field.getValue(), value.getText());
+        FormatterService formatterService = new FormatterService(excel, files, optionsCheckBox, field.getValue(), value.getText());
         Task<Void> task = formatterService.createTask();
         progressIndicator.visibleProperty().bind(task.runningProperty());
         new Thread(task).start();
@@ -65,8 +67,9 @@ public class FormatterController implements Initializable {
     }
 
     private void init() {
-        field.disableProperty().bind(getBooleanBinding());
-        value.disableProperty().bind(getBooleanBinding());
+        formatButton.disableProperty().bind(getBooleanBinding());
+        field.disableProperty().bind(getOptionsBooleanBinding());
+        value.disableProperty().bind(getOptionsBooleanBinding());
     }
 
     private Stage getStage() {
@@ -86,6 +89,10 @@ public class FormatterController implements Initializable {
     }
 
     private BooleanBinding getBooleanBinding() {
+        return filesCount.textProperty().isEmpty();
+    }
+
+    private BooleanBinding getOptionsBooleanBinding() {
         return optionsCheckBox.selectedProperty().not();
     }
 }
