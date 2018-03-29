@@ -36,8 +36,12 @@
                         <HBox fx:id="options" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="1">
                             <children>
                                 <CheckBox fx:id="optionsCheckBox" mnemonicParsing="false" />
-                                <TextField fx:id="field" />
-                                <TextField fx:id="value" />
+                                <Spinner fx:id="field" disable="true">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                                    </valueFactory>
+                                </Spinner>
+                                <TextField fx:id="value" disable="true"/>
                             </children>
                             <opaqueInsets>
                                 <Insets />
