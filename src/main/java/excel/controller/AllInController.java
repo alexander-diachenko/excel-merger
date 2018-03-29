@@ -71,7 +71,7 @@ public class AllInController implements Initializable{
     }
 
     public void allIn() {
-        anchorPane.setDisable(true);
+        disableTab(true);
         Excel excel = new ExcelImpl();
         savedFilePath = getSavedFilePath();
         AllInService allInService = new AllInService(files, excel, savedFilePath);
@@ -105,16 +105,20 @@ public class AllInController implements Initializable{
     }
 
     private void setComplete() {
-        anchorPane.setDisable(false);
+        disableTab(false);
         openButton.setDisable(false);
         //TODO придумать вывод завершения
         complete.setText("DONE");
     }
 
     private void setFailed(Throwable exception) {
-        anchorPane.setDisable(false);
+        disableTab(false);
         //TODO придумать вывод ошибок
         complete.setText(exception.getMessage());
+    }
+
+    private void disableTab(boolean value) {
+        anchorPane.setDisable(value);
     }
 
     private BooleanBinding getBooleanBinding() {
