@@ -3,6 +3,7 @@ package excel.controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,6 +18,7 @@ public class Modal {
     public static void openModal(Stage primaryStage, Throwable exception) {
         try {
             Stage stage = new Stage();
+            stage.getIcons().add(new Image("/img/alert.png"));
             FXMLLoader fxmlLoader = new FXMLLoader();
             Pane root = fxmlLoader.load(Modal.class.getResource("/view/modal.fxml").openStream());
             ModalController modalController = fxmlLoader.getController();
