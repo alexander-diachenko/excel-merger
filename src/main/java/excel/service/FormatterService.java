@@ -15,10 +15,10 @@ public class FormatterService extends Service<Void> {
 
     private Excel excel;
     private List<File> files;
-    private String field;
+    private Integer field;
     private String value;
 
-    public FormatterService(Excel excel, List<File> files, String field, String value) {
+    public FormatterService(Excel excel, List<File> files, Integer field, String value) {
         this.excel = excel;
         this.files = files;
         this.field = field;
@@ -35,8 +35,8 @@ public class FormatterService extends Service<Void> {
                         continue;
                     }
                     final List<List<Object>> table = excel.read(file.getPath());
-                    if (isCorrect(field, value)) {
-                        insert(table, Integer.parseInt(field), value);
+                    if (!value.isEmpty()) {
+                        insert(table, field, value);
                     }
                     excel.write(table, file.getPath());
                 }
@@ -45,12 +45,8 @@ public class FormatterService extends Service<Void> {
         };
     }
 
-    private boolean isCorrect(final String columnNumber, final String columnValue) {
-        return !columnValue.isEmpty() && !columnNumber.isEmpty() && Integer.parseInt(columnNumber) > 0;
-    }
-
-    private void insert(final List<List<Object>> table, final int columnNumber, final String columnValue) {
-        final int index = columnNumber - 1;
+    private void insert(List<List<Object>> table, int columnNumber, final String columnValue) {
+        int index = columnNumber - 1;
         for (List<Object> row : table) {
             if (row.size() > index) {
                 row.add(index, columnValue);
