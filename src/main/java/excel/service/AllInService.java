@@ -1,7 +1,6 @@
 package excel.service;
 
 import excel.Util.ExcelUtil;
-import excel.Util.TimeUtil;
 import excel.model.Excel;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -17,12 +16,12 @@ public class AllInService extends Service<Void> {
 
     private List<File> files;
     private Excel excel;
-    private String saveDirectoryPath;
+    private String savedFilePath;
 
-    public AllInService(List<File> files, Excel excel, String saveDirectoryPath) {
+    public AllInService(List<File> files, Excel excel, String savedFilePath) {
         this.files = files;
         this.excel = excel;
-        this.saveDirectoryPath = saveDirectoryPath;
+        this.savedFilePath = savedFilePath;
     }
 
     @Override
@@ -37,8 +36,7 @@ public class AllInService extends Service<Void> {
                     }
                     tables.addAll(excel.read(file.getAbsolutePath()));
                 }
-                String saveFilePath = saveDirectoryPath + "\\" + "AllIn_" + TimeUtil.getCurrentTime() + ".xlsx";
-                excel.write(tables, saveFilePath);
+                excel.write(tables, savedFilePath);
                 return null;
             }
         };

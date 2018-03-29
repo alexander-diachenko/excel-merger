@@ -39,8 +39,8 @@
                         </Button>
                         <HBox fx:id="actions" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="5">
                             <children>
-                                <Button fx:id="allIn" onAction="#allIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="All in" />
-                                <Button fx:id="open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" />
+                                <Button fx:id="allInButton" onAction="#allIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="All in" />
+                                <Button fx:id="openButton" onAction="#open" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open" disable="true"/>
                             </children>
                             <opaqueInsets>
                                 <Insets />

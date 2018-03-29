@@ -104,20 +104,15 @@ public class MergerController implements Initializable {
         Task<Void> task = mergerService.createTask();
         progressIndicator.visibleProperty().bind(task.runningProperty());
         new Thread(task).start();
-        task.setOnSucceeded(event -> {
-            setComplete();
-
-        });
-        task.setOnFailed(event -> {
-            setFailed(task.getException());
-        });
+        task.setOnSucceeded(event -> setComplete());
+        task.setOnFailed(event -> setFailed(task.getException()));
     }
 
     public void open() {
         Desktop desktop = Desktop.getDesktop();
         try {
-            desktop.open(new File(savedFilePath));
             openButton.setDisable(true);
+            desktop.open(new File(savedFilePath));
         } catch (IOException e) {
             setFailed(e);
             e.printStackTrace();
