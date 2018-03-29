@@ -147,8 +147,7 @@ public class MergerController implements Initializable {
 
     private void setFailed(Throwable exception) {
         disableTab(false);
-        //TODO придумать вывод ошибок
-        complete.setText(exception.getMessage());
+        Modal.openModal(getStage(), exception);
     }
 
     private void disableTab(boolean value) {
