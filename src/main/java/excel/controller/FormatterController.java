@@ -6,13 +6,18 @@ import excel.service.FormatterService;
 import javafx.beans.binding.BooleanBinding;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -84,8 +89,25 @@ public class FormatterController implements Initializable {
 
     private void setFailed(Task<Void> task) {
         disableTab(false);
-        //TODO придумать вывод ошибок
-        complete.setText(task.getException().getMessage());
+        openModal(task.getException());
+    }
+
+    private void openModal(Throwable exception) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Pane root = fxmlLoader.load(getClass().getResource("/view/modal.fxml").openStream());
+            ModalController modalController = fxmlLoader.getController();
+            Label message = modalController.getMessage();
+            message.setText(exception.getMessage());
+            stage.setScene(new Scene(root));
+            stage.setTitle("ERROR!");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(getStage().getScene().getWindow());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void disableTab(boolean value) {
