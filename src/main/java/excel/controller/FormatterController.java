@@ -35,7 +35,7 @@ public class FormatterController implements Initializable {
     @FXML
     private Label complete;
     @FXML
-    private Button formatButton;
+    private Button format;
     @FXML
     private ProgressIndicator progressIndicator;
     private List<File> files;
@@ -45,7 +45,7 @@ public class FormatterController implements Initializable {
         init();
     }
 
-    public void selectFiles() {
+    public void fileAction() {
         clear(complete);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
@@ -56,7 +56,7 @@ public class FormatterController implements Initializable {
         }
     }
 
-    public void format() {
+    public void formatAction() {
         clear(complete);
         disableTab(true);
         Excel excel = new ExcelImpl();
@@ -69,7 +69,7 @@ public class FormatterController implements Initializable {
     }
 
     private void init() {
-        formatButton.disableProperty().bind(getBooleanBinding());
+        format.disableProperty().bind(getBooleanBinding());
         field.disableProperty().bind(getOptionsBooleanBinding());
         value.disableProperty().bind(getOptionsBooleanBinding());
     }

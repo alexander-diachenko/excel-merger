@@ -23,7 +23,7 @@
             <padding>
                 <Insets left="10.0" right="10.0"/>
             </padding>
-            <Button fx:id="fromFileButton" onAction="#selectFromFile" alignment="CENTER" mnemonicParsing="false"
+            <Button fx:id="fromFile" onAction="#fromFileAction" alignment="CENTER" mnemonicParsing="false"
                     prefHeight="25.0" prefWidth="362.0" text="Select 'from' file"/>
             <Label fx:id="fromFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"/>
             <HBox fx:id="fromFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
@@ -39,7 +39,7 @@
                     </valueFactory>
                 </Spinner>
             </HBox>
-            <Button fx:id="toFile" onAction="#selectToFile" alignment="CENTER" mnemonicParsing="false"
+            <Button fx:id="toFile" onAction="#toFileAction" alignment="CENTER" mnemonicParsing="false"
                     prefHeight="25.0" prefWidth="362.0" text="Select 'to' file" GridPane.rowIndex="2"/>
             <HBox fx:id="toFileFields" alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
                   spacing="10.0" GridPane.rowIndex="3">
@@ -56,7 +56,7 @@
             </HBox>
             <Label fx:id="toFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"
                    GridPane.rowIndex="2"/>
-            <Button fx:id="directory" onAction="#selectSaveDirectory" alignment="CENTER" mnemonicParsing="false"
+            <Button fx:id="directory" onAction="#directoryAction" alignment="CENTER" mnemonicParsing="false"
                     prefHeight="25.0" prefWidth="362.0" text="Select directory to save" GridPane.rowIndex="4"/>
             <Label fx:id="saveDirectoryPath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"
                    GridPane.rowIndex="4"/>
@@ -65,9 +65,9 @@
                 <opaqueInsets>
                     <Insets/>
                 </opaqueInsets>
-                <Button fx:id="mergeButton" onAction="#merge" alignment="CENTER" contentDisplay="CENTER"
+                <Button fx:id="merge" onAction="#mergeAction" alignment="CENTER" contentDisplay="CENTER"
                         mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Merge"/>
-                <Button fx:id="openButton" onAction="#open" alignment="CENTER" contentDisplay="CENTER"
+                <Button fx:id="open" onAction="#openAction" alignment="CENTER" contentDisplay="CENTER"
                         mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open"
                         disable="true"/>
             </HBox>

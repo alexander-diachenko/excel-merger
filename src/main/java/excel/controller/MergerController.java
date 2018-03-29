@@ -50,9 +50,9 @@ public class MergerController implements Initializable {
     @FXML
     private Label complete;
     @FXML
-    private Button mergeButton;
+    private Button merge;
     @FXML
-    private Button openButton;
+    private Button open;
     private File fileFrom;
     private File fileTo;
     private String savedFilePath;
@@ -62,7 +62,7 @@ public class MergerController implements Initializable {
         init();
     }
 
-    public void selectFromFile() {
+    public void fromFileAction() {
         clear(complete);
         FileChooser fileFromChooser = new FileChooser();
         fileFrom = fileFromChooser.showOpenDialog(getStage());
@@ -73,7 +73,7 @@ public class MergerController implements Initializable {
         }
     }
 
-    public void selectToFile() {
+    public void toFileAction() {
         clear(complete);
         FileChooser fileFromChooser = new FileChooser();
         fileTo = fileFromChooser.showOpenDialog(getStage());
@@ -84,7 +84,7 @@ public class MergerController implements Initializable {
         }
     }
 
-    public void selectSaveDirectory() {
+    public void directoryAction() {
         clear(complete);
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File saveDirectory = directoryChooser.showDialog(getStage());
@@ -95,7 +95,7 @@ public class MergerController implements Initializable {
         }
     }
 
-    public void merge() {
+    public void mergeAction() {
         clear(complete);
         disableTab(true);
         Excel excel = new ExcelImpl();
@@ -110,8 +110,8 @@ public class MergerController implements Initializable {
         task.setOnFailed(event -> setFailed(task.getException()));
     }
 
-    public void open() {
-        openButton.setDisable(true);
+    public void openAction() {
+        open.setDisable(true);
         try {
             FileUtil.open(new File(savedFilePath));
         } catch (IOException e) {
@@ -133,7 +133,7 @@ public class MergerController implements Initializable {
     }
 
     private void init() {
-        mergeButton.disableProperty().bind(getBooleanBinding());
+        merge.disableProperty().bind(getBooleanBinding());
     }
 
     private Stage getStage() {
@@ -142,7 +142,7 @@ public class MergerController implements Initializable {
 
     private void setComplete() {
         disableTab(false);
-        openButton.setDisable(false);
+        open.setDisable(false);
         complete.setText("COMPLETE");
     }
 

@@ -26,9 +26,9 @@
             <padding>
                 <Insets left="10.0" right="10.0"/>
             </padding>
-            <Button fx:id="file" onAction="#selectFiles" alignment="CENTER" contentDisplay="CENTER"
+            <Button fx:id="file" onAction="#fileAction" alignment="CENTER" contentDisplay="CENTER"
                     mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="Select file(s)"/>
-            <Button fx:id="directory" onAction="#selectSaveDirectory" alignment="CENTER" contentDisplay="CENTER"
+            <Button fx:id="directory" onAction="#directoryAction" alignment="CENTER" contentDisplay="CENTER"
                     mnemonicParsing="false" prefHeight="25.0" prefWidth="332.0" text="Select directory to save"
                     GridPane.rowIndex="1">
                 <padding>
@@ -40,9 +40,9 @@
                 <opaqueInsets>
                     <Insets/>
                 </opaqueInsets>
-                <Button fx:id="allInButton" onAction="#allIn" alignment="CENTER" contentDisplay="CENTER"
+                <Button fx:id="allIn" onAction="#allInAction" alignment="CENTER" contentDisplay="CENTER"
                         mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="All in"/>
-                <Button fx:id="openButton" onAction="#open" alignment="CENTER" contentDisplay="CENTER"
+                <Button fx:id="open" onAction="#openAction" alignment="CENTER" contentDisplay="CENTER"
                         mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open"
                         disable="true"/>
             </HBox>

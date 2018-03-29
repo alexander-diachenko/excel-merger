@@ -35,9 +35,9 @@ public class AllInController implements Initializable{
     @FXML
     private Label saveDirectoryPath;
     @FXML
-    private Button allInButton;
+    private Button allIn;
     @FXML
-    private Button openButton;
+    private Button open;
     @FXML
     private Label complete;
     @FXML
@@ -50,7 +50,7 @@ public class AllInController implements Initializable{
         init();
     }
 
-    public void selectFiles() {
+    public void fileAction() {
         clear(complete);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
@@ -61,7 +61,7 @@ public class AllInController implements Initializable{
         }
     }
 
-    public void selectSaveDirectory() {
+    public void directoryAction() {
         clear(complete);
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File saveDirectory = directoryChooser.showDialog(getStage());
@@ -72,7 +72,7 @@ public class AllInController implements Initializable{
         }
     }
 
-    public void allIn() {
+    public void allInAction() {
         clear(complete);
         disableTab(true);
         Excel excel = new ExcelImpl();
@@ -85,8 +85,8 @@ public class AllInController implements Initializable{
         task.setOnFailed(event -> setFailed(task.getException()));
     }
 
-    public void open() {
-        openButton.setDisable(true);
+    public void openAction() {
+        open.setDisable(true);
         try {
             FileUtil.open(new File(savedFilePath));
         } catch (IOException e) {
@@ -100,7 +100,7 @@ public class AllInController implements Initializable{
     }
 
     private void init() {
-        allInButton.disableProperty().bind(getBooleanBinding());
+        allIn.disableProperty().bind(getBooleanBinding());
     }
 
     private Stage getStage() {
@@ -109,7 +109,7 @@ public class AllInController implements Initializable{
 
     private void setComplete() {
         disableTab(false);
-        openButton.setDisable(false);
+        open.setDisable(false);
         complete.setText("COMPLETE");
     }
 

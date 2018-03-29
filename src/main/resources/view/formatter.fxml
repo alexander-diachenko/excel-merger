@@ -26,7 +26,7 @@
             <padding>
                 <Insets left="10.0" right="10.0"/>
             </padding>
-            <Button fx:id="file" onAction="#selectFiles" alignment="CENTER" mnemonicParsing="false"
+            <Button fx:id="file" onAction="#fileAction" alignment="CENTER" mnemonicParsing="false"
                     prefHeight="25.0" prefWidth="310.0" text="Select files"/>
             <Label fx:id="filesCount" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"/>
             <HBox fx:id="options" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0"
@@ -42,7 +42,7 @@
                 </Spinner>
                 <TextField fx:id="value" disable="true"/>
             </HBox>
-            <Button fx:id="formatButton" onAction="#format" contentDisplay="CENTER" mnemonicParsing="false"
+            <Button fx:id="format" onAction="#formatAction" contentDisplay="CENTER" mnemonicParsing="false"
                     prefHeight="25.0" prefWidth="140.0" text="Format" GridPane.rowIndex="5" disable="true">
                 <opaqueInsets>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>

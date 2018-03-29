@@ -13,10 +13,10 @@ public class ModalController {
     @FXML
     private Label message;
     @FXML
-    private Button closeButton;
+    private Button close;
 
-    public void close() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+    public void closeAction() {
+        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 
