@@ -24,19 +24,23 @@ public class ExcelMergerImpl implements ExcelMerger {
         for (List<Object> rawTo : to) {
             for (List<Object> rawFrom : from) {
                 if (isCorrectInput(idColumnFrom, idColumnTo, rawFrom.size(), rawTo.size(), mergeColumnFrom)) {
-                    final String idTo = String.valueOf(rawTo.get(idColumnTo));
-                    final String idFrom = String.valueOf(rawFrom.get(idColumnFrom));
-                    if (idTo.equals(idFrom) && !idTo.isEmpty()) {
-                        while (rawTo.size() <= mergeColumnTo) {
-                            rawTo.add("");
-                        }
-                        rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
+                    final Object idTo = rawTo.get(idColumnTo);
+                    final Object idFrom = rawFrom.get(idColumnFrom);
+                    if (idTo.equals(idFrom)) {
+                        insert(mergeColumnFrom, mergeColumnTo, rawTo, rawFrom);
                         break;
                     }
                 }
             }
         }
         return to;
+    }
+
+    private void insert(Integer mergeColumnFrom, Integer mergeColumnTo, List<Object> rawTo, List<Object> rawFrom) {
+        while (rawTo.size() <= mergeColumnTo) {
+            rawTo.add("");
+        }
+        rawTo.set(mergeColumnTo, rawFrom.get(mergeColumnFrom));
     }
 
     private boolean isCorrectInput(final Integer idColumnFrom, final Integer idColumnTo,
