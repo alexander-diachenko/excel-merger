@@ -6,6 +6,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class AllInService extends Service<Void> {
         return new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                final List<List<Object>> tables = new LinkedList<>();
+                final List<List<Object>> tables = new ArrayList<>();
                 for (File file : files) {
                     if (!ExcelUtil.isExcel(file)) {
                         continue;

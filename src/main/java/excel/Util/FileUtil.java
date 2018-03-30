@@ -9,6 +9,11 @@ import java.io.IOException;
  */
 public class FileUtil {
 
+    /**
+     * Open file with default application.
+     * @param file
+     * @throws IOException
+     */
     public static void open(File file) throws IOException {
         Desktop desktop = Desktop.getDesktop();
         desktop.open(file);

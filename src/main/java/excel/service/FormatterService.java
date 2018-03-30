@@ -38,7 +38,7 @@ public class FormatterService extends Service<Void> {
                         continue;
                     }
                     final List<List<Object>> table = excel.read(file.getPath());
-                    if (options.isSelected() && !value.isEmpty()) {
+                    if (options.isSelected()) {
                         insert(table, field, value);
                     }
                     excel.write(table, file.getPath());
