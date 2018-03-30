@@ -4,6 +4,7 @@ import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.service.FormatterService;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,8 +34,6 @@ public class FormatterController implements Initializable {
     @FXML
     private TextField value;
     @FXML
-    private Label complete;
-    @FXML
     private Button format;
     @FXML
     private ProgressIndicator progressIndicator;
@@ -46,7 +45,7 @@ public class FormatterController implements Initializable {
     }
 
     public void fileAction() {
-        clear(complete);
+        refresh(progressIndicator);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
         if (files != null) {
@@ -57,7 +56,7 @@ public class FormatterController implements Initializable {
     }
 
     public void formatAction() {
-        clear(complete);
+        refresh(progressIndicator);
         disableTab(true);
         Excel excel = new ExcelImpl();
         FormatterService formatterService = new FormatterService(excel, files, optionsCheckBox, field.getValue(), value.getText());
@@ -80,7 +79,8 @@ public class FormatterController implements Initializable {
 
     private void setComplete() {
         disableTab(false);
-        complete.setText("COMPLETE");
+        progressIndicator.visibleProperty().bind(new SimpleBooleanProperty(true));
+        progressIndicator.setProgress(1);
     }
 
     private void setFailed(Throwable exception) {
@@ -100,7 +100,8 @@ public class FormatterController implements Initializable {
         return optionsCheckBox.selectedProperty().not();
     }
 
-    private void clear(Label label) {
-        label.setText("");
+    private void refresh(ProgressIndicator progressIndicator) {
+        progressIndicator.visibleProperty().unbind();
+        progressIndicator.setProgress(-1);
     }
 }

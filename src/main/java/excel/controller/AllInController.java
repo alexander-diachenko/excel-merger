@@ -6,6 +6,7 @@ import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.service.AllInService;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,8 +40,6 @@ public class AllInController implements Initializable{
     @FXML
     private Button open;
     @FXML
-    private Label complete;
-    @FXML
     private ProgressIndicator progressIndicator;
     private List<File> files;
     private String savedFilePath;
@@ -51,7 +50,7 @@ public class AllInController implements Initializable{
     }
 
     public void fileAction() {
-        clear(complete);
+        refresh(progressIndicator);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
         if (files != null) {
@@ -62,7 +61,7 @@ public class AllInController implements Initializable{
     }
 
     public void directoryAction() {
-        clear(complete);
+        refresh(progressIndicator);
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File saveDirectory = directoryChooser.showDialog(getStage());
         if (saveDirectory != null) {
@@ -73,7 +72,7 @@ public class AllInController implements Initializable{
     }
 
     public void allInAction() {
-        clear(complete);
+        refresh(progressIndicator);
         disableTab(true);
         Excel excel = new ExcelImpl();
         savedFilePath = getSavedFilePath();
@@ -110,7 +109,8 @@ public class AllInController implements Initializable{
     private void setComplete() {
         disableTab(false);
         open.setDisable(false);
-        complete.setText("COMPLETE");
+        progressIndicator.visibleProperty().bind(new SimpleBooleanProperty(true));
+        progressIndicator.setProgress(1);
     }
 
     private void setFailed(Throwable exception) {
@@ -127,7 +127,8 @@ public class AllInController implements Initializable{
                 .or(saveDirectoryPath.textProperty().isEmpty());
     }
 
-    private void clear(Label label) {
-        label.setText("");
+    private void refresh(ProgressIndicator progressIndicator) {
+        progressIndicator.visibleProperty().unbind();
+        progressIndicator.setProgress(-1);
     }
 }

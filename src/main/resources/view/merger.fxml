@@ -18,7 +18,6 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <padding>
                 <Insets left="10.0" right="10.0"/>
@@ -71,8 +70,6 @@
                         mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Open"
                         disable="true"/>
             </HBox>
-            <Label fx:id="complete" style="-fx-text-fill: GREEN; -fx-font-weight: bold;" prefHeight="96.0"
-                   prefWidth="507.0" GridPane.rowIndex="6"/>
             <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0"
                                GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
         </GridPane>
