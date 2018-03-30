@@ -33,13 +33,24 @@
                 <opaqueInsets>
                     <Insets/>
                 </opaqueInsets>
-                <CheckBox fx:id="optionsCheckBox" mnemonicParsing="false"/>
+                <CheckBox fx:id="optionsCheckBox" mnemonicParsing="false">
+                    <tooltip>
+                        <Tooltip text="Enable options"/>
+                    </tooltip>
+                </CheckBox>
                 <Spinner fx:id="field" disable="true">
                     <valueFactory>
                         <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
                     </valueFactory>
+                    <tooltip>
+                        <Tooltip text="Select column"/>
+                    </tooltip>
                 </Spinner>
-                <TextField fx:id="value" disable="true"/>
+                <TextField fx:id="value" disable="true">
+                    <tooltip>
+                        <Tooltip text="Enter value to insert"/>
+                    </tooltip>
+                </TextField>
             </HBox>
             <Button fx:id="format" onAction="#formatAction" contentDisplay="CENTER" mnemonicParsing="false"
                     prefHeight="25.0" prefWidth="140.0" text="Format" GridPane.rowIndex="5" disable="true">
