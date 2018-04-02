@@ -57,7 +57,7 @@ public class MergerController implements Initializable {
     private String savedFilePath;
 
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void initialize(URL location, ResourceBundle bundle) {
         init();
     }
 

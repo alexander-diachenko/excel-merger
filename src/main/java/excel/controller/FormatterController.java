@@ -40,7 +40,7 @@ public class FormatterController implements Initializable {
     private List<File> files;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle bundle) {
         init();
     }
 

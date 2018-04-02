@@ -4,7 +4,7 @@
 <TabPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
          prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8"
          xmlns:fx="http://javafx.com/fxml/1">
-    <fx:include source="merger.fxml"/>
-    <fx:include source="formatter.fxml"/>
-    <fx:include source="allIn.fxml"/>
+    <fx:include source="merger.fxml" charset="utf-8"/>
+    <fx:include source="formatter.fxml" charset="utf-8"/>
+    <fx:include source="allIn.fxml" charset="utf-8"/>
 </TabPane>

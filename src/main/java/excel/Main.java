@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author Alexander Diachenko.
@@ -20,7 +22,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("/img/logo.png"));
-        Parent root = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", new Locale("en", "EN"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/main.fxml"), bundle);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

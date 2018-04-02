@@ -45,7 +45,7 @@ public class AllInController implements Initializable{
     private String savedFilePath;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle bundle) {
         init();
     }
 
