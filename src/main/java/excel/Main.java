@@ -1,5 +1,6 @@
 package excel;
 
+import excel.Util.ResourceBundleControl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("/img/logo.png"));
-        ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", new Locale("en", "EN"));
+        ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", new Locale("ru", "RU"), new ResourceBundleControl());
         Parent root = FXMLLoader.load(getClass().getResource("/view/main.fxml"), bundle);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
