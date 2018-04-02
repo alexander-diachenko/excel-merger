@@ -35,7 +35,7 @@ public class ExcelTest {
     public void readExcelTest_twoField() throws IOException, InvalidFormatException {
         final List<List<Object>> table = excel.read(getFilePath("file/twoField.xlsx"));
         Assert.assertEquals(
-                "[[SAB070001, ANNA SUI ROMANTICA EDT TESTER 75 ml spray  с крышкoй, 10], " +
+                "[[SAB070001, ANNA SUI ROMANTICA EDT TESTER 75 ml spray, 10], " +
                         "[SAB070002, ANNA SUI ROMANTICA EDT 30 ml spray, 42]]", table.toString());
     }
 
