@@ -2,13 +2,10 @@
 
 <?import javafx.scene.control.TabPane?>
 
-<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.layout.VBox?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <MenuBar>
-        <fx:include source="menu.fxml" charset="utf-8"/>
-    </MenuBar>
+    <fx:include source="menu.fxml" charset="utf-8"/>
     <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
              prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8"
              xmlns:fx="http://javafx.com/fxml/1">

@@ -2,13 +2,18 @@
 
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
-<Menu mnemonicParsing="false" text="%menu.text.settings" xmlns:fx="http://javafx.com/fxml/1" fx:controller="excel.controller.MenuController">
-    <items>
-        <Menu mnemonicParsing="false" text="%menu.text.settings.language">
-            <items>
-                <MenuItem onAction="#languageEnAction" mnemonicParsing="false" text="%menu.text.settings.language.english"/>
-                <MenuItem onAction="#languageRuAction" mnemonicParsing="false" text="%menu.text.settings.language.russian"/>
-            </items>
-        </Menu>
-    </items>
-</Menu>
+<?import javafx.scene.control.MenuBar?>
+<MenuBar fx:id="menu" xmlns:fx="http://javafx.com/fxml/1" fx:controller="excel.controller.MenuController">
+    <Menu mnemonicParsing="false" text="%menu.text.settings">
+        <items>
+            <Menu mnemonicParsing="false" text="%menu.text.settings.language">
+                <items>
+                    <MenuItem onAction="#languageEnAction" mnemonicParsing="false"
+                              text="%menu.text.settings.language.english"/>
+                    <MenuItem onAction="#languageRuAction" mnemonicParsing="false"
+                              text="%menu.text.settings.language.russian"/>
+                </items>
+            </Menu>
+        </items>
+    </Menu>
+</MenuBar>

@@ -23,8 +23,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("/img/logo.png"));
-        ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", new Locale("ru", "RU"), new ResourceBundleControl());
-        Parent root = FXMLLoader.load(getClass().getResource("/view/main.fxml"), bundle);
+        load(primaryStage, new Locale("ru", "RU"));
+    }
+
+    public static void load(Stage primaryStage, Locale locale) throws IOException {
+        ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", locale, new ResourceBundleControl());
+        Parent root = FXMLLoader.load(Main.class.getResource("/view/main.fxml"), bundle);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
