@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -22,6 +23,10 @@ public class MenuController implements Initializable {
 
     @FXML
     public MenuBar menu;
+    @FXML
+    private MenuItem en;
+    @FXML
+    private MenuItem ru;
     private ResourceBundle bundle;
 
     @Override
@@ -47,6 +52,17 @@ public class MenuController implements Initializable {
 
     private void init(ResourceBundle bundle) {
         this.bundle = bundle;
+        disableCurrentLanguage();
+    }
+
+    private void disableCurrentLanguage() {
+        Locale locale = bundle.getLocale();
+        String language = locale.getLanguage();
+        if (language.equals("en")) {
+            en.setDisable(true);
+        } else if (language.equals("ru")) {
+            ru.setDisable(true);
+        }
     }
 
     private Stage getStage() {

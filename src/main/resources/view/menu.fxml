@@ -8,9 +8,9 @@
         <items>
             <Menu mnemonicParsing="false" text="%menu.text.settings.language">
                 <items>
-                    <MenuItem onAction="#languageEnAction" mnemonicParsing="false"
+                    <MenuItem fx:id="en" onAction="#languageEnAction" mnemonicParsing="false"
                               text="%menu.text.settings.language.english"/>
-                    <MenuItem onAction="#languageRuAction" mnemonicParsing="false"
+                    <MenuItem fx:id="ru" onAction="#languageRuAction" mnemonicParsing="false"
                               text="%menu.text.settings.language.russian"/>
                 </items>
             </Menu>
