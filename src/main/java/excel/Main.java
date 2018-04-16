@@ -23,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("/img/logo.png"));
-        load(primaryStage, new Locale("ru", "RU"));
+        load(primaryStage, new Locale("ru"));
     }
 
     public static void load(Stage primaryStage, Locale locale) throws IOException {
