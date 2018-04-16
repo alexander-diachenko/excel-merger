@@ -7,8 +7,6 @@ import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.service.MergerService;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -62,7 +60,7 @@ public class MergerController implements Initializable {
     }
 
     public void fromFileAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         FileChooser fileFromChooser = new FileChooser();
         fileFrom = fileFromChooser.showOpenDialog(getStage());
         if (fileFrom != null) {
@@ -73,7 +71,7 @@ public class MergerController implements Initializable {
     }
 
     public void toFileAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         FileChooser fileFromChooser = new FileChooser();
         fileTo = fileFromChooser.showOpenDialog(getStage());
         if (fileTo != null) {
@@ -84,7 +82,7 @@ public class MergerController implements Initializable {
     }
 
     public void directoryAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File saveDirectory = directoryChooser.showDialog(getStage());
         if (saveDirectory != null) {
@@ -95,18 +93,18 @@ public class MergerController implements Initializable {
     }
 
     public void mergeAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         disableTab(true);
         Excel excel = new ExcelImpl();
         List<Integer> fromColumns = getFromColumns();
         List<Integer> toColumns = getToColumns();
         savedFilePath = getSavedFilePath();
         MergerService mergerService = new MergerService(excel, fileFrom, fileTo, fromColumns, toColumns, savedFilePath);
-        Task<Void> task = mergerService.createTask();
-        progressIndicator.visibleProperty().bind(task.runningProperty());
-        new Thread(task).start();
-        task.setOnSucceeded(event -> setComplete());
-        task.setOnFailed(event -> setFailed(task.getException()));
+        progressIndicator.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+        progressIndicator.visibleProperty().bind(mergerService.runningProperty());
+        mergerService.restart();
+        mergerService.setOnSucceeded(event -> setComplete());
+        mergerService.setOnFailed(event -> setFailed(mergerService.getException()));
     }
 
     public void openAction() {
@@ -142,7 +140,7 @@ public class MergerController implements Initializable {
     private void setComplete() {
         disableTab(false);
         open.setDisable(false);
-        progressIndicator.visibleProperty().bind(new SimpleBooleanProperty(true));
+        progressIndicator.visibleProperty().unbind();
         progressIndicator.setProgress(1);
     }
 
@@ -161,8 +159,7 @@ public class MergerController implements Initializable {
                 .or(saveDirectoryPath.textProperty().isEmpty());
     }
 
-    private void refresh(ProgressIndicator progressIndicator) {
-        progressIndicator.visibleProperty().unbind();
-        progressIndicator.setProgress(-1);
+    private void hide(ProgressIndicator progressIndicator) {
+        progressIndicator.setVisible(false);
     }
 }

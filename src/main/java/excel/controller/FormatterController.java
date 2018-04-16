@@ -4,8 +4,6 @@ import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.service.FormatterService;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -45,7 +43,7 @@ public class FormatterController implements Initializable {
     }
 
     public void fileAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
         if (files != null) {
@@ -56,15 +54,15 @@ public class FormatterController implements Initializable {
     }
 
     public void formatAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         disableTab(true);
         Excel excel = new ExcelImpl();
         FormatterService formatterService = new FormatterService(excel, files, optionsCheckBox, field.getValue(), value.getText());
-        Task<Void> task = formatterService.createTask();
-        progressIndicator.visibleProperty().bind(task.runningProperty());
-        new Thread(task).start();
-        task.setOnSucceeded(event -> setComplete());
-        task.setOnFailed(event -> setFailed(task.getException()));
+        progressIndicator.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+        progressIndicator.visibleProperty().bind(formatterService.runningProperty());
+        formatterService.restart();
+        formatterService.setOnSucceeded(event -> setComplete());
+        formatterService.setOnFailed(event -> setFailed(formatterService.getException()));
     }
 
     private void init() {
@@ -79,7 +77,7 @@ public class FormatterController implements Initializable {
 
     private void setComplete() {
         disableTab(false);
-        progressIndicator.visibleProperty().bind(new SimpleBooleanProperty(true));
+        progressIndicator.visibleProperty().unbind();
         progressIndicator.setProgress(1);
     }
 
@@ -100,8 +98,7 @@ public class FormatterController implements Initializable {
         return optionsCheckBox.selectedProperty().not();
     }
 
-    private void refresh(ProgressIndicator progressIndicator) {
-        progressIndicator.visibleProperty().unbind();
-        progressIndicator.setProgress(-1);
+    private void hide(ProgressIndicator progressIndicator) {
+        progressIndicator.setVisible(false);
     }
 }

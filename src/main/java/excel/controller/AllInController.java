@@ -6,8 +6,6 @@ import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.service.AllInService;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -50,7 +48,7 @@ public class AllInController implements Initializable{
     }
 
     public void fileAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         FileChooser fileChooser = new FileChooser();
         files = fileChooser.showOpenMultipleDialog(getStage());
         if (files != null) {
@@ -61,7 +59,7 @@ public class AllInController implements Initializable{
     }
 
     public void directoryAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File saveDirectory = directoryChooser.showDialog(getStage());
         if (saveDirectory != null) {
@@ -72,16 +70,16 @@ public class AllInController implements Initializable{
     }
 
     public void allInAction() {
-        refresh(progressIndicator);
+        hide(progressIndicator);
         disableTab(true);
         Excel excel = new ExcelImpl();
         savedFilePath = getSavedFilePath();
         AllInService allInService = new AllInService(files, excel, savedFilePath);
-        Task<Void> task = allInService.createTask();
-        progressIndicator.visibleProperty().bind(task.runningProperty());
-        new Thread(task).start();
-        task.setOnSucceeded(event -> setComplete());
-        task.setOnFailed(event -> setFailed(task.getException()));
+        progressIndicator.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+        progressIndicator.visibleProperty().bind(allInService.runningProperty());
+        allInService.restart();
+        allInService.setOnSucceeded(event -> setComplete());
+        allInService.setOnFailed(event -> setFailed(allInService.getException()));
     }
 
     public void openAction() {
@@ -109,7 +107,7 @@ public class AllInController implements Initializable{
     private void setComplete() {
         disableTab(false);
         open.setDisable(false);
-        progressIndicator.visibleProperty().bind(new SimpleBooleanProperty(true));
+        progressIndicator.visibleProperty().unbind();
         progressIndicator.setProgress(1);
     }
 
@@ -127,8 +125,7 @@ public class AllInController implements Initializable{
                 .or(saveDirectoryPath.textProperty().isEmpty());
     }
 
-    private void refresh(ProgressIndicator progressIndicator) {
-        progressIndicator.visibleProperty().unbind();
-        progressIndicator.setProgress(-1);
+    private void hide(ProgressIndicator progressIndicator) {
+        progressIndicator.setVisible(false);
     }
 }
