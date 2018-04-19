@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 public class AllInController implements Initializable {
 
     @FXML
-    private AnchorPane anchorPane;
+    private GridPane gridPane;
     @FXML
     private Label filesCount;
     @FXML
@@ -101,7 +101,7 @@ public class AllInController implements Initializable {
     }
 
     private Stage getStage() {
-        return (Stage) anchorPane.getScene().getWindow();
+        return (Stage) gridPane.getScene().getWindow();
     }
 
     private void setComplete() {
@@ -117,7 +117,7 @@ public class AllInController implements Initializable {
     }
 
     private void disableTab(boolean value) {
-        anchorPane.setDisable(value);
+        gridPane.setDisable(value);
     }
 
     private BooleanBinding getBooleanBinding() {

@@ -4,34 +4,32 @@
 <?import javafx.scene.layout.*?>
 <Tab fx:id="allInTab" xmlns:fx="http://javafx.com/fxml/1" text="%tab.allIn"
      fx:controller="excel.controller.AllInController">
-    <AnchorPane fx:id="anchorPane">
-        <GridPane fx:id="gridPane">
-            <columnConstraints>
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <Button fx:id="file" onAction="#fileAction" mnemonicParsing="false" text="%allIn.button.file.text"
-                    GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <Button fx:id="directory" onAction="#directoryAction" mnemonicParsing="false"
-                    text="%allIn.button.directory.text" GridPane.rowIndex="1" GridPane.columnIndex="0">
-            </Button>
-            <HBox fx:id="actions" GridPane.rowIndex="5" GridPane.columnIndex="0">
-                <Button fx:id="allIn" onAction="#allInAction" mnemonicParsing="false" text="%allIn.button.allIn.text"/>
-                <Button fx:id="open" onAction="#openAction" mnemonicParsing="false" text="%allIn.button.open.text"
-                        disable="true"/>
-            </HBox>
-            <Label fx:id="filesCount" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-            <Label fx:id="saveDirectoryPath" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-            <ProgressIndicator fx:id="progressIndicator" GridPane.rowIndex="5" GridPane.columnIndex="1"
-                               visible="false"/>
-        </GridPane>
-    </AnchorPane>
+    <GridPane fx:id="gridPane">
+        <columnConstraints>
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Button fx:id="file" onAction="#fileAction" mnemonicParsing="false" text="%allIn.button.file.text"
+                GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Button fx:id="directory" onAction="#directoryAction" mnemonicParsing="false"
+                text="%allIn.button.directory.text" GridPane.rowIndex="1" GridPane.columnIndex="0">
+        </Button>
+        <HBox fx:id="actions" GridPane.rowIndex="5" GridPane.columnIndex="0">
+            <Button fx:id="allIn" onAction="#allInAction" mnemonicParsing="false" text="%allIn.button.allIn.text"/>
+            <Button fx:id="open" onAction="#openAction" mnemonicParsing="false" text="%allIn.button.open.text"
+                    disable="true"/>
+        </HBox>
+        <Label fx:id="filesCount" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label fx:id="saveDirectoryPath" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <ProgressIndicator fx:id="progressIndicator" GridPane.rowIndex="5" GridPane.columnIndex="1"
+                           visible="false"/>
+    </GridPane>
 </Tab>
