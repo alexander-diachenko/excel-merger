@@ -99,6 +99,8 @@ public class FormatterController implements Initializable {
     }
 
     private void hide(ProgressIndicator progressIndicator) {
-        progressIndicator.setVisible(false);
+        if(progressIndicator.isVisible()) {
+            progressIndicator.setVisible(false);
+        }
     }
 }
