@@ -28,6 +28,7 @@
 
 .dialog-pane .button {
     -fx-background-color: #424242;
+    -fx-text-fill: #9E9E9E;
     -fx-wrap-text: true;
     -fx-cursor: hand;
 }
