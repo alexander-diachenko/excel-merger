@@ -24,6 +24,7 @@
 }
 
 .button {
+    -fx-text-fill: #9E9E9E;
     -fx-cursor: hand;
 }
 
