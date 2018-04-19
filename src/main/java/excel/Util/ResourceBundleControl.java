@@ -1,21 +1,21 @@
 package excel.Util;
 
 /*
-* This file is part of aion-emu <aion-emu.com>.
-*
-* aion-emu is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* aion-emu is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with aion-emu.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * This file is part of aion-emu <aion-emu.com>.
+ *
+ * aion-emu is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * aion-emu is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with aion-emu.  If not, see <http://www.gnu.org/licenses/>.
+ */
 //package com.aionemu.commons.utils.i18n;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
  * utilities like native2ascii to convert files.
  * <p/>
  * <br>
- *
+ * <p>
  * Usage: For instance we want to load resource bundle "test" from current deirectory and use english locale. If locale
  * not found, we will use default file (and ignore default locale).
  *
@@ -59,7 +59,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     /**
      * Encoding which will be used to read resource bundle, by defaults it's 8859_1
      */
-    private String  encoding  = "UTF-8";
+    private String encoding = "UTF-8";
 
     /**
      * Just empty default constructor
@@ -70,8 +70,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     /**
      * This constructor allows to set encoding that will be used while reading resource bundle
      *
-     * @param encoding
-     *            encoding to use
+     * @param encoding encoding to use
      */
     public ResourceBundleControl(String encoding) {
         this.encoding = encoding;
@@ -81,7 +80,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
      * This code is just copy-paste with usage {@link java.io.Reader} instead of {@link java.io.InputStream} to read
      * properties.<br>
      * <br>
-     *
+     * <p>
      * {@inheritDoc}
      */
     @Override
@@ -92,7 +91,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
         if (format.equals("java.class")) {
             try {
                 @SuppressWarnings(
-                        { "unchecked" })
+                        {"unchecked"})
                 Class<? extends ResourceBundle> bundleClass = (Class<? extends ResourceBundle>) loader.loadClass(bundleName);
 
                 // If the class isn't a ResourceBundle subclass, throw a
@@ -102,11 +101,9 @@ public class ResourceBundleControl extends ResourceBundle.Control {
                 } else {
                     throw new ClassCastException(bundleClass.getName() + " cannot be cast to ResourceBundle");
                 }
+            } catch (ClassNotFoundException ignored) {
             }
-            catch (ClassNotFoundException ignored) {
-            }
-        }
-        else if (format.equals("java.properties")) {
+        } else if (format.equals("java.properties")) {
             final String resourceName = toResourceName(bundleName, "properties");
             final ClassLoader classLoader = loader;
             final boolean reloadFlag = reload;
@@ -134,8 +131,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
                 if (stream != null) {
                     isr = new InputStreamReader(stream, encoding);
                 }
-            }
-            catch (PrivilegedActionException e) {
+            } catch (PrivilegedActionException e) {
                 throw (IOException) e.getException();
             }
             if (isr != null) {
@@ -163,8 +159,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
     /**
      * Sets the encoding that will be used to read properties resource bundles
      *
-     * @param encoding
-     *            encoding that will be used for properties
+     * @param encoding encoding that will be used for properties
      */
     public void setEncoding(String encoding) {
         this.encoding = encoding;

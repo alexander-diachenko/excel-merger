@@ -11,10 +11,11 @@ public class ExcelMergerImpl implements ExcelMerger {
 
     /**
      * Return merged lists.
-     * @param from List representation from excel file.
-     * @param to List representation to excel file.
+     *
+     * @param from        List representation from excel file.
+     * @param to          List representation to excel file.
      * @param fromColumns List<Integer>. First index number of id column from file. Second index number of merged column from file.
-     * @param toColumns List<Integer>.  First index number of id column to file. Second index number of merged column to file.
+     * @param toColumns   List<Integer>.  First index number of id column to file. Second index number of merged column to file.
      * @return Merged lists.
      */
     @Override

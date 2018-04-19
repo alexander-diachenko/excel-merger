@@ -40,7 +40,7 @@ public interface Excel {
     /**
      * Auto resize excel table. If column is empty - hide it
      *
-     * @param sheet       of table
+     * @param sheet of table
      */
     void autoResizeSheet(final Sheet sheet);
 }

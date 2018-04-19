@@ -11,6 +11,7 @@ public class FileUtil {
 
     /**
      * Open file with default application.
+     *
      * @param file
      * @throws IOException
      */

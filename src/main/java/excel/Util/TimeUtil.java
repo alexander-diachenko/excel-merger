@@ -10,6 +10,7 @@ public class TimeUtil {
 
     /**
      * Method needed for getting current time in format dd-MM-yyyy_HH-mm-ss
+     *
      * @return current time dd-MM-yyyy_HH-mm-ss
      */
     public static String getCurrentTime() {

@@ -11,6 +11,7 @@ public class ExcelUtil {
 
     /**
      * Method needed to check if file is a excel file.
+     *
      * @param file that need to be check
      * @return true if excel
      */

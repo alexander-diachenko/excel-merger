@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * @author Alexander Diachenko.
  */
-public class AllInController implements Initializable{
+public class AllInController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
