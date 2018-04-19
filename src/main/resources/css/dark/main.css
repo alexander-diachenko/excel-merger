@@ -6,6 +6,10 @@
     -fx-font-family: "Arial";
 }
 
+.label {
+    -fx-text-fill: #9E9E9E;
+}
+
 .tab-pane {
     -fx-tab-min-width: 85;
 }
@@ -15,13 +19,11 @@
 }
 
 .tab-label {
-    -fx-text-fill: #9E9E9E;
     -fx-opacity: 70%;
     -fx-font-size: 13px;
 }
 
 .button {
-    -fx-text-fill: #9E9E9E;
     -fx-cursor: hand;
 }
 
@@ -40,7 +42,6 @@
 }
 
 .tooltip {
-    -fx-text-fill: #9E9E9E;
     -fx-opacity: 50%;
 }
 
@@ -50,5 +51,9 @@
 
 .check-box {
     -fx-cursor: hand;
+}
+
+.progress-indicator {
+    -fx-progress-color: #424242;
 }
 
