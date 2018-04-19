@@ -1,0 +1,50 @@
+#formatterTab#gridPane {
+    -fx-alignment: CENTER;
+    -fx-hgap: 25;
+    -fx-pref-height: 400;
+    -fx-pref-width: 600;
+    -fx-padding: 0 10 0 10;
+}
+
+#formatterTab#file {
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+}
+
+#formatterTab#options {
+    -fx-alignment: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+    -fx-spacing: 10;
+}
+
+#formatterTab#options#optionsCheckBox {}
+
+#formatterTab#options#optionsCheckBox#optionsTooltip {}
+
+#formatterTab#options#field {}
+
+#formatterTab#options#field#fieldTooltip {}
+
+#formatterTab#options#value {}
+
+#formatterTab#options#value#valueTooltip {}
+
+#formatterTab#format {
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 135;
+}
+
+#formatterTab#filesCount {
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+}
+
+#formatterTab#progressIndicator {
+    -fx-pref-height: 50;
+    -fx-pref-width: 50;
+}

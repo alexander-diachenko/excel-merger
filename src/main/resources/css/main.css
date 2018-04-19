@@ -1,4 +1,5 @@
 @import "allIn.css";
+@import "formatter.css";
 
 .root {
     -fx-pref-height: 450;
