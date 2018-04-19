@@ -33,7 +33,7 @@
         <ProgressIndicator fx:id="progressIndicator" GridPane.rowIndex="5" GridPane.columnIndex="1"
                            visible="false"/>
         <stylesheets>
-            <URL value="@/css/default/allIn.css"/>
+            <URL value="@/css/tabs/allIn.css"/>
         </stylesheets>
     </GridPane>
 </Tab>

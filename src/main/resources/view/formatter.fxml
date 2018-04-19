@@ -51,7 +51,7 @@
         </Button>
         <ProgressIndicator fx:id="progressIndicator" GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
         <stylesheets>
-            <URL value="@/css/default/formatter.css"/>
+            <URL value="@/css/tabs/formatter.css"/>
         </stylesheets>
     </GridPane>
 </Tab>

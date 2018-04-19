@@ -70,7 +70,7 @@
         </HBox>
         <ProgressIndicator fx:id="progressIndicator" GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
         <stylesheets>
-            <URL value="@/css/default/merger.css"/>
+            <URL value="@/css/tabs/merger.css"/>
         </stylesheets>
     </GridPane>
 </Tab>
