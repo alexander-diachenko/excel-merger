@@ -28,7 +28,11 @@
 .menu-bar .label {
     -fx-text-fill: #000000;
     -fx-opacity: 50%;
+}
+
+.menu-bar .menu {
     -fx-cursor: hand;
+
 }
 
 .menu-bar .menu-item {
