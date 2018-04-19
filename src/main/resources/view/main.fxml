@@ -13,6 +13,6 @@
         <fx:include source="allIn.fxml" charset="utf-8"/>
     </TabPane>
     <stylesheets>
-        <URL value="@/css/default/main.css"/>
+        <URL value="@/css/dark/main.css"/>
     </stylesheets>
 </VBox>

@@ -1,0 +1,32 @@
+.root {
+    -fx-pref-height: 450;
+    -fx-pref-width: 600;
+    -fx-base: #424242;
+    -fx-background: #212121;
+    -fx-font-family: "Arial";
+}
+
+.tab-pane {
+    -fx-tab-min-width: 85;
+}
+
+.tab-label {
+    -fx-text-fill: #9E9E9E;
+    -fx-opacity: 70%;
+    -fx-font-size: 13px;
+}
+
+.button {
+    -fx-text-fill: #9E9E9E;
+}
+
+.menu-bar .label {
+    -fx-text-fill: #000000;
+    -fx-opacity: 50%;
+}
+
+.tooltip {
+    -fx-text-fill: #9E9E9E;
+    -fx-opacity: 50%;
+}
+
