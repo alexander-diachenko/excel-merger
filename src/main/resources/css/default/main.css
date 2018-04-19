@@ -1,6 +1,6 @@
-@import "default/allIn.css";
-@import "default/formatter.css";
-@import "default/merger.css";
+@import "allIn.css";
+@import "formatter.css";
+@import "merger.css";
 
 .root {
     -fx-pref-height: 450;
