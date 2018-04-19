@@ -1,10 +1,10 @@
 @import "allIn.css";
 
 .root {
-    -fx-pref-height: 420;
+    -fx-pref-height: 450;
     -fx-pref-width: 600;
 }
 
 .tab-pane {
-    -fx-tab-min-width: 80;
+    -fx-tab-min-width: 85;
 }
