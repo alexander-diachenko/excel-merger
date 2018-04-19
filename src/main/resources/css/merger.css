@@ -1,0 +1,51 @@
+#mergerTab#gridPane {
+    -fx-alignment: CENTER;
+    -fx-hgap: 25;
+    -fx-pref-height: 400;
+    -fx-pref-width: 600;
+    -fx-padding: 0 10 0 10;
+}
+
+#mergerTab#fromFile, #mergerTab#directory, #mergerTab#toFile {
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+}
+
+#mergerTab#fromFilePath, #mergerTab#toFilePath, #mergerTab#saveDirectoryPath {
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+}
+
+#mergerTab#fromFileFields, #mergerTab#toFileFields {
+    -fx-alignment: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+    -fx-spacing: 10;
+}
+
+#mergerTab#fromFileFields#fromId, #mergerTab#fromFileFields#fromField, #mergerTab#fromFileFields#toId, #mergerTab#fromFileFields#toField {
+}
+
+#mergerTab#fromFileFields#fromIdTooltip, #mergerTab#fromFileFields#fromFieldTooltip, #mergerTab#fromFileFields#toIdTooltip, #mergerTab#fromFileFields#toFieldTooltip {
+}
+
+#mergerTab#actions {
+    -fx-alignment: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+    -fx-spacing: 10;
+}
+
+#mergerTab#merge, #mergerTab#open {
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 135;
+}
+
+#mergerTab#progressIndicator {
+    -fx-pref-height: 50;
+    -fx-pref-width: 50;
+}

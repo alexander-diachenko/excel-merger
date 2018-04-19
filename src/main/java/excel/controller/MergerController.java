@@ -10,7 +10,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 public class MergerController implements Initializable {
 
     @FXML
-    private AnchorPane anchorPane;
+    private GridPane gridPane;
     @FXML
     private Label fromFilePath;
     @FXML
@@ -134,7 +134,7 @@ public class MergerController implements Initializable {
     }
 
     private Stage getStage() {
-        return (Stage) anchorPane.getScene().getWindow();
+        return (Stage) gridPane.getScene().getWindow();
     }
 
     private void setComplete() {
@@ -150,7 +150,7 @@ public class MergerController implements Initializable {
     }
 
     private void disableTab(boolean value) {
-        anchorPane.setDisable(value);
+        gridPane.setDisable(value);
     }
 
     private BooleanBinding getBooleanBinding() {

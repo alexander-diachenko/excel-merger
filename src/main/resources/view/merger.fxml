@@ -1,89 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <Tab fx:id="mergerTab" xmlns:fx="http://javafx.com/fxml/1" text="%tab.merger"
      fx:controller="excel.controller.MergerController">
-    <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="312.0" prefWidth="539.0">
-        <GridPane hgap="20.0" prefHeight="371.0" prefWidth="600.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <padding>
-                <Insets left="10.0" right="10.0"/>
-            </padding>
-            <Button onAction="#fromFileAction" alignment="CENTER" mnemonicParsing="false"
-                    prefHeight="25.0" prefWidth="362.0" text="%merger.button.fromFile.text"/>
-            <Label fx:id="fromFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"/>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
-                  spacing="10.0" GridPane.rowIndex="1">
-                <Spinner fx:id="fromId">
-                    <valueFactory>
-                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
-                    </valueFactory>
-                    <tooltip>
-                        <Tooltip text="%merger.spinner.tooltip.fromId"/>
-                    </tooltip>
-                </Spinner>
-                <Spinner fx:id="fromField">
-                    <valueFactory>
-                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
-                    </valueFactory>
-                    <tooltip>
-                        <Tooltip text="%merger.spinner.tooltip.fromField"/>
-                    </tooltip>
-                </Spinner>
-            </HBox>
-            <Button onAction="#toFileAction" alignment="CENTER" mnemonicParsing="false"
-                    prefHeight="25.0" prefWidth="362.0" text="%merger.button.toFile.text" GridPane.rowIndex="2"/>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
-                  spacing="10.0" GridPane.rowIndex="3">
-                <Spinner fx:id="toId">
-                    <valueFactory>
-                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
-                    </valueFactory>
-                    <tooltip>
-                        <Tooltip text="%merger.spinner.tooltip.toId"/>
-                    </tooltip>
-                </Spinner>
-                <Spinner fx:id="toField">
-                    <valueFactory>
-                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
-                    </valueFactory>
-                    <tooltip>
-                        <Tooltip text="%merger.spinner.tooltip.toField"/>
-                    </tooltip>
-                </Spinner>
-            </HBox>
-            <Label fx:id="toFilePath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"
-                   GridPane.rowIndex="2"/>
-            <Button onAction="#directoryAction" alignment="CENTER" mnemonicParsing="false"
-                    prefHeight="25.0" prefWidth="362.0" text="%merger.button.directory.text" GridPane.rowIndex="4"/>
-            <Label fx:id="saveDirectoryPath" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"
-                   GridPane.rowIndex="4"/>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0"
-                  GridPane.rowIndex="5">
-                <opaqueInsets>
-                    <Insets/>
-                </opaqueInsets>
-                <Button fx:id="merge" onAction="#mergeAction" alignment="CENTER" contentDisplay="CENTER"
-                        mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="%merger.button.merge.text"/>
-                <Button fx:id="open" onAction="#openAction" alignment="CENTER" contentDisplay="CENTER"
-                        mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="%merger.button.open.text"
-                        disable="true"/>
-            </HBox>
-            <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0"
-                               GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
-        </GridPane>
-    </AnchorPane>
+    <GridPane fx:id="gridPane">
+        <columnConstraints>
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Button fx:id="fromFile" onAction="#fromFileAction" mnemonicParsing="false" text="%merger.button.fromFile.text"
+                GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Label fx:id="fromFilePath" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <HBox fx:id="fromFileFields" GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <Spinner fx:id="fromId">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                </valueFactory>
+                <tooltip>
+                    <Tooltip fx:id="fromIdTooltip" text="%merger.spinner.tooltip.fromId"/>
+                </tooltip>
+            </Spinner>
+            <Spinner fx:id="fromField">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                </valueFactory>
+                <tooltip>
+                    <Tooltip fx:id="fromFieldTooltip" text="%merger.spinner.tooltip.fromField"/>
+                </tooltip>
+            </Spinner>
+        </HBox>
+        <Button fx:id="toFile" onAction="#toFileAction" mnemonicParsing="false" text="%merger.button.toFile.text"
+                GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <HBox fx:id="toFileFields" GridPane.rowIndex="3" GridPane.columnIndex="0">
+            <Spinner fx:id="toId">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                </valueFactory>
+                <tooltip>
+                    <Tooltip fx:id="toIdTooltip" text="%merger.spinner.tooltip.toId"/>
+                </tooltip>
+            </Spinner>
+            <Spinner fx:id="toField">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000"/>
+                </valueFactory>
+                <tooltip>
+                    <Tooltip fx:id="toFieldTooltip" text="%merger.spinner.tooltip.toField"/>
+                </tooltip>
+            </Spinner>
+        </HBox>
+        <Label fx:id="toFilePath" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Button fx:id="directory" onAction="#directoryAction" mnemonicParsing="false"
+                text="%merger.button.directory.text" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <Label fx:id="saveDirectoryPath" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <HBox fx:id="actions" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <Button fx:id="merge" onAction="#mergeAction" mnemonicParsing="false" text="%merger.button.merge.text"/>
+            <Button fx:id="open" onAction="#openAction" mnemonicParsing="false" text="%merger.button.open.text"
+                    disable="true"/>
+        </HBox>
+        <ProgressIndicator fx:id="progressIndicator" GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
+    </GridPane>
 </Tab>

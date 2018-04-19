@@ -6,8 +6,8 @@
      fx:controller="excel.controller.FormatterController">
     <GridPane fx:id="gridPane">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>

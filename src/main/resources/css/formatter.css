@@ -20,17 +20,14 @@
     -fx-spacing: 10;
 }
 
-#formatterTab#options#optionsCheckBox {}
+#formatterTab#options#optionsCheckBox {
+}
 
-#formatterTab#options#optionsCheckBox#optionsTooltip {}
+#formatterTab#options#optionsCheckBox#optionsTooltip, #formatterTab#options#field#fieldTooltip, #formatterTab#options#value#valueTooltip {
+}
 
-#formatterTab#options#field {}
-
-#formatterTab#options#field#fieldTooltip {}
-
-#formatterTab#options#value {}
-
-#formatterTab#options#value#valueTooltip {}
+#formatterTab#options#field, #formatterTab#options#value {
+}
 
 #formatterTab#format {
     -fx-alignment: CENTER;
