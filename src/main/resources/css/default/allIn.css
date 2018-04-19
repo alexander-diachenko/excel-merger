@@ -1,4 +1,4 @@
-#allInTab#gridPane {
+#gridPane {
     -fx-alignment: CENTER;
     -fx-hgap: 25;
     -fx-pref-height: 400;
@@ -6,33 +6,33 @@
     -fx-padding: 0 10 0 10;
 }
 
-#allInTab#file, #allInTab#directory {
+#file, #directory {
     -fx-alignment: CENTER;
     -fx-content-display: CENTER;
     -fx-pref-height: 25;
     -fx-pref-width: 280;
 }
 
-#allInTab#actions {
+#filesCount, #saveDirectoryPath {
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+}
+
+#actions {
     -fx-alignment: CENTER;
     -fx-pref-height: 25;
     -fx-pref-width: 280;
     -fx-spacing: 10;
 }
 
-#allInTab#allIn, #allInTab#open {
+#allIn, #open {
     -fx-alignment: CENTER;
     -fx-content-display: CENTER;
     -fx-pref-height: 25;
     -fx-pref-width: 135;
 }
 
-#allInTab#filesCount, #allInTab#saveDirectoryPath {
-    -fx-pref-height: 25;
-    -fx-pref-width: 280;
-}
-
-#allInTab#progressIndicator {
+#progressIndicator {
     -fx-pref-height: 50;
     -fx-pref-width: 50;
 }
