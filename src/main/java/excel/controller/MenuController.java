@@ -3,10 +3,7 @@ package excel.controller;
 import excel.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -73,6 +70,8 @@ public class MenuController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("/img/question.png"));
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/css/dark/dialog.css").toExternalForm());
         alert.setTitle(bundle.getString("dialog.reload.title"));
         alert.setHeaderText(bundle.getString("dialog.reload.header"));
         alert.setContentText(bundle.getString("dialog.reload.content"));

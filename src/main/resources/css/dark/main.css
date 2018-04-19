@@ -10,6 +10,10 @@
     -fx-tab-min-width: 85;
 }
 
+.tab-pane .tab {
+    -fx-cursor: hand;
+}
+
 .tab-label {
     -fx-text-fill: #9E9E9E;
     -fx-opacity: 70%;
@@ -18,15 +22,29 @@
 
 .button {
     -fx-text-fill: #9E9E9E;
+    -fx-cursor: hand;
 }
 
 .menu-bar .label {
     -fx-text-fill: #000000;
     -fx-opacity: 50%;
+    -fx-cursor: hand;
+}
+
+.menu-bar .menu-item {
+    -fx-cursor: hand;
 }
 
 .tooltip {
     -fx-text-fill: #9E9E9E;
     -fx-opacity: 50%;
+}
+
+.spinner {
+    -fx-cursor: hand;
+}
+
+.check-box {
+    -fx-cursor: hand;
 }
 
