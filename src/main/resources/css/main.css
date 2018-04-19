@@ -1,0 +1,73 @@
+.root {
+    -fx-pref-height: 420;
+    -fx-pref-width: 600;
+}
+
+.tab-pane {
+    -fx-tab-min-width: 80;
+}
+
+#allInTab#anchorPane{
+    -fx-min-height: 0;
+    -fx-min-width: 0;
+    -fx-pref-height: 180;
+    -fx-pref-width: 200;
+}
+
+#allInTab#anchorPane#gridPane {
+    -fx-alignment: CENTER;
+    -fx-hgap: 20;
+    -fx-pref-height: 371;
+    -fx-pref-width: 600;
+    -fx-padding: 0 10 0 10;
+}
+
+#allInTab#anchorPane#gridPane#file{
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 310;
+}
+
+#allInTab#anchorPane#gridPane#directory{
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 310;
+}
+
+#allInTab#anchorPane#gridPane#actions{
+    -fx-alignment: CENTER;
+    -fx-pref-height: 100;
+    -fx-pref-width: 200;
+    -fx-spacing: 10;
+}
+
+#allInTab#anchorPane#gridPane#actions#allIn{
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 140;
+}
+
+#allInTab#anchorPane#gridPane#actions#open{
+    -fx-alignment: CENTER;
+    -fx-content-display: CENTER;
+    -fx-pref-height: 25;
+    -fx-pref-width: 140;
+}
+
+#allInTab#anchorPane#gridPane#filesCount{
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+}
+
+#allInTab#anchorPane#gridPane#saveDirectoryPath{
+    -fx-pref-height: 25;
+    -fx-pref-width: 280;
+}
+
+#allInTab#anchorPane#gridPane#progressIndicator{
+    -fx-pref-height: 92;
+    -fx-pref-width: 147;
+}

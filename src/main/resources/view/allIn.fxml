@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <Tab fx:id="allInTab" xmlns:fx="http://javafx.com/fxml/1" text="%tab.allIn"
      fx:controller="excel.controller.AllInController">
-    <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-        <GridPane alignment="CENTER" hgap="20.0" prefHeight="371.0" prefWidth="600.0">
+    <AnchorPane fx:id="anchorPane">
+        <GridPane fx:id="gridPane">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
+                <ColumnConstraints minWidth="10.0" prefWidth="100.0" hgrow="SOMETIMES"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -19,37 +18,20 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <opaqueInsets>
-                <Insets/>
-            </opaqueInsets>
-            <padding>
-                <Insets left="10.0" right="10.0"/>
-            </padding>
-            <Button onAction="#fileAction" alignment="CENTER" contentDisplay="CENTER"
-                    mnemonicParsing="false" prefHeight="25.0" prefWidth="310.0" text="%allIn.button.file.text"/>
-            <Button onAction="#directoryAction" alignment="CENTER" contentDisplay="CENTER"
-                    mnemonicParsing="false" prefHeight="25.0" prefWidth="332.0" text="%allIn.button.directory.text"
-                    GridPane.rowIndex="1">
-                <padding>
-                    <Insets left="10.0"/>
-                </padding>
+            <Button fx:id="file" onAction="#fileAction" mnemonicParsing="false" text="%allIn.button.file.text"
+                    GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Button fx:id="directory" onAction="#directoryAction" mnemonicParsing="false"
+                    text="%allIn.button.directory.text" GridPane.rowIndex="1" GridPane.columnIndex="0">
             </Button>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0"
-                  GridPane.rowIndex="5">
-                <opaqueInsets>
-                    <Insets/>
-                </opaqueInsets>
-                <Button fx:id="allIn" onAction="#allInAction" alignment="CENTER" contentDisplay="CENTER"
-                        mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="%allIn.button.allIn.text"/>
-                <Button fx:id="open" onAction="#openAction" alignment="CENTER" contentDisplay="CENTER"
-                        mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="%allIn.button.open.text"
+            <HBox fx:id="actions" GridPane.rowIndex="5" GridPane.columnIndex="0">
+                <Button fx:id="allIn" onAction="#allInAction" mnemonicParsing="false" text="%allIn.button.allIn.text"/>
+                <Button fx:id="open" onAction="#openAction" mnemonicParsing="false" text="%allIn.button.open.text"
                         disable="true"/>
             </HBox>
-            <Label fx:id="filesCount" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1"/>
-            <Label fx:id="saveDirectoryPath" prefHeight="24.0" prefWidth="280.0" GridPane.columnIndex="1"
-                   GridPane.rowIndex="1"/>
-            <ProgressIndicator fx:id="progressIndicator" prefHeight="92.0" prefWidth="147.0"
-                               GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
+            <Label fx:id="filesCount" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label fx:id="saveDirectoryPath" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <ProgressIndicator fx:id="progressIndicator" GridPane.rowIndex="5" GridPane.columnIndex="1"
+                               visible="false"/>
         </GridPane>
     </AnchorPane>
 </Tab>
