@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <Tab fx:id="mergerTab" xmlns:fx="http://javafx.com/fxml/1" text="%tab.merger"
      fx:controller="excel.controller.MergerController">
     <GridPane fx:id="gridPane">
@@ -68,5 +69,8 @@
                     disable="true"/>
         </HBox>
         <ProgressIndicator fx:id="progressIndicator" GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
+        <stylesheets>
+            <URL value="@/css/default/merger.css"/>
+        </stylesheets>
     </GridPane>
 </Tab>

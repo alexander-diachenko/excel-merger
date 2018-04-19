@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <Tab fx:id="allInTab" xmlns:fx="http://javafx.com/fxml/1" text="%tab.allIn"
      fx:controller="excel.controller.AllInController">
     <GridPane fx:id="gridPane">
@@ -31,5 +32,8 @@
         <Label fx:id="saveDirectoryPath" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
         <ProgressIndicator fx:id="progressIndicator" GridPane.rowIndex="5" GridPane.columnIndex="1"
                            visible="false"/>
+        <stylesheets>
+            <URL value="@/css/default/allIn.css"/>
+        </stylesheets>
     </GridPane>
 </Tab>

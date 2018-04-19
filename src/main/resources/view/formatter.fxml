@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <Tab fx:id="formatterTab" xmlns:fx="http://javafx.com/fxml/1" text="%tab.formatter"
      fx:controller="excel.controller.FormatterController">
     <GridPane fx:id="gridPane">
@@ -43,5 +44,8 @@
                 GridPane.rowIndex="5" GridPane.columnIndex="0" disable="true">
         </Button>
         <ProgressIndicator fx:id="progressIndicator" GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
+        <stylesheets>
+            <URL value="@/css/default/formatter.css"/>
+        </stylesheets>
     </GridPane>
 </Tab>
