@@ -1,5 +1,6 @@
 package excel.component;
 
+import excel.Util.AppProperty;
 import excel.controller.ModalController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  * @author Alexander Diachenko.
@@ -20,12 +22,16 @@ public class Modal {
         try {
             Stage stage = new Stage();
             stage.getIcons().add(new Image("/img/alert.png"));
+            Properties properties = AppProperty.getProperty();
             FXMLLoader fxmlLoader = new FXMLLoader();
             Pane root = fxmlLoader.load(Modal.class.getResource("/view/modal.fxml").openStream());
             ModalController modalController = fxmlLoader.getController();
             Label message = modalController.getMessage();
             message.setText(exception.getMessage());
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            String style = (String) properties.get("style");
+            scene.getStylesheets().add("/css/" + style + "/modal.css");
+            stage.setScene(scene);
             stage.setTitle("ERROR!");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(primaryStage.getScene().getWindow());

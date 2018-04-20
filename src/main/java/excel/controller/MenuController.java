@@ -31,6 +31,7 @@ public class MenuController implements Initializable {
     @FXML
     private MenuItem def;
     private ResourceBundle bundle;
+    private Properties properties;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,7 +39,7 @@ public class MenuController implements Initializable {
     }
 
     public void languageEnAction() {
-        Optional<ButtonType> result = excel.component.Alert.openConfirmation(bundle).showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             setProperty("language", "en");
             reload(getStage());
@@ -46,7 +47,7 @@ public class MenuController implements Initializable {
     }
 
     public void languageRuAction() {
-        Optional<ButtonType> result = excel.component.Alert.openConfirmation(bundle).showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             setProperty("language", "ru");
             reload(getStage());
@@ -54,7 +55,7 @@ public class MenuController implements Initializable {
     }
 
     public void styleDefaultAction() {
-        Optional<ButtonType> result = excel.component.Alert.openConfirmation(bundle).showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             setProperty("style", "default");
             reload(getStage());
@@ -62,7 +63,7 @@ public class MenuController implements Initializable {
     }
 
     public void styleDarkAction() {
-        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             setProperty("style", "dark");
             reload(getStage());
@@ -71,12 +72,12 @@ public class MenuController implements Initializable {
 
     private void init(ResourceBundle bundle) {
         this.bundle = bundle;
-        Properties properties = AppProperty.getProperty();
-        disableCurrentLanguage(properties);
-        disableCurrentStyle(properties);
+        this.properties = AppProperty.getProperty();
+        disableCurrentLanguage();
+        disableCurrentStyle();
     }
 
-    private void disableCurrentStyle(Properties properties) {
+    private void disableCurrentStyle() {
         String style = properties.getProperty("style");
         if (style.equals("default")) {
             def.setDisable(true);
@@ -85,7 +86,7 @@ public class MenuController implements Initializable {
         }
     }
 
-    private void disableCurrentLanguage(Properties properties) {
+    private void disableCurrentLanguage() {
         String language = properties.getProperty("language");
         if (language.equals("en")) {
             en.setDisable(true);
@@ -99,7 +100,6 @@ public class MenuController implements Initializable {
     }
 
     private void setProperty(String key, String value) {
-        Properties properties = AppProperty.getProperty();
         properties.setProperty(key, value);
         AppProperty.setProperties(properties);
     }
