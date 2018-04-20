@@ -1,6 +1,7 @@
 package excel.controller;
 
 import excel.Main;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,11 +20,15 @@ import java.util.ResourceBundle;
 public class MenuController implements Initializable {
 
     @FXML
-    public MenuBar menu;
+    private MenuBar menu;
     @FXML
     private MenuItem en;
     @FXML
     private MenuItem ru;
+    @FXML
+    private MenuItem dark;
+    @FXML
+    private MenuItem def;
     private ResourceBundle bundle;
 
     @Override
@@ -35,7 +40,7 @@ public class MenuController implements Initializable {
         Alert alert = createConfirmationDialog();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Main.load(getStage(), new Locale("en"));
+            Main.load(getStage(), new Locale("en"), "dark");
         }
     }
 
@@ -43,7 +48,7 @@ public class MenuController implements Initializable {
         Alert alert = createConfirmationDialog();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Main.load(getStage(), new Locale("ru"));
+            Main.load(getStage(), new Locale("ru"), "dark");
         }
     }
 
@@ -76,5 +81,11 @@ public class MenuController implements Initializable {
         alert.setHeaderText(bundle.getString("dialog.reload.header"));
         alert.setContentText(bundle.getString("dialog.reload.content"));
         return alert;
+    }
+
+    public void styleDefaultAction() {
+    }
+
+    public void styleDarkAction() {
     }
 }

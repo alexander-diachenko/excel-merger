@@ -23,13 +23,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("/img/logo.png"));
-        load(primaryStage, new Locale("ru"));
+        load(primaryStage, new Locale("ru"), "dark");
     }
 
-    public static void load(Stage primaryStage, Locale locale) throws IOException {
+    public static void load(Stage primaryStage, Locale locale, String style) throws IOException {
         ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", locale, new ResourceBundleControl());
         Parent root = FXMLLoader.load(Main.class.getResource("/view/main.fxml"), bundle);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/css/" + style + "/main.css");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Excel util");

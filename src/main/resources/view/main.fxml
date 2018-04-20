@@ -3,7 +3,6 @@
 <?import javafx.scene.control.TabPane?>
 
 <?import javafx.scene.layout.VBox?>
-<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <fx:include source="menu.fxml" charset="utf-8"/>
     <TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" VBox.vgrow="ALWAYS"
@@ -12,7 +11,4 @@
         <fx:include source="formatter.fxml" charset="utf-8"/>
         <fx:include source="allIn.fxml" charset="utf-8"/>
     </TabPane>
-    <stylesheets>
-        <URL value="@/css/dark/main.css"/>
-    </stylesheets>
 </VBox>

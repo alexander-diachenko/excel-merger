@@ -14,6 +14,14 @@
                               text="%menu.text.settings.language.russian"/>
                 </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="%menu.text.settings.style">
+                <items>
+                    <MenuItem fx:id="def" onAction="#styleDefaultAction" mnemonicParsing="false"
+                              text="%menu.text.settings.style.default"/>
+                    <MenuItem fx:id="dark" onAction="#styleDarkAction" mnemonicParsing="false"
+                              text="%menu.text.settings.style.dark"/>
+                </items>
+            </Menu>
         </items>
     </Menu>
 </MenuBar>
