@@ -1,7 +1,8 @@
 package excel.controller;
 
 import excel.Main;
-import javafx.event.ActionEvent;
+import excel.Util.AppProperty;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -40,7 +42,10 @@ public class MenuController implements Initializable {
         Alert alert = createConfirmationDialog();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Main.load(getStage(), new Locale("en"), "dark");
+            Properties properties = AppProperty.getProperty();
+            properties.setProperty("language", "en");
+            AppProperty.setProperties(properties);
+            reload(getStage());
         }
     }
 
@@ -48,7 +53,10 @@ public class MenuController implements Initializable {
         Alert alert = createConfirmationDialog();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Main.load(getStage(), new Locale("ru"), "dark");
+            Properties properties = AppProperty.getProperty();
+            properties.setProperty("language", "ru");
+            AppProperty.setProperties(properties);
+            reload(getStage());
         }
     }
 
@@ -87,5 +95,16 @@ public class MenuController implements Initializable {
     }
 
     public void styleDarkAction() {
+    }
+
+    private void reload(Stage primaryStage) {
+        primaryStage.close();
+        Platform.runLater(() -> {
+            try {
+                new Main().start(new Stage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

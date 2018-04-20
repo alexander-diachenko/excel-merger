@@ -1,7 +1,6 @@
 package excel.Util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -16,5 +15,24 @@ public class AppProperty {
         mainProperties.load(file);
         file.close();
         return mainProperties;
+    }
+
+    public static Properties setProperties(Properties properties) {
+        OutputStream output = null;
+        try {
+            output = new FileOutputStream("./config.properties");
+            properties.store(output, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return properties;
     }
 }

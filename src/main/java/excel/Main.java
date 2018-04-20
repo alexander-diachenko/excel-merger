@@ -26,15 +26,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("/img/logo.png"));
         Properties properties = AppProperty.getProperty();
-        String style = (String) properties.get("style");
         String language = (String) properties.get("language");
-        load(primaryStage, new Locale(language), style);
-    }
-
-    public static void load(Stage primaryStage, Locale locale, String style) throws IOException {
-        ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", locale, new ResourceBundleControl());
+        ResourceBundle bundle = ResourceBundle.getBundle("bundles.main", new Locale(language), new ResourceBundleControl());
         Parent root = FXMLLoader.load(Main.class.getResource("/view/main.fxml"), bundle);
         Scene scene = new Scene(root);
+        String style = (String) properties.get("style");
         scene.getStylesheets().add("/css/" + style + "/main.css");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
