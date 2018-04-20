@@ -16,9 +16,9 @@
                               text="%menu.text.settings.language.ukrainian"/>
                 </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="%menu.text.settings.style">
+            <Menu fx:id="styles" mnemonicParsing="false" text="%menu.text.settings.style">
                 <items>
-                    <MenuItem fx:id="def" onAction="#styleDefaultAction" mnemonicParsing="false"
+                    <MenuItem fx:id="light" onAction="#styleDefaultAction" mnemonicParsing="false"
                               text="%menu.text.settings.style.default"/>
                     <MenuItem fx:id="dark" onAction="#styleDarkAction" mnemonicParsing="false"
                               text="%menu.text.settings.style.dark"/>

@@ -26,9 +26,7 @@ public class MenuController implements Initializable {
     @FXML
     private Menu languages;
     @FXML
-    private MenuItem dark;
-    @FXML
-    private MenuItem def;
+    private Menu styles;
     private ResourceBundle bundle;
     private Properties properties;
 
@@ -64,7 +62,7 @@ public class MenuController implements Initializable {
     public void styleDefaultAction() {
         Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
-            setProperty("style", "default");
+            setProperty("style", "light");
             reload(getStage());
         }
     }
@@ -86,10 +84,13 @@ public class MenuController implements Initializable {
 
     private void disableCurrentStyle() {
         String style = properties.getProperty("style");
-        if (style.equals("default")) {
-            def.setDisable(true);
-        } else if(style.equals("dark")) {
-            dark.setDisable(true);
+        ObservableList<MenuItem> items = styles.getItems();
+        for (MenuItem item : items) {
+            String id = item.getId();
+            if (style.equals(id)) {
+                item.setDisable(true);
+                break;
+            }
         }
     }
 
