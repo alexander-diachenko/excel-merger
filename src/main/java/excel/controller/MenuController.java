@@ -4,6 +4,7 @@ import excel.Main;
 import excel.Util.AppProperty;
 import excel.component.Alert;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,11 +24,7 @@ public class MenuController implements Initializable {
     @FXML
     private MenuBar menu;
     @FXML
-    private MenuItem en;
-    @FXML
-    private MenuItem ru;
-    @FXML
-    private MenuItem ua;
+    private Menu languages;
     @FXML
     private MenuItem dark;
     @FXML
@@ -98,12 +95,13 @@ public class MenuController implements Initializable {
 
     private void disableCurrentLanguage() {
         String language = properties.getProperty("language");
-        if (language.equals("en")) {
-            en.setDisable(true);
-        } else if (language.equals("ru")) {
-            ru.setDisable(true);
-        } else if (language.equals("ua")) {
-            ua.setDisable(true);
+        ObservableList<MenuItem> items = languages.getItems();
+        for (MenuItem item : items) {
+            String id = item.getId();
+            if(language.equals(id)) {
+                item.setDisable(true);
+                break;
+            }
         }
     }
 
