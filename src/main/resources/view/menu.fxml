@@ -12,6 +12,8 @@
                               text="%menu.text.settings.language.english"/>
                     <MenuItem fx:id="ru" onAction="#languageRuAction" mnemonicParsing="false"
                               text="%menu.text.settings.language.russian"/>
+                    <MenuItem fx:id="ua" onAction="#languageUaAction" mnemonicParsing="false"
+                              text="%menu.text.settings.language.ukrainian"/>
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="%menu.text.settings.style">

@@ -27,6 +27,8 @@ public class MenuController implements Initializable {
     @FXML
     private MenuItem ru;
     @FXML
+    private MenuItem ua;
+    @FXML
     private MenuItem dark;
     @FXML
     private MenuItem def;
@@ -50,6 +52,14 @@ public class MenuController implements Initializable {
         Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             setProperty("language", "ru");
+            reload(getStage());
+        }
+    }
+
+    public void languageUaAction() {
+        Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
+        if (result.get() == ButtonType.OK) {
+            setProperty("language", "ua");
             reload(getStage());
         }
     }
@@ -92,6 +102,8 @@ public class MenuController implements Initializable {
             en.setDisable(true);
         } else if (language.equals("ru")) {
             ru.setDisable(true);
+        } else if (language.equals("ua")) {
+            ua.setDisable(true);
         }
     }
 
