@@ -1,0 +1,20 @@
+.dialog-pane .label {
+    -fx-font-family: "Arial";
+}
+
+.dialog-pane .content.label {
+    -fx-font-size: 15px;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-size: 16px;
+}
+
+.dialog-pane .button {
+    -fx-wrap-text: true;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button:hover {
+    -fx-font-weight: bold;
+}

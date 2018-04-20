@@ -1,6 +1,7 @@
 .root {
     -fx-pref-height: 450;
     -fx-pref-width: 600;
+    -fx-font-family: "Arial";
 }
 
 .tab-pane {
