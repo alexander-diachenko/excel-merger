@@ -2,6 +2,7 @@ package excel.controller;
 
 import excel.Main;
 import excel.Util.AppProperty;
+import excel.component.Alert;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,31 +38,25 @@ public class MenuController implements Initializable {
     }
 
     public void languageEnAction() {
-        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
+        Optional<ButtonType> result = excel.component.Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
-            Properties properties = AppProperty.getProperty();
-            properties.setProperty("language", "en");
-            AppProperty.setProperties(properties);
+            setProperty("language", "en");
             reload(getStage());
         }
     }
 
     public void languageRuAction() {
-        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
+        Optional<ButtonType> result = excel.component.Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
-            Properties properties = AppProperty.getProperty();
-            properties.setProperty("language", "ru");
-            AppProperty.setProperties(properties);
+            setProperty("language", "ru");
             reload(getStage());
         }
     }
 
     public void styleDefaultAction() {
-        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
+        Optional<ButtonType> result = excel.component.Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
-            Properties properties = AppProperty.getProperty();
-            properties.setProperty("style", "default");
-            AppProperty.setProperties(properties);
+            setProperty("style", "default");
             reload(getStage());
         }
     }
@@ -69,9 +64,7 @@ public class MenuController implements Initializable {
     public void styleDarkAction() {
         Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
-            Properties properties = AppProperty.getProperty();
-            properties.setProperty("style", "dark");
-            AppProperty.setProperties(properties);
+            setProperty("style", "dark");
             reload(getStage());
         }
     }
@@ -103,6 +96,12 @@ public class MenuController implements Initializable {
 
     private Stage getStage() {
         return (Stage) menu.getScene().getWindow();
+    }
+
+    private void setProperty(String key, String value) {
+        Properties properties = AppProperty.getProperty();
+        properties.setProperty(key, value);
+        AppProperty.setProperties(properties);
     }
 
     private void reload(Stage primaryStage) {

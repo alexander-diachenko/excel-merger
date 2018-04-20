@@ -1,5 +1,6 @@
 package excel.controller;
 
+import excel.component.Modal;
 import excel.model.Excel;
 import excel.model.ExcelImpl;
 import excel.service.FormatterService;

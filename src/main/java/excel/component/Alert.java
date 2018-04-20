@@ -1,4 +1,4 @@
-package excel.controller;
+package excel.component;
 
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
