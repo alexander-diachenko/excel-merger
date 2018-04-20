@@ -38,7 +38,7 @@ public class MenuController implements Initializable {
         init(resources);
     }
 
-    public void languageEnAction() throws IOException {
+    public void languageEnAction() {
         Alert alert = createConfirmationDialog();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
@@ -49,7 +49,7 @@ public class MenuController implements Initializable {
         }
     }
 
-    public void languageRuAction() throws IOException {
+    public void languageRuAction() {
         Alert alert = createConfirmationDialog();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
@@ -60,14 +60,46 @@ public class MenuController implements Initializable {
         }
     }
 
-    private void init(ResourceBundle bundle) {
-        this.bundle = bundle;
-        disableCurrentLanguage();
+    public void styleDefaultAction() {
+        Alert alert = createConfirmationDialog();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Properties properties = AppProperty.getProperty();
+            properties.setProperty("style", "default");
+            AppProperty.setProperties(properties);
+            reload(getStage());
+        }
     }
 
-    private void disableCurrentLanguage() {
-        Locale locale = bundle.getLocale();
-        String language = locale.getLanguage();
+    public void styleDarkAction() {
+        Alert alert = createConfirmationDialog();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Properties properties = AppProperty.getProperty();
+            properties.setProperty("style", "dark");
+            AppProperty.setProperties(properties);
+            reload(getStage());
+        }
+    }
+
+    private void init(ResourceBundle bundle) {
+        this.bundle = bundle;
+        Properties properties = AppProperty.getProperty();
+        disableCurrentLanguage(properties);
+        disableCurrentStyle(properties);
+    }
+
+    private void disableCurrentStyle(Properties properties) {
+        String style = properties.getProperty("style");
+        if (style.equals("default")) {
+            def.setDisable(true);
+        } else if(style.equals("dark")) {
+            dark.setDisable(true);
+        }
+    }
+
+    private void disableCurrentLanguage(Properties properties) {
+        String language = properties.getProperty("language");
         if (language.equals("en")) {
             en.setDisable(true);
         } else if (language.equals("ru")) {
@@ -89,12 +121,6 @@ public class MenuController implements Initializable {
         alert.setHeaderText(bundle.getString("dialog.reload.header"));
         alert.setContentText(bundle.getString("dialog.reload.content"));
         return alert;
-    }
-
-    public void styleDefaultAction() {
-    }
-
-    public void styleDarkAction() {
     }
 
     private void reload(Stage primaryStage) {

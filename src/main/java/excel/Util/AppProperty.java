@@ -8,12 +8,16 @@ import java.util.Properties;
  */
 public class AppProperty {
 
-    public static Properties getProperty() throws IOException {
+    public static Properties getProperty() {
         Properties mainProperties = new Properties();
         String path = "./config.properties";
-        FileInputStream file = new FileInputStream(path);
-        mainProperties.load(file);
-        file.close();
+        try {
+            FileInputStream file = new FileInputStream(path);
+            mainProperties.load(file);
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return mainProperties;
     }
 
