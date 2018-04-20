@@ -35,7 +35,6 @@
 
 .menu-bar .menu {
     -fx-cursor: hand;
-
 }
 
 .menu-bar .menu-item {
@@ -56,5 +55,9 @@
 
 .progress-indicator {
     -fx-progress-color: #424242;
+}
+
+.progress-indicator .percentage {
+    -fx-fill: #9E9E9E ;
 }
 
