@@ -1,0 +1,14 @@
+.root {
+    -fx-pref-height: 200;
+    -fx-pref-width: 300;
+    -fx-alignment: CENTER;
+    -fx-base: #0D47A1;
+    -fx-background: #1565C0;
+    -fx-font-family: "Arial";
+}
+
+#message {
+    -fx-text-fill: #B71C1C;
+    -fx-pref-height: 160;
+    -fx-pref-width: 250;
+}

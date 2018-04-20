@@ -22,6 +22,8 @@
                               text="%menu.text.settings.style.default"/>
                     <MenuItem fx:id="dark" onAction="#styleDarkAction" mnemonicParsing="false"
                               text="%menu.text.settings.style.dark"/>
+                    <MenuItem fx:id="blue" onAction="#styleBlueAction" mnemonicParsing="false"
+                              text="%menu.text.settings.style.blue"/>
                 </items>
             </Menu>
         </items>

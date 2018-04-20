@@ -75,6 +75,14 @@ public class MenuController implements Initializable {
         }
     }
 
+    public void styleBlueAction() {
+        Optional<ButtonType> result = Alert.openConfirmation(properties, bundle).showAndWait();
+        if (result.get() == ButtonType.OK) {
+            setProperty("style", "blue");
+            reload(getStage());
+        }
+    }
+
     private void init(ResourceBundle bundle) {
         this.bundle = bundle;
         this.properties = AppProperty.getProperty();

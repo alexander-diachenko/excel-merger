@@ -1,0 +1,66 @@
+.root {
+    -fx-pref-height: 450;
+    -fx-pref-width: 600;
+    -fx-base: #0D47A1;
+    -fx-background: #1565C0;
+    -fx-font-family: "Arial";
+}
+
+.label {
+    -fx-text-fill: #E3F2FD;
+}
+
+.tab-pane {
+    -fx-tab-min-width: 85;
+}
+
+.tab-pane .tab {
+    -fx-cursor: hand;
+}
+
+.tab-label {
+    -fx-opacity: 70%;
+    -fx-font-size: 13px;
+}
+
+.button {
+    -fx-text-fill: #E3F2FD;
+    -fx-cursor: hand;
+}
+
+.menu-bar .label {
+    -fx-text-fill: #E3F2FD;
+    -fx-opacity: 50%;
+}
+
+.menu-bar .menu {
+    -fx-text-fill: #E3F2FD;
+    -fx-cursor: hand;
+}
+
+.menu-bar .menu-item {
+    -fx-cursor: hand;
+}
+
+.tooltip {
+    -fx-opacity: 50%;
+}
+
+.spinner {
+    -fx-cursor: hand;
+}
+
+.check-box {
+    -fx-cursor: hand;
+}
+
+.progress-indicator {
+    -fx-progress-color: #0D47A1;
+    -fx-opacity: 70%;
+}
+
+.progress-indicator .percentage {
+    -fx-fill: #E3F2FD ;
+    -fx-opacity: 70%;
+}
+
