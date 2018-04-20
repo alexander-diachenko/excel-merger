@@ -1,5 +1,6 @@
 package excel;
 
+import excel.Util.AppProperty;
 import excel.Util.ResourceBundleControl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -23,7 +25,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("/img/logo.png"));
-        load(primaryStage, new Locale("ru"), "dark");
+        Properties properties = AppProperty.getProperty();
+        String style = (String) properties.get("style");
+        String language = (String) properties.get("language");
+        load(primaryStage, new Locale(language), style);
     }
 
     public static void load(Stage primaryStage, Locale locale, String style) throws IOException {
