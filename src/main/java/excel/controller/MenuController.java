@@ -6,12 +6,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -39,8 +37,7 @@ public class MenuController implements Initializable {
     }
 
     public void languageEnAction() {
-        Alert alert = createConfirmationDialog();
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             Properties properties = AppProperty.getProperty();
             properties.setProperty("language", "en");
@@ -50,8 +47,7 @@ public class MenuController implements Initializable {
     }
 
     public void languageRuAction() {
-        Alert alert = createConfirmationDialog();
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             Properties properties = AppProperty.getProperty();
             properties.setProperty("language", "ru");
@@ -61,8 +57,7 @@ public class MenuController implements Initializable {
     }
 
     public void styleDefaultAction() {
-        Alert alert = createConfirmationDialog();
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             Properties properties = AppProperty.getProperty();
             properties.setProperty("style", "default");
@@ -72,8 +67,7 @@ public class MenuController implements Initializable {
     }
 
     public void styleDarkAction() {
-        Alert alert = createConfirmationDialog();
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alert.openConfirmation(bundle).showAndWait();
         if (result.get() == ButtonType.OK) {
             Properties properties = AppProperty.getProperty();
             properties.setProperty("style", "dark");
@@ -109,18 +103,6 @@ public class MenuController implements Initializable {
 
     private Stage getStage() {
         return (Stage) menu.getScene().getWindow();
-    }
-
-    private Alert createConfirmationDialog() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/img/question.png"));
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/css/dark/dialog.css").toExternalForm());
-        alert.setTitle(bundle.getString("dialog.reload.title"));
-        alert.setHeaderText(bundle.getString("dialog.reload.header"));
-        alert.setContentText(bundle.getString("dialog.reload.content"));
-        return alert;
     }
 
     private void reload(Stage primaryStage) {
