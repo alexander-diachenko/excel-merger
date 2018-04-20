@@ -7,3 +7,31 @@
 .tab-pane {
     -fx-tab-min-width: 85;
 }
+
+.tab-pane .tab {
+    -fx-cursor: hand;
+}
+
+.tab-label {
+    -fx-font-size: 13px;
+}
+
+.button {
+    -fx-cursor: hand;
+}
+
+.menu-bar .menu {
+    -fx-cursor: hand;
+}
+
+.menu-bar .menu-item {
+    -fx-cursor: hand;
+}
+
+.spinner {
+    -fx-cursor: hand;
+}
+
+.check-box {
+    -fx-cursor: hand;
+}
