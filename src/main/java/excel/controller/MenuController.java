@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +21,8 @@ import java.util.ResourceBundle;
  * @author Alexander Diachenko.
  */
 public class MenuController implements Initializable {
+
+    private final static Logger logger = Logger.getLogger(MenuController.class);
 
     @FXML
     private MenuBar menu;
@@ -129,6 +132,7 @@ public class MenuController implements Initializable {
             try {
                 new Main().start(new Stage());
             } catch (IOException e) {
+                logger.error(e.getMessage(), e);
                 e.printStackTrace();
             }
         });

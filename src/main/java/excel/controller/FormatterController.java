@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.net.URL;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
  * @author Alexander Diachenko.
  */
 public class FormatterController implements Initializable {
+
+    private final static Logger logger = Logger.getLogger(FormatterController.class);
 
     @FXML
     private GridPane gridPane;
@@ -83,6 +86,7 @@ public class FormatterController implements Initializable {
     }
 
     private void setFailed(Throwable exception) {
+        logger.error(exception.getMessage(), exception);
         disableTab(false);
         Modal.openModal(getStage(), exception);
     }

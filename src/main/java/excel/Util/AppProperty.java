@@ -1,5 +1,7 @@
 package excel.Util;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -7,6 +9,8 @@ import java.util.Properties;
  * @author Alexander Diachenko.
  */
 public class AppProperty {
+
+    private final static Logger logger = Logger.getLogger(AppProperty.class);
 
     public static Properties getProperty() {
         Properties mainProperties = new Properties();
@@ -16,7 +20,7 @@ public class AppProperty {
             mainProperties.load(file);
             file.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return mainProperties;
     }
@@ -27,13 +31,13 @@ public class AppProperty {
             output = new FileOutputStream("./config.properties");
             properties.store(output, null);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } finally {
             if (output != null) {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage(), e);
                 }
             }
         }

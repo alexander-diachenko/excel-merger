@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,8 @@ import java.util.ResourceBundle;
  * @author Alexander Diachenko.
  */
 public class AllInController implements Initializable {
+
+    private final static Logger logger = Logger.getLogger(AllInController.class);
 
     @FXML
     private GridPane gridPane;
@@ -113,6 +116,7 @@ public class AllInController implements Initializable {
     }
 
     private void setFailed(Throwable exception) {
+        logger.error(exception.getMessage(), exception);
         disableTab(false);
         Modal.openModal(getStage(), exception);
     }

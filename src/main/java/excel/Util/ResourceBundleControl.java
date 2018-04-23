@@ -18,6 +18,8 @@ package excel.Util;
  */
 //package com.aionemu.commons.utils.i18n;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -56,6 +58,9 @@ import java.util.ResourceBundle;
  * @author SoulKeeper
  */
 public class ResourceBundleControl extends ResourceBundle.Control {
+
+    private final static Logger logger = Logger.getLogger(ResourceBundleControl.class);
+
     /**
      * Encoding which will be used to read resource bundle, by defaults it's 8859_1
      */
@@ -132,6 +137,7 @@ public class ResourceBundleControl extends ResourceBundle.Control {
                     isr = new InputStreamReader(stream, encoding);
                 }
             } catch (PrivilegedActionException e) {
+                logger.error(e.getMessage(), e);
                 throw (IOException) e.getException();
             }
             if (isr != null) {
